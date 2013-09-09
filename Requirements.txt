@@ -1,0 +1,109 @@
+1. 
+As a user, 
+I want to login the system as current domain user, without input user name and password,
+so that I can access the book system seamlessly from a link (just like the SharePoint).
+
+2.
+As an admin,
+I want to import book information from current SharePoint book list,
+so that I have not input them manually again.
+
+3. 
+As an employee, 
+I want to find my favorite book by query with key words,
+so that I could borrow or subscribe it.
+
+4. 
+As an employee, 
+I want to see the detailed information of the book, includes name, author, abstract, status etc.
+so that I could know whether I like it and could borrow it.
+
+5. 
+As an employee, 
+I want to borrow a book by one click, if the book has not been borrowed, and nobody before me in the subscribe list, and I have not borrowed 5 books,
+so that I could get the book from admin.
+
+6. 
+As an employee,
+I want to receive a remind email one week before the return date,
+so that I could catch up the progress, and have the chance to subscribe the book.
+
+7. 
+As an employee,
+I want to receive a remind email before the day I have to return the book,
+so that I could return it on time.
+
+8. 
+As an admin,
+I want to get all the books an employee borrowed by input the his/her name, and then I can mark a book as returned by one click,
+so that I could update the book state while the book was returned by the employee.
+
+9. 
+As an admin,
+I want to receive a remind email after a book has not been returned in time,
+so that I could remind the one who borrowed it face to face.
+
+10. 
+As an employee,
+I want to receive a remind email every day after a book I borrowed has been out of the return date,
+so that I could keep it in mind.
+
+11. 
+As an employee, 
+I want to subscribe a borrowed book by one click, if the book is borrowed by other employee or borrowed by me but today is in one week before the return date, and I have not subscribed 5 books,
+so that I could borrow the book with higher priority after the book returned.
+
+12. 
+As an employee, 
+I want to unsubscribe a book by one click, if the book has been subscribed by me,
+so that I could make myself leave the subscribe list.
+
+13. 
+As an employee,
+I want to receive a remind email while a book was returned, and I'm the first one in the subscribe list,
+so that I could borrow or unsubscribe it in time.
+
+14. 
+As an employee,
+I want to be removed from the subscribe list, if I have not borrowed the book in one working day after I received the book returned remind email,
+so that I other employee could borrow it.
+
+15. 
+As an admin,
+I want to add new book into the library,
+so that employee could borrow it.
+
+16. 
+As an admin,
+I want to import the information for a new book by e.g. only the book name or ISBN No.,
+so that I have not to input it manually.
+
+17. 
+As an employee,
+I want to fill a book request,
+so that the manager could verify the request.
+
+18. 
+As a manager,
+I want to receive a notify email while an employee requested a book,
+so that I could approve or reject the request.
+
+19. 
+As an admin,
+I want to receive a notify email while a book request was approved by the manager,
+so that I could continue the paper works.
+
+20. 
+As an admin,
+I want to print the book request form,
+so that I could use it for paper works.
+
+21. 
+As an admin,
+I want to get a report every month, to see all the books out of return date, the most popular books, etc.
+so that I could get familiar with status of the library.
+
+22.
+As an employee,
+I want to write some comments on the book information page,
+so that other employee could see the opinion of mine.
