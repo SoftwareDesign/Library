@@ -1,5 +1,5 @@
 1. 
-As a user, 
+As an employee, 
 I want to login the system as current domain user, without input user name and password,
 so that I can access the book system seamlessly from a link (just like the SharePoint).
 
