@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <link rel="Shortcut Icon" href="~/Images/MMSmallLogo.ico" type="image/x-icon" />
+        <meta charset="utf-8" />
+        <title>
+        @ViewBag.Title - MM Library System 
+        </title>
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
+    <body style="width:1130px;margin:0 auto;">
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title"><img src="~/Images/MMLogo.jpg" /></p>
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                        <p>Welcome @User.Identity.Name to enter MM Library</p>
+                    </section>
+                </div>
+            </div>
+        </header>
+        
+        <div id="body">
+            <div id="left" class="LeftBoddy">
+                <ul>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("test1", "Index", "TestView")</li>
+                    <li>@Html.ActionLink("test2", "TestView2", "TestView")</li>
+                    <li>@Html.ActionLink("test3", "TestView3", "TestView")</li>
+                </ul>
+            </div>
+            <div style="float:right;width:970px;">
+                <section class="featured">
+                    <div class="content-wrapper">
+                        <hgroup class="title">
+                            <h1>@ViewBag.Title.</h1>
+                            <h2>@ViewBag.Message</h2>
+                        </hgroup>
+                        <p>
+                            Here is the navigation bar!
+                        </p>
+                    </div>
+                </section>
+                <section class="content-wrapper main-content clear-fix">
+                    @RenderBody()
+                </section>
+            </div>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+                </div>
+            </div>
+        </footer>
+        
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>
