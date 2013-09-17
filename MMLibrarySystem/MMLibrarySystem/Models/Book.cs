@@ -11,9 +11,9 @@ namespace MMLibrarySystem.Models
 
         public string BookNumber { get; set; }
 
-        public Double NEtPrice { get; set; }
+        public Double NetPrice { get; set; }
 
-        public DateTime PurcaseDate { get; set; }
+        public DateTime PurchaseDate { get; set; }
 
         public string RequestedBy { get; set; }
 

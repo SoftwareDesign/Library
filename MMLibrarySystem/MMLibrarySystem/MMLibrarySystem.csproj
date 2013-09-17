@@ -168,19 +168,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201309170543170_InitialCreate.cs" />
-    <Compile Include="Migrations\201309170543170_InitialCreate.Designer.cs">
-      <DependentUpon>201309170543170_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201309170611585_AddBookInfo.cs" />
-    <Compile Include="Migrations\201309170611585_AddBookInfo.Designer.cs">
-      <DependentUpon>201309170611585_AddBookInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201309170620153_AddMoreInfo.cs" />
-    <Compile Include="Migrations\201309170620153_AddMoreInfo.Designer.cs">
-      <DependentUpon>201309170620153_AddMoreInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookInfo.cs" />
     <Compile Include="Models\BookLibraryContext.cs" />
@@ -293,6 +280,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -310,17 +298,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\1.pubxml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201309170543170_InitialCreate.resx">
-      <DependentUpon>201309170543170_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201309170611585_AddBookInfo.resx">
-      <DependentUpon>201309170611585_AddBookInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201309170620153_AddMoreInfo.resx">
-      <DependentUpon>201309170620153_AddMoreInfo.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
