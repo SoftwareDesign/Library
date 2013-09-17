@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Data.Entity;
+using MMLibrarySystem.Models;
 
 namespace MMLibrarySystem
 {
@@ -16,6 +18,7 @@ namespace MMLibrarySystem
     {
         protected void Application_Start()
         {
+            Database.SetInitializer<BookLibraryContext>(new CreateDatabaseIfNotExists<BookLibraryContext>());
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

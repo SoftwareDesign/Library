@@ -1,5 +1,36 @@
 ﻿@{
     ViewBag.Title = "TestView1";
 }
+<table>
+<tr>
+<td>Book Number</td>
+<td>Title</td>
+<td>Description</td>
+<td>User / Team</td>
+<td>Borrowed by</td>
+<td>Borrowed date</td>
+<td>blisher</td>
+<td>Supplier</td>
+<td>Net Price (RMB)</td>
+<td>Purchase date</td>
+<td>Requested by</td>
+</tr>
+@{for (int i = 0; i < 50;i++ )
+  {
+    <tr>
+        <td>Book Number</td>
+        <td>Title</td>
+        <td>Description</td>
+        <td>User / Team</td>
+        <td>Borrowed by</td>
+        <td>Borrowed date</td>
+        <td>blisher</td>
+        <td>Supplier</td>
+        <td>Net Price (RMB)</td>
+        <td>Purchase date</td>
+        <td>Requested by</td>
+    </tr>
+  }
 
-<h2>TestView1</h2>
+}
+</table>
