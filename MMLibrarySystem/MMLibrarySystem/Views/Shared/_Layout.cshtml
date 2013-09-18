@@ -10,7 +10,7 @@
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
     </head>
-    <body style="width:1130px;margin:0 auto;">
+    <body style="width:1700px;margin:0 auto;">
         <header>
             <div class="content-wrapper">
                 <div class="float-left">
@@ -28,12 +28,10 @@
             <div id="left" class="LeftBoddy">
                 <ul>
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("test1", "Index", "TestView")</li>
-                    <li>@Html.ActionLink("test2", "TestView2", "TestView")</li>
-                    <li>@Html.ActionLink("testxxxx3", "TestView3", "TestView")</li>
+                    <li>@Html.ActionLink("BookList", "Index", "TestView")</li>
                 </ul>
             </div>
-            <div style="float:right;width:970px;">
+            <div style="float:right;width:1540px;">
                 <section class="featured">
                     <div class="content-wrapper">
                         <hgroup class="title">
@@ -53,7 +51,7 @@
         <footer>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+                    <p>&copy; @DateTime.Now.Year - MM-Software</p>
                 </div>
             </div>
         </footer>
