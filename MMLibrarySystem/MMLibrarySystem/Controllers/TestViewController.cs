@@ -18,7 +18,11 @@ namespace MMLibrarySystem.Controllers
             using (var dbContext = new BookLibraryContext())
             {
                 books = dbContext.Books.Include("BookInfo").ToList();
+            }
 
+            if (Request.IsAjaxRequest())
+            {
+                PartialView("_BookList", books);
             }
 
             return View(books);

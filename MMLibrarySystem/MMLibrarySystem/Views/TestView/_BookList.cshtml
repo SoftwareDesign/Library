@@ -1,0 +1,34 @@
+﻿@model IEnumerable<MMLibrarySystem.Models.Book>
+
+<table id="bookList">
+    <tr>
+        <td>Book Number</td>
+        <td>Title</td>
+        <td>Description</td>
+        <td>User / Team</td>
+        <td>Borrowed by</td>
+        <td>Borrowed date</td>
+        <td>Pblisher</td>
+        <td>Supplier</td>
+        <td>Net Price (RMB)</td>
+        <td>Purchase date</td>
+        <td>Requested by</td>
+    </tr>
+    @{foreach (var item in Model)
+      {
+        <tr>
+            <td>@item.BookNumber</td>
+            <td>@item.BookInfo.Title</td>
+            <td>@item.BookInfo.Description</td>
+            <td>@item.BookInfo.UserAndTeam</td>
+            <td></td>
+            <td></td>
+            <td>@item.BookInfo.Publisher</td>
+            <td>@item.BookInfo.Supplier</td>
+            <td>@item.NetPrice</td>
+            <td>@item.PurchaseDate</td>
+            <td>@item.RequestedBy</td>
+        </tr>
+      }
+    }
+</table>
