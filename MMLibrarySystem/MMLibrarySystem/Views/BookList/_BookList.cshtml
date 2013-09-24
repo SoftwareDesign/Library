@@ -3,31 +3,17 @@
 <table id="bookList">
     <tr>
         <td>Book Number</td>
-        <td>Title</td>
-        <td>Description</td>
-        <td>User / Team</td>
-        <td>Borrowed by</td>
-        <td>Borrowed date</td>
-        <td>Pblisher</td>
-        <td>Supplier</td>
-        <td>Net Price (RMB)</td>
-        <td>Purchase date</td>
-        <td>Requested by</td>
+        <td style="width: 600px;">Title</td>
+        <td>Publisher</td>
+        <td>State</td>
     </tr>
     @{foreach (var item in Model)
       {
         <tr>
             <td>@item.BookNumber</td>
             <td>@Html.ActionLink(@item.BookInfo.Title, "BookDetail", "BookList",new { bookNumber = @item.BookNumber }, null)</td>
-            <td>@item.BookInfo.Description</td>
-            <td>@item.BookInfo.UserAndTeam</td>
-            <td></td>
-            <td></td>
             <td>@item.BookInfo.Publisher</td>
-            <td>@item.BookInfo.Supplier</td>
-            <td>@item.NetPrice</td>
-            <td>@item.PurchaseDate</td>
-            <td>@item.RequestedBy</td>
+            <td></td>
         </tr>
       }
     }
