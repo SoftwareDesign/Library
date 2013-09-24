@@ -6,9 +6,9 @@
 
 @using (Ajax.BeginForm(new AjaxOptions()
 {
-    HttpMethod = "get",
-    UpdateTargetId = "bookList",
-    InsertionMode = InsertionMode.Replace
+    HttpMethod = "GET",    
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "bookList"
 }))
 {
     <input type="search" name="searchTerm" />
