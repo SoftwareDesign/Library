@@ -28,7 +28,7 @@ namespace MMLibrarySystem.Controllers
 
             if (Request.IsAjaxRequest())
             {
-                PartialView("_BookList", books);
+                return PartialView("_BookList", books);
             }
 
             return View(books);
