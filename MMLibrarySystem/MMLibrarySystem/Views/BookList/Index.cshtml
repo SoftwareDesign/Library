@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MMLibrarySystem.Models.Book>
 
 @{
-    ViewBag.Title = "TestView1";
+    ViewBag.Title = "Book list";
 }
 
 @using (Ajax.BeginForm(new AjaxOptions()
@@ -11,8 +11,8 @@
     InsertionMode = InsertionMode.Replace
 }))
 {
-    <input type="search" name="serchByNameOrDescription" />
-    <input type="submit" value="Serch by name or description" />
+    <input type="search" name="searchTerm" />
+    <input type="submit" value="Search by name or description" />
 }
 
 @Html.Partial("_BookList", Model)

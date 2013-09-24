@@ -168,7 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\TestViewController.cs" />
+    <Compile Include="Controllers\BookListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -295,16 +295,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\TestView\TestView2.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\TestView\TestView3.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\TestView\Index.cshtml" />
+    <Content Include="Views\BookList\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\1.pubxml" />
+    <Content Include="Views\BookList\_BookList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
