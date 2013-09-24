@@ -18,7 +18,7 @@
       {
         <tr>
             <td>@item.BookNumber</td>
-            <td>@item.BookInfo.Title</td>
+            <td>@Html.ActionLink(@item.BookInfo.Title, "BookDetail", "BookList",new { bookNumber = @item.BookNumber }, null)</td>
             <td>@item.BookInfo.Description</td>
             <td>@item.BookInfo.UserAndTeam</td>
             <td></td>

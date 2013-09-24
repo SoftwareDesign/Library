@@ -33,5 +33,16 @@ namespace MMLibrarySystem.Controllers
 
             return View(books);
         }
+
+        public ActionResult BookDetail(string bookNumber)
+        {
+            Book book;
+            using (var dbContext = new BookLibraryContext())
+            {
+                book = dbContext.Books.Include("BookInfo").First(b => b.BookNumber == bookNumber);
+            }
+
+            return View(book);
+        }
     }
 }
