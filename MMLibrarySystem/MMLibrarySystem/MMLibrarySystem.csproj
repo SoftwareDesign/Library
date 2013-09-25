@@ -172,9 +172,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201309250931352_AddTwoNewDataBase.cs" />
+    <Compile Include="Migrations\201309250931352_AddTwoNewDataBase.Designer.cs">
+      <DependentUpon>201309250931352_AddTwoNewDataBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201309250933194_AddTwoNewDataBase1.cs" />
+    <Compile Include="Migrations\201309250933194_AddTwoNewDataBase1.Designer.cs">
+      <DependentUpon>201309250933194_AddTwoNewDataBase1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookInfo.cs" />
     <Compile Include="Models\BookLibraryContext.cs" />
+    <Compile Include="Models\BorrowInfo.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -287,7 +298,12 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <EmbeddedResource Include="Migrations\201309250931352_AddTwoNewDataBase.resx">
+      <DependentUpon>201309250931352_AddTwoNewDataBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201309250933194_AddTwoNewDataBase1.resx">
+      <DependentUpon>201309250933194_AddTwoNewDataBase1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
