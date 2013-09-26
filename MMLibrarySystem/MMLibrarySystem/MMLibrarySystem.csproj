@@ -167,20 +167,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Bll\BookBorrowing.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\BookListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201309250931352_AddTwoNewDataBase.cs" />
-    <Compile Include="Migrations\201309250931352_AddTwoNewDataBase.Designer.cs">
-      <DependentUpon>201309250931352_AddTwoNewDataBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201309250933194_AddTwoNewDataBase1.cs" />
-    <Compile Include="Migrations\201309250933194_AddTwoNewDataBase1.Designer.cs">
-      <DependentUpon>201309250933194_AddTwoNewDataBase1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookInfo.cs" />
     <Compile Include="Models\BookLibraryContext.cs" />
@@ -251,6 +243,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\MMLogo.jpg" />
     <Content Include="Images\MMSmallLogo.ico" />
+    <Content Include="Scripts\BorrowBook.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -296,14 +289,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201309250931352_AddTwoNewDataBase.resx">
-      <DependentUpon>201309250931352_AddTwoNewDataBase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201309250933194_AddTwoNewDataBase1.resx">
-      <DependentUpon>201309250933194_AddTwoNewDataBase1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

@@ -13,6 +13,6 @@ namespace MMLibrarySystem.Models
 
         public string FullName { get; set; }
 
-        public int Roll { get; set; }
+        public int Role { get; set; }
     }
 }

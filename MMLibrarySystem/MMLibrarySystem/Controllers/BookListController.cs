@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MMLibrarySystem.Models;
-
+using MMLibrarySystem.Bll;
 namespace MMLibrarySystem.Controllers
 {
     public class BookListController : Controller
@@ -43,6 +43,21 @@ namespace MMLibrarySystem.Controllers
             }
 
             return View(book);
+        }
+
+        public ActionResult BorrowBook(string columid)
+        {
+            long bookid = Convert.ToInt64(columid.Substring(3));
+            if (BookBorrowing.IsBorrowed(bookid))
+            {
+                return JavaScript("alert('this book is borrowed by others');");
+            }
+            else
+            {
+                BorrowInfo borrowInfo = new BorrowInfo { BookId = bookid, BorrowedDate = DateTime.Now };
+                BookBorrowing.BorrowBook(borrowInfo);
+                return JavaScript("BorrowSuccessAction('" + bookid + "');");
+            }
         }
     }
 }
