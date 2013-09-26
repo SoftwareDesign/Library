@@ -1,20 +1,52 @@
-﻿@model IEnumerable<MMLibrarySystem.Models.Book>
-
+﻿@using MMLibrarySystem.Bll
+@model IEnumerable<MMLibrarySystem.Models.Book>
+<script type="text/javascript" src="/Scripts/BorrowBook.js"></script>
 <table id="bookList">
     <tr>
-        <td>Book Number</td>
-        <td style="width: 600px;">Title</td>
-        <td>Publisher</td>
-        <td>State</td>
-
+        <td>
+            Book Number
+        </td>
+        <td style="width: 500px;">
+            Title
+        </td>
+        <td>
+            Publisher
+        </td>
+        <td>
+            State
+        </td>
+        <td>
+            Operation
+        </td>
     </tr>
     @{foreach (var item in Model)
       {
+
+          string colid = "col" + item.Id;
+          string stateid = "state" + item.Id;
+          bool state = BookBorrowing.IsBorrowed(item.Id);
         <tr>
-            <td>@item.BookNumber</td>
-            <td>@Html.ActionLink(@item.BookInfo.Title, "BookDetail", "BookList",new { bookNumber = @item.BookNumber }, null)</td>
-            <td>@item.BookInfo.Publisher</td>
-            <td></td>
+            <td>@item.BookNumber
+            </td>
+            <td>@Html.ActionLink(@item.BookInfo.Title, "BookDetail", "BookList", new { bookNumber = @item.BookNumber }, null)
+            </td>
+            <td>@item.BookInfo.Publisher
+            </td>
+            <td id="@stateid">@(state == true ? "IsBorrowed" : "Free")
+            </td>
+            @{
+          if (!state)
+          {
+                <td id='@colid'>@Ajax.ActionLink("Borrow", "BorrowBook", new { columid = colid }, new AjaxOptions { UpdateTargetId = colid })
+                </td>
+          }
+          else
+          {
+                <td>
+                </td>
+          }
+                                  
+            }
         </tr>
       }
     }
