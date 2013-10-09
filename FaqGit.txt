@@ -1,0 +1,9 @@
+1. I use GitExtension with HTTPS URL, the push always hangs while the pull work fine.
+
+It is a known issue of GitExtension:
+https://github.com/gitextensions/gitextensions/issues/85
+
+For me, I just commit by GitExtension at first, and then push by git bash with follow command line:
+git push --recurse-submodules=check --progress "origin" master:master
+
+2. It would be greate if you could share your your issues and solutions here.
