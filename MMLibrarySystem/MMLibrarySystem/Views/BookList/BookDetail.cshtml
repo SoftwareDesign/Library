@@ -1,7 +1,50 @@
 ﻿@model MMLibrarySystem.Models.Book
 
 @{
-    ViewBag.Title = "BookDetail";
+    ViewBag.Title = "Book Detail";
 }
 
-<h2>The detail of book @Model.BookInfo.Title</h2>
+<h2>Book Detail</h2>
+
+<table id="bookDetail">
+    <tr>
+        <td>Title</td>
+        <td>@Model.BookInfo.Title</td>
+    </tr>
+    <tr>
+        <td>Publisher</td>
+        <td>@Model.BookInfo.Publisher</td>
+    </tr>
+    <tr>
+        <td>ID</td>
+        <td>@Model.BookNumber</td>
+    </tr>
+    <tr>
+        <td>Net Price</td>
+        <td>@Model.NetPrice</td>
+    </tr>
+    <tr>
+        <td>Purchase Date</td>
+        <td>@Model.PurchaseDate</td>
+    </tr>
+    <tr>
+        <td>Requested By</td>
+        <td>@Model.RequestedBy</td>
+    </tr>
+    <tr>
+        <td>Purchase Url</td>
+        <td>@Model.PurchaseUrl</td>
+    </tr>
+    <tr>
+        <td>User And Team</td>
+        <td>@Model.BookInfo.UserAndTeam</td>
+    </tr>
+    <tr>
+        <td>Supplier</td>
+        <td>@Model.BookInfo.Supplier</td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>@Model.BookInfo.Description</td>
+    </tr>
+</table>
