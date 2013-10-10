@@ -1,9 +1,15 @@
-1. I use GitExtension with HTTPS URL, the push always hangs while the pull work fine.
+0. It would be greate if you could share your your issues and solutions here.
+
+
+1. You have to perform merge during pull if you have some local changes.
+Usually you could use the "Reset file changes" operation to reset all your local changes first, and there will be less merge then.
+It is very useful for the changes on database file which was applied during running of the website.
+
+
+2. I use GitExtension with HTTPS URL, the push always hangs while the pull work fine.
 
 It is a known issue of GitExtension:
 https://github.com/gitextensions/gitextensions/issues/85
 
 For me, I just commit by GitExtension at first, and then push by git bash with follow command line:
 git push --recurse-submodules=check --progress "origin" master:master
-
-2. It would be greate if you could share your your issues and solutions here.
