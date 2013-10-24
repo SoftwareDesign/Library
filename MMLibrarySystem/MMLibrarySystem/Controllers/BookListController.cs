@@ -5,33 +5,37 @@ using System.Web;
 using System.Web.Mvc;
 using MMLibrarySystem.Models;
 using MMLibrarySystem.Bll;
+using PagedList;
+
 namespace MMLibrarySystem.Controllers
 {
     public class BookListController : Controller
     {      
-        public ActionResult Index(string searchTerm = null)
+        
+        public ActionResult Index(string searchTerm = null,int page=1)
         {
             List<Book> books = new List<Book>();
+            IPagedList<Book> bookList = new PagedList<Book>(books, 1, 10);
             using (var dbContext = new BookLibraryContext())
             {
                 var tempBooks = dbContext.Books.Include("BookInfo");
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    books.AddRange(tempBooks.ToList());
+                    bookList = tempBooks.OrderByDescending(r => r.BookNumber).ToPagedList(page, 10);
                 }
                 else
                 {
-                    books.AddRange(tempBooks.Where(b => b.BookInfo.Title.Contains(searchTerm) || b.BookInfo.Description.Contains(searchTerm)));
+                    bookList = (tempBooks.Where(b => b.BookInfo.Title.Contains(searchTerm) || b.BookInfo.Description.Contains(searchTerm)).ToPagedList(page, 10));
                 }
             }
 
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_BookList", books);
+                return PartialView("_BookList", bookList);
             }
 
-            return View(books);
+            return View(bookList);
         }
 
         public ActionResult BookDetail(string bookNumber)

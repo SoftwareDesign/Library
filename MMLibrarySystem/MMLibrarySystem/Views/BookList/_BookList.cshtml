@@ -1,6 +1,7 @@
 ﻿@using MMLibrarySystem.Bll
-@model IEnumerable<MMLibrarySystem.Models.Book>
+@model IPagedList<MMLibrarySystem.Models.Book>
 <script type="text/javascript" src="/Scripts/BorrowBook.js"></script>
+<script type="text/javascript" src="/Scripts/PagerList.js"></script>
 <table id="bookList">
     <tr>
         <td>
@@ -44,10 +45,13 @@
           {
                 <td>
                 </td>
-          }
-                                  
+          }                  
             }
         </tr>
       }
     }
+    
 </table>
+<div class="pageList" mytarget="mytarget">
+    @Html.PagedListPager(Model,page=>Url.Action("Index",new {page}),PagedListRenderOptions.MinimalWithItemCountText)
+</div>
