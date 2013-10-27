@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MMLibrarySystem.Models.BorrowInfo>
+
+@{
+    ViewBag.Title = "Borrow Info";
+}
+
+<table id="bookList">
+    <tr>
+        <td>
+            Book Number
+        </td>
+        <td>
+            Title
+        </td>
+        <td>
+            Employee
+        </td>
+        <td>
+            State
+        </td>
+        <td>
+            Borrow Data
+        </td>
+        <td>
+            Operation
+        </td>
+    </tr>
+    @{
+        foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.BookId
+            </td>
+            <td>@item.BookId
+            </td>
+            <td>@item.UserId
+            </td>
+            <td>
+                TODO: show state here
+            </td>
+            <td>@item.BorrowedDate
+            </td>
+            <td>
+                TODO: show check-out and check-in actions here
+            </td>
+        </tr>
+      }
+    }
+</table>
