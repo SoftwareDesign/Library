@@ -11,18 +11,21 @@ namespace MMLibrarySystem.Models
         {
         }
 
-        public BorrowInfo(User user, long bookId)
+        public BorrowInfo(User user, Book book)
         {
-            UserId = user.Id;
-            BookId = bookId;
+            User = user;
+            Book = book;
             BorrowedDate = DateTime.Now;
+            IsCheckedOut = false;
         }
 
         public long Id { get; set; }
 
-        public long BookId { get; set; }
+        public Book Book { get; set; }
 
-        public long UserId { get; set; }
+        public User User { get; set; }
+
+        public bool IsCheckedOut { get; set; }
 
         public DateTime BorrowedDate { get; set; }
     }

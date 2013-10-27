@@ -19,7 +19,7 @@ namespace MMLibrarySystem.Models
                     var loginName = CurrentLoginName;
                     var users =
                         from u in db.Users
-                        where u.LogName == loginName
+                        where u.LoginName == loginName
                         select u;
                     return users.FirstOrDefault();
                 }
@@ -36,10 +36,15 @@ namespace MMLibrarySystem.Models
 
         public long Id { get; set; }
 
-        public string LogName { get; set; }
+        public string LoginName { get; set; }
 
         public string FullName { get; set; }
 
         public int Role { get; set; }
+
+        public string DisplayName
+        {
+            get { return string.IsNullOrEmpty(FullName) ? LoginName : FullName; }
+        }
     }
 }

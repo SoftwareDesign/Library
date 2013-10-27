@@ -12,13 +12,38 @@ namespace MMLibrarySystem.Controllers
         public ActionResult Index()
         {
             var infos = new List<BorrowInfo>();
-            using (var dbContext = new BookLibraryContext())
+            using (var db = new BookLibraryContext())
             {
-                var allInfos = dbContext.BorrowInfos;
+                var allInfos = db.BorrowInfos.Include("User").Include("Book");
                 infos.AddRange(allInfos);
             }
 
             return View(infos);
+        }
+
+        public ActionResult CheckOut(string borrowId)
+        {
+            var id = long.Parse(borrowId);
+            using (var db = new BookLibraryContext())
+            {
+                var info = db.BorrowInfos.First(i => i.Id == id);
+                info.IsCheckedOut = true;
+            }
+
+            return Index();
+        }
+
+        public ActionResult Return(string borrowId)
+        {
+            var id = long.Parse(borrowId);
+            using (var db = new BookLibraryContext())
+            {
+                var info = db.BorrowInfos.First(i => i.Id == id);
+                db.BorrowInfos.Remove(info);
+                db.SaveChanges();
+            }
+
+            return Index();
         }
     }
 }

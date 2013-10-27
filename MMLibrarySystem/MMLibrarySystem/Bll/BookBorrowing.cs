@@ -17,61 +17,74 @@ namespace MMLibrarySystem.Bll
             _db = new BookLibraryContext();
         }
 
-        void IDisposable.Dispose()
-        {
-            if (_db == null)
-            {
-                _db.Dispose();
-                _db = null;
-            }
-        }
-
-        public static bool IsBorrowed(long bookid)
+        public static bool IsBorrowed(long bookId)
         {
             using (var bb = new BookBorrowing())
             {
-                return bb.InternalIsBorrowed(bookid);
+                return bb.InternalIsBorrowed(bookId);
             }
         }
 
-        public static bool BorrowBook(User user, long bookid, out string message)
+        public static bool BorrowBook(User user, long bookId, out string message)
         {
             using (var bb = new BookBorrowing())
             {
-                if (bb.InternalIsBorrowed(bookid))
-                {
-                    message = "This book has been borrowed by others.";
-                    return false;
-                }
-
                 if (bb.UserArrieveBorrowLimit(user.Id))
                 {
                     message = string.Format("You can only borrowed less or equal to {0} books.", BorrowLimit);
                     return false;
                 }
 
-                bb.InternalBorrowBook(user, bookid);
+                if (bb.InternalIsBorrowed(bookId))
+                {
+                    message = "This book has been borrowed by others.";
+                    return false;
+                }
+
+                var book = bb.GetBookById(bookId);
+                if (book == null)
+                {
+                    message = string.Format("The book with id [{0}] does not exist. Please contact the admin.", bookId);
+                    return false;
+                }
+
+                bb.InternalBorrowBook(user, book);
 
                 message = string.Empty;
                 return true;
             }
         }
 
-        private bool InternalIsBorrowed(long bookid)
+        void IDisposable.Dispose()
         {
-            var queryIsBorrowed = from b in _db.BorrowInfos where b.BookId == bookid select b;
+            if (_db != null)
+            {
+                _db.Dispose();
+                _db = null;
+            }
+        }
+
+        private bool InternalIsBorrowed(long bookId)
+        {
+            var queryIsBorrowed = from b in _db.BorrowInfos where b.Book.Id == bookId select b;
             return queryIsBorrowed.Any();
+        }
+
+        private Book GetBookById(long bookId)
+        {
+            var queryBooks = from b in _db.Books where b.Id == bookId select b;
+            return queryBooks.FirstOrDefault();
         }
 
         private bool UserArrieveBorrowLimit(long userId)
         {
-            var queryIsBorrowed = from b in _db.BorrowInfos where b.UserId == userId select b;
+            var queryIsBorrowed = from b in _db.BorrowInfos where b.User.Id == userId select b;
             return queryIsBorrowed.Count() >= BorrowLimit;
         }
 
-        private void InternalBorrowBook(User user, long bookid)
+        private void InternalBorrowBook(User user, Book book)
         {
-            var borrowInfo = new BorrowInfo(user, bookid);
+            var borrowInfo = new BorrowInfo(user, book);
             _db.BorrowInfos.Add(borrowInfo);
             _db.SaveChanges();
         }

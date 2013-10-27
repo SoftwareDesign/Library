@@ -13,13 +13,13 @@
             Title
         </td>
         <td>
-            Employee
+            Borrowed By
+        </td>
+        <td>
+            Borrowed Start From
         </td>
         <td>
             State
-        </td>
-        <td>
-            Borrow Data
         </td>
         <td>
             Operation
@@ -29,19 +29,27 @@
         foreach (var item in Model)
         {
         <tr>
-            <td>@item.BookId
+            <td>@item.Book.BookNumber
             </td>
-            <td>@item.BookId
+            <td>@item.Book.BookInfo.Title
             </td>
-            <td>@item.UserId
-            </td>
-            <td>
-                TODO: show state here
+            <td>@item.User.DisplayName
             </td>
             <td>@item.BorrowedDate
             </td>
+            <td>@(item.IsCheckedOut ? "Checked Out" : "Accepted")
+            </td>
             <td>
-                TODO: show check-out and check-in actions here
+                @{
+            if (item.IsCheckedOut)
+            {
+                    @Html.ActionLink("Return", "Return", "Admin", new { borrowId = @item.Id }, null)
+            }
+            else
+            {
+                    @Html.ActionLink("Check Out", "CheckOut", "Admin", new { borrowId = @item.Id }, null)
+            }
+                }
             </td>
         </tr>
       }
