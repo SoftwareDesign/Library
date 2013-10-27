@@ -11,13 +11,7 @@ namespace MMLibrarySystem.Controllers
     {
         public ActionResult Index()
         {
-            var infos = new List<BorrowInfo>();
-            using (var db = new BookLibraryContext())
-            {
-                var allInfos = db.BorrowInfos.Include("User").Include("Book");
-                infos.AddRange(allInfos);
-            }
-
+            var infos = GetAllBorrowInfo();
             return View(infos);
         }
 
@@ -28,9 +22,11 @@ namespace MMLibrarySystem.Controllers
             {
                 var info = db.BorrowInfos.First(i => i.Id == id);
                 info.IsCheckedOut = true;
+                db.SaveChanges();
             }
 
-            return Index();
+            var infos = GetAllBorrowInfo();
+            return View("Index", infos);
         }
 
         public ActionResult Return(string borrowId)
@@ -43,7 +39,17 @@ namespace MMLibrarySystem.Controllers
                 db.SaveChanges();
             }
 
-            return Index();
+            var infos = GetAllBorrowInfo();
+            return View("Index", infos);
+        }
+
+        private List<BorrowInfo> GetAllBorrowInfo()
+        {
+            using (var db = new BookLibraryContext())
+            {
+                var allInfos = db.BorrowInfos.Include("User").Include("Book").Include("Book.BookInfo");
+                return allInfos.ToList();
+            }
         }
     }
 }
