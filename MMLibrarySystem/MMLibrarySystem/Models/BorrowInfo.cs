@@ -9,13 +9,13 @@ namespace MMLibrarySystem.Models
     {
         public BorrowInfo()
         {
-            using (var db = new BookLibraryContext())
-            {
-                var queryTheUserId = from u in db.Users
-                                     where u.LogName == HttpContext.Current.User.Identity.Name
-                                     select u;
-                UserId = queryTheUserId.First().Id;
-            }
+        }
+
+        public BorrowInfo(User user, long bookId)
+        {
+            UserId = user.Id;
+            BookId = bookId;
+            BorrowedDate = DateTime.Now;
         }
 
         public long Id { get; set; }

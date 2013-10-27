@@ -10,7 +10,7 @@ so that I have not input them manually again.
 
 3. 
 As an employee, 
-I want to find my favorite book by query with key words,
+I want to find my favourite book by query with key words,
 so that I could borrow or subscribe it.
 
 4. 

@@ -51,17 +51,27 @@ namespace MMLibrarySystem.Controllers
 
         public ActionResult BorrowBook(string columid)
         {
-            long bookid = Convert.ToInt64(columid.Substring(3));
-            if (BookBorrowing.IsBorrowed(bookid))
+            var bookid = Convert.ToInt64(columid.Substring(3));
+
+            string message;
+            var user = Models.User.CurrentUser;
+            if (user == null)
             {
-                return JavaScript("alert('this book is borrowed by others');");
+                var errorAlert = string.Format(
+                    "alert('Current user [{0}] has no rights to borrow books. Please contact the admin.');",
+                    Models.User.CurrentLoginName);
+                return JavaScript(errorAlert);
             }
-            else
+
+            var succeed = BookBorrowing.BorrowBook(user, bookid, out message);
+            if (!succeed)
             {
-                BorrowInfo borrowInfo = new BorrowInfo { BookId = bookid, BorrowedDate = DateTime.Now };
-                BookBorrowing.BorrowBook(borrowInfo);
-                return JavaScript("BorrowSuccessAction('" + bookid + "');");
+                var errorAlert = string.Format("alert('{0}');", message);
+                return JavaScript(errorAlert);
             }
+
+            var result = string.Format("BorrowSuccessAction('{0}');", bookid);
+            return JavaScript(result);
         }
     }
 }
