@@ -54,7 +54,7 @@ namespace MMLibrarySystem.Controllers
             var bookid = Convert.ToInt64(columid.Substring(3));
 
             string message;
-            var user = Models.User.CurrentUser;
+            var user = Models.User.Current;
             if (user == null)
             {
                 var errorAlert = string.Format(

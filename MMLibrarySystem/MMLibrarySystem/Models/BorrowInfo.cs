@@ -21,9 +21,9 @@ namespace MMLibrarySystem.Models
 
         public long Id { get; set; }
 
-        public Book Book { get; set; }
+        public virtual Book Book { get; set; }
 
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
         public bool IsCheckedOut { get; set; }
 

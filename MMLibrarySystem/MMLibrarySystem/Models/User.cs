@@ -8,22 +8,24 @@ namespace MMLibrarySystem.Models
 {
     public class User
     {
+        private const string KeyCurrentUser = "CurrentUser";
+
         /// <summary>
         /// Gets the current logged on user, null if no user logged on.
         /// </summary>
-        public static User CurrentUser
+        public static User Current
         {
             get
             {
-                using (var db = new BookLibraryContext())
+                var session = HttpContext.Current.Session;
+                var current = (User)session[KeyCurrentUser];
+                if (current == null)
                 {
-                    var loginName = CurrentLoginName;
-                    var users =
-                        from u in db.Users
-                        where u.LoginName == loginName
-                        select u;
-                    return users.FirstOrDefault();
+                    current = FindUserByLoginName(CurrentLoginName);
+                    session[KeyCurrentUser] = current;
                 }
+
+                return current;
             }
         }
 
@@ -51,6 +53,18 @@ namespace MMLibrarySystem.Models
         public bool IsAdmin
         {
             get { return Role == (int)Roles.Admin; }
+        }
+
+        private static User FindUserByLoginName(string loginName)
+        {
+            using (var db = new BookLibraryContext())
+            {
+                var users =
+                    from u in db.Users
+                    where u.LoginName == loginName
+                    select u;
+                return users.FirstOrDefault();
+            }
         }
     }
 }
