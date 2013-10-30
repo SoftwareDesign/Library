@@ -1,0 +1,10 @@
+﻿@model MMLibrarySystem.Models.User
+<ul>
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li>@Html.ActionLink("BookList", "Index", "BookList")</li>
+    @{if (Model.IsAdmin)
+      {
+        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+      }
+    }
+</ul>

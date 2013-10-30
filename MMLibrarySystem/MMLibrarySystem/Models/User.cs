@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using MMLibrarySystem.Bll;
 
 namespace MMLibrarySystem.Models
 {
@@ -45,6 +46,11 @@ namespace MMLibrarySystem.Models
         public string DisplayName
         {
             get { return string.IsNullOrEmpty(FullName) ? LoginName : FullName; }
+        }
+
+        public bool IsAdmin
+        {
+            get { return Role == (int)Roles.Admin; }
         }
     }
 }
