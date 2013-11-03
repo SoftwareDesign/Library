@@ -18,7 +18,7 @@ namespace MMLibrarySystem.Controllers
             IPagedList<Book> bookList = new PagedList<Book>(books, 1, 10);
             using (var dbContext = new BookLibraryContext())
             {
-                var tempBooks = dbContext.Books.Include("BookInfo");
+                var tempBooks = dbContext.Books.Include("BookType");
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
@@ -26,7 +26,7 @@ namespace MMLibrarySystem.Controllers
                 }
                 else
                 {
-                    bookList = (tempBooks.Where(b => b.BookInfo.Title.Contains(searchTerm) || b.BookInfo.Description.Contains(searchTerm)).ToPagedList(page, 10));
+                    bookList = (tempBooks.Where(b => b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm)).ToPagedList(page, 10));
                 }
             }
 
@@ -43,7 +43,7 @@ namespace MMLibrarySystem.Controllers
             Book book;
             using (var dbContext = new BookLibraryContext())
             {
-                book = dbContext.Books.Include("BookInfo").First(b => b.BookNumber == bookNumber);
+                book = dbContext.Books.Include("BookType").First(b => b.BookNumber == bookNumber);
             }
 
             return View(book);

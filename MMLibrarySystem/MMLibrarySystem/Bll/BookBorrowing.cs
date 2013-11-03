@@ -29,7 +29,7 @@ namespace MMLibrarySystem.Bll
         {
             using (var bb = new BookBorrowing())
             {
-                if (bb.UserArrieveBorrowLimit(user.Id))
+                if (bb.UserArrieveBorrowLimit(user.UserId))
                 {
                     message = string.Format("You can only borrowed less or equal to {0} books.", BorrowLimit);
                     return false;
@@ -66,26 +66,26 @@ namespace MMLibrarySystem.Bll
 
         private bool InternalIsBorrowed(long bookId)
         {
-            var queryIsBorrowed = from b in _db.BorrowInfos where b.Book.Id == bookId select b;
+            var queryIsBorrowed = from b in _db.BorrowRecords where b.Book.BookId == bookId select b;
             return queryIsBorrowed.Any();
         }
 
         private Book GetBookById(long bookId)
         {
-            var queryBooks = from b in _db.Books where b.Id == bookId select b;
+            var queryBooks = from b in _db.Books where b.BookId == bookId select b;
             return queryBooks.FirstOrDefault();
         }
 
         private bool UserArrieveBorrowLimit(long userId)
         {
-            var queryIsBorrowed = from b in _db.BorrowInfos where b.User.Id == userId select b;
+            var queryIsBorrowed = from b in _db.BorrowRecords where b.User.UserId == userId select b;
             return queryIsBorrowed.Count() >= BorrowLimit;
         }
 
         private void InternalBorrowBook(User user, Book book)
         {
-            var borrowInfo = new BorrowInfo(user, book);
-            _db.BorrowInfos.Add(borrowInfo);
+            var borrowInfo = new BorrowRecord(user, book);
+            _db.BorrowRecords.Add(borrowInfo);
             _db.SaveChanges();
         }
     }

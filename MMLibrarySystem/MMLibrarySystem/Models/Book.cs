@@ -5,9 +5,12 @@ using System.Web;
 
 namespace MMLibrarySystem.Models
 {
+    /// <summary>
+    /// Represents a book instance.
+    /// </summary>
     public class Book
     {
-        public long Id {get;set;}
+        public long BookId { get; set; }
 
         public string BookNumber { get; set; }
 
@@ -19,6 +22,8 @@ namespace MMLibrarySystem.Models
 
         public string PurchaseUrl { get; set; }
 
-        public virtual BookInfo BookInfo { get; set; }
+        public long BookTypeId { get; set; }
+
+        public virtual BookType BookType { get; set; }
     }
 }

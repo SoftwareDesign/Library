@@ -18,7 +18,12 @@ namespace MMLibrarySystem
     {
         protected void Application_Start()
         {
-            Database.SetInitializer<BookLibraryContext>(new CreateDatabaseIfNotExists<BookLibraryContext>());
+#if DEBUG
+            Database.SetInitializer(new BookLibraryInitializer());
+#else
+            Database.SetInitializer(new CreateDatabaseIfNotExists<BookLibraryContext>());
+#endif
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

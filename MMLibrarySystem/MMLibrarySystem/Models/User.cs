@@ -6,6 +6,9 @@ using MMLibrarySystem.Bll;
 
 namespace MMLibrarySystem.Models
 {
+    /// <summary>
+    /// Represents a user of the library.
+    /// </summary>
     public class User
     {
         private const string KeyCurrentUser = "CurrentUser";
@@ -37,7 +40,7 @@ namespace MMLibrarySystem.Models
             get { return HttpContext.Current.User.Identity.Name; }
         }
 
-        public long Id { get; set; }
+        public long UserId { get; set; }
 
         public string LoginName { get; set; }
 
@@ -57,14 +60,17 @@ namespace MMLibrarySystem.Models
 
         private static User FindUserByLoginName(string loginName)
         {
+            User user;
             using (var db = new BookLibraryContext())
             {
                 var users =
                     from u in db.Users
                     where u.LoginName == loginName
                     select u;
-                return users.FirstOrDefault();
+                user = users.FirstOrDefault();
             }
+
+            return user ?? new User { LoginName = "Guest", Role = (int)Roles.Guest };
         }
     }
 }

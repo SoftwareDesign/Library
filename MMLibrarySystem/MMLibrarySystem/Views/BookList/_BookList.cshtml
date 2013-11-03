@@ -23,15 +23,15 @@
     @{foreach (var item in Model)
       {
 
-          string colid = "col" + item.Id;
-          string stateid = "state" + item.Id;
-          bool state = BookBorrowing.IsBorrowed(item.Id);
+          string colid = "col" + item.BookId;
+          string stateid = "state" + item.BookId;
+          bool state = BookBorrowing.IsBorrowed(item.BookId);
         <tr>
             <td>@item.BookNumber
             </td>
-            <td>@Html.ActionLink(@item.BookInfo.Title, "BookDetail", "BookList", new { bookNumber = @item.BookNumber }, null)
+            <td>@Html.ActionLink(@item.BookType.Title, "BookDetail", "BookList", new { bookNumber = @item.BookNumber }, null)
             </td>
-            <td>@item.BookInfo.Publisher
+            <td>@item.BookType.Publisher
             </td>
             <td id="@stateid">@(state == true ? "IsBorrowed" : "Free")
             </td>

@@ -10,11 +10,11 @@ namespace MMLibrarySystem.Models
     {       
         public DbSet<Book> Books { get; set; }
 
-        public DbSet<BookInfo> BookInfos { get; set; }
+        public DbSet<BookType> BookTypes { get; set; }
 
         public DbSet<User> Users { get; set; }
 
-        public DbSet<BorrowInfo> BorrowInfos { get; set; }
+        public DbSet<BorrowRecord> BorrowRecords { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

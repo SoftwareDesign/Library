@@ -20,7 +20,7 @@ namespace MMLibrarySystem.Controllers
             var id = long.Parse(borrowId);
             using (var db = new BookLibraryContext())
             {
-                var info = db.BorrowInfos.First(i => i.Id == id);
+                var info = db.BorrowRecords.First(i => i.BorrowRecordId == id);
                 info.IsCheckedOut = true;
                 db.SaveChanges();
             }
@@ -34,8 +34,8 @@ namespace MMLibrarySystem.Controllers
             var id = long.Parse(borrowId);
             using (var db = new BookLibraryContext())
             {
-                var info = db.BorrowInfos.First(i => i.Id == id);
-                db.BorrowInfos.Remove(info);
+                var info = db.BorrowRecords.First(i => i.BorrowRecordId == id);
+                db.BorrowRecords.Remove(info);
                 db.SaveChanges();
             }
 
@@ -43,11 +43,11 @@ namespace MMLibrarySystem.Controllers
             return View("Index", infos);
         }
 
-        private List<BorrowInfo> GetAllBorrowInfo()
+        private List<BorrowRecord> GetAllBorrowInfo()
         {
             using (var db = new BookLibraryContext())
             {
-                var allInfos = db.BorrowInfos.Include("User").Include("Book").Include("Book.BookInfo");
+                var allInfos = db.BorrowRecords.Include("User").Include("Book").Include("Book.BookType");
                 return allInfos.ToList();
             }
         }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MMLibrarySystem.Models.BorrowInfo>
+﻿@model IEnumerable<MMLibrarySystem.Models.BorrowRecord>
 
 @{
     ViewBag.Title = "Borrow Info";
@@ -31,7 +31,7 @@
         <tr>
             <td>@item.Book.BookNumber
             </td>
-            <td>@item.Book.BookInfo.Title
+            <td>@item.Book.BookType.Title
             </td>
             <td>@item.User.DisplayName
             </td>
@@ -43,11 +43,11 @@
                 @{
             if (item.IsCheckedOut)
             {
-                    @Html.ActionLink("Return", "Return", "Admin", new { borrowId = @item.Id }, null)
+                    @Html.ActionLink("Return", "Return", "Admin", new { borrowId = @item.BorrowRecordId }, null)
             }
             else
             {
-                    @Html.ActionLink("Check Out", "CheckOut", "Admin", new { borrowId = @item.Id }, null)
+                    @Html.ActionLink("Check Out", "CheckOut", "Admin", new { borrowId = @item.BorrowRecordId }, null)
             }
                 }
             </td>

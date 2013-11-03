@@ -5,14 +5,17 @@ using System.Web;
 
 namespace MMLibrarySystem.Models
 {
-    public class BookInfo
+    /// <summary>
+    /// Represent a book-type, which may have more than one instance in library.
+    /// </summary>
+    public class BookType
     {
-        public BookInfo()
+        public BookType()
         {
             Books = new List<Book>();
         }
 
-        public long Id { get; set; }
+        public long BookTypeId { get; set; }
 
         public string Title { get; set; }
 

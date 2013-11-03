@@ -5,13 +5,16 @@ using System.Web;
 
 namespace MMLibrarySystem.Models
 {
-    public class BorrowInfo
+    /// <summary>
+    /// Represents a not finished borrow record.
+    /// </summary>
+    public class BorrowRecord
     {
-        public BorrowInfo()
+        public BorrowRecord()
         {
         }
 
-        public BorrowInfo(User user, Book book)
+        public BorrowRecord(User user, Book book)
         {
             User = user;
             Book = book;
@@ -19,9 +22,13 @@ namespace MMLibrarySystem.Models
             IsCheckedOut = false;
         }
 
-        public long Id { get; set; }
+        public long BorrowRecordId { get; set; }
+
+        public long BookId { get; set; }
 
         public virtual Book Book { get; set; }
+
+        public long UserId { get; set; }
 
         public virtual User User { get; set; }
 
