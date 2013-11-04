@@ -1,4 +1,4 @@
-namespace MMLibrarySystem.Bll
+namespace MMLibrarySystem.Models
 {
     /// <summary>
     /// Defines roles of the system.

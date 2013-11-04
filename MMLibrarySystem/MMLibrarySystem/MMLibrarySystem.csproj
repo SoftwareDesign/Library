@@ -176,7 +176,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Bll\BookBorrowing.cs" />
     <Compile Include="Bll\OperationCategory.cs" />
-    <Compile Include="Bll\Roles.cs" />
+    <Compile Include="Models\Roles.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\BookListController.cs" />
@@ -322,6 +322,7 @@
     <Content Include="Views\BookList\BookDetail.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_RoleActionsPartial.cshtml" />
+    <Content Include="Views\Home\Guest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ToolClass\" />
