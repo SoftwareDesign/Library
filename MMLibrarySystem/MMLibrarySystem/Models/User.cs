@@ -25,8 +25,8 @@ namespace MMLibrarySystem.Models
                 if (current == null)
                 {
                     var loginName = CurrentLoginName;
-                    current = FindUserByLoginName(loginName);
-                    session[KeyCurrentUser] = current ?? CreateGuest(loginName);
+                    current = FindUserByLoginName(loginName) ?? CreateGuest(loginName);
+                    session[KeyCurrentUser] = current;
                 }
 
                 return current;
