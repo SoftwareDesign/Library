@@ -16,8 +16,8 @@ namespace MMLibrarySystem.Models
 
         public BorrowRecord(User user, Book book)
         {
-            User = user;
-            Book = book;
+            UserId = user.UserId;
+            BookId = book.BookId;
             BorrowedDate = DateTime.Now;
             IsCheckedOut = false;
         }
