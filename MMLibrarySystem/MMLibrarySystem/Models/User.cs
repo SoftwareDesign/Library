@@ -24,8 +24,9 @@ namespace MMLibrarySystem.Models
                 var current = (User)session[KeyCurrentUser];
                 if (current == null)
                 {
-                    current = FindUserByLoginName(CurrentLoginName);
-                    session[KeyCurrentUser] = current;
+                    var loginName = CurrentLoginName;
+                    current = FindUserByLoginName(loginName);
+                    session[KeyCurrentUser] = current ?? CreateGuest(loginName);
                 }
 
                 return current;
@@ -58,19 +59,21 @@ namespace MMLibrarySystem.Models
             get { return Role == (int)Roles.Admin; }
         }
 
-        private static User FindUserByLoginName(string loginName)
+        public static User FindUserByLoginName(string loginName)
         {
-            User user;
             using (var db = new BookLibraryContext())
             {
                 var users =
                     from u in db.Users
                     where u.LoginName == loginName
                     select u;
-                user = users.FirstOrDefault();
+                return users.FirstOrDefault();
             }
+        }
 
-            return user ?? new User { LoginName = "Guest", Role = (int)Roles.Guest };
+        public static User CreateGuest(string loginName)
+        {
+            return new User { LoginName = loginName, FullName = "Guest " + loginName, Role = (int)Roles.Guest };
         }
     }
 }

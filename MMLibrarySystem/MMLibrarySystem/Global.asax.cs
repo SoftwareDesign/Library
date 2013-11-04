@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Data.Entity;
+
+using MMLibrarySystem.Bll;
 using MMLibrarySystem.Models;
 
 namespace MMLibrarySystem
@@ -31,6 +33,24 @@ namespace MMLibrarySystem
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+        }
+
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                var loginName = Models.User.CurrentLoginName;
+                var current = Models.User.FindUserByLoginName(loginName);
+                if (current == null)
+                {
+                    using (var db = new BookLibraryContext())
+                    {
+                        var debgger = new User { LoginName = loginName, Role = (int)Roles.Admin };
+                        db.Users.Add(debgger);
+                        db.SaveChanges();
+                    }
+                }
+            }
         }
     }
 }
