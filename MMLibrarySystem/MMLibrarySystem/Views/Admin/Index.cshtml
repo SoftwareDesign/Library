@@ -19,6 +19,9 @@
             Borrowed Start From
         </td>
         <td>
+            Return Data
+        </td>
+        <td>
             State
         </td>
         <td>
@@ -35,7 +38,9 @@
             </td>
             <td>@item.User.DisplayName
             </td>
-            <td>@item.BorrowedDate
+            <td>@item.BorrowedDate.ToShortDateString()
+            </td>
+            <td>@item.BorrowedDate.AddDays(31).ToShortDateString()
             </td>
             <td>@(item.IsCheckedOut ? "Checked Out" : "Borrow Accepted")
             </td>
