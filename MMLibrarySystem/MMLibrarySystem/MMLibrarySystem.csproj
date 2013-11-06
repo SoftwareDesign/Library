@@ -324,6 +324,7 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_RoleActionsPartial.cshtml" />
     <Content Include="Views\Home\Guest.cshtml" />
+    <Content Include="Views\Admin\RegistNewBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ToolClass\" />

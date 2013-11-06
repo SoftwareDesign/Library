@@ -42,6 +42,25 @@ namespace MMLibrarySystem.Controllers
             var infos = GetAllBorrowInfo();
             return View("Index", infos);
         }
+        
+        [HttpGet]
+        public ActionResult RegistNewBook()
+        {
+            var book = new Book();
+            book.BookType = new BookType();
+            return View(book);
+        }
+
+        [HttpPost]
+        public ActionResult RegistNewBook(Book book)
+        {
+            using (var db = new BookLibraryContext())
+            {
+                db.Books.Add(book);
+                db.SaveChanges();
+            }
+            return Redirect("/");
+        }
 
         private List<BorrowRecord> GetAllBorrowInfo()
         {

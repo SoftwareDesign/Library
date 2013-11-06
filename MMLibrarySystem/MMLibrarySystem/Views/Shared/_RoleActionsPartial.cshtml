@@ -4,7 +4,8 @@
     <li>@Html.ActionLink("BookList", "Index", "BookList")</li>
     @{if (Model.IsAdmin)
       {
-        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+          <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+          <li>@Html.ActionLink("Regist New Book", "RegistNewBook", "Admin")</li>
       }
     }
 </ul>
