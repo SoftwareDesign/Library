@@ -7,11 +7,14 @@
         <td>
             Book Number
         </td>
-        <td style="width: 500px;">
+        <td>
             Title
         </td>
         <td>
             Publisher
+        </td>
+        <td>
+            Purchase Date
         </td>
         <td>
             State
@@ -32,6 +35,8 @@
             <td>@Html.ActionLink(@item.BookType.Title, "BookDetail", "BookList", new { bookNumber = @item.BookNumber }, null)
             </td>
             <td>@item.BookType.Publisher
+            </td>
+            <td>@item.PurchaseDate.ToShortDateString()
             </td>
             <td id="@stateid">@(state == true ? "Borrowed" : "In Library")
             </td>
