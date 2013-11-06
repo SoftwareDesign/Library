@@ -189,6 +189,7 @@
     <Compile Include="Models\BookLibraryContext.cs" />
     <Compile Include="Models\BorrowRecord.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\SubscribeRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

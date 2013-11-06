@@ -7,7 +7,7 @@ using System.Data.Entity;
 namespace MMLibrarySystem.Models
 {
     public class BookLibraryContext : DbContext
-    {       
+    {
         public DbSet<Book> Books { get; set; }
 
         public DbSet<BookType> BookTypes { get; set; }
@@ -16,10 +16,12 @@ namespace MMLibrarySystem.Models
 
         public DbSet<BorrowRecord> BorrowRecords { get; set; }
 
+        public DbSet<SubscribeRecord> SubscribeRecords { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.Configuration.LazyLoadingEnabled = false;
-            base.OnModelCreating(modelBuilder);            
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
