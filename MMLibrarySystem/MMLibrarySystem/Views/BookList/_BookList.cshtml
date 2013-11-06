@@ -33,7 +33,7 @@
             </td>
             <td>@item.BookType.Publisher
             </td>
-            <td id="@stateid">@(state == true ? "IsBorrowed" : "Free")
+            <td id="@stateid">@(state == true ? "Borrowed" : "In Library")
             </td>
             @{
           if (!state)
