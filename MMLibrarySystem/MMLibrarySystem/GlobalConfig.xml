@@ -2,4 +2,5 @@
 <MMLibrary>
   <PageInfo size="10">
   </PageInfo>
+  <BorrowLimit number="6"></BorrowLimit>
 </MMLibrary>

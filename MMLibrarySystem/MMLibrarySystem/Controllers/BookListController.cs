@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 using MMLibrarySystem.Models;
 using MMLibrarySystem.Bll;
 using PagedList;
@@ -14,19 +15,20 @@ namespace MMLibrarySystem.Controllers
         
         public ActionResult Index(string searchTerm = null,int page=1)
         {
+            int pageSize = GetPageSize();
             List<Book> books = new List<Book>();
-            IPagedList<Book> bookList = new PagedList<Book>(books, 1, 10);
+            IPagedList<Book> bookList = new PagedList<Book>(books, 1, pageSize);
             using (var dbContext = new BookLibraryContext())
             {
                 var tempBooks = dbContext.Books.Include("BookType");
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    bookList = tempBooks.OrderByDescending(r => r.BookNumber).ToPagedList(page, 10);
+                    bookList = tempBooks.OrderByDescending(r => r.BookNumber).ToPagedList(page, pageSize);
                 }
                 else
                 {
-                    bookList = (tempBooks.Where(b => b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm)).ToPagedList(page, 10));
+                    bookList = (tempBooks.Where(b => b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm)).ToPagedList(page, pageSize));
                 }
             }
 
@@ -72,6 +74,16 @@ namespace MMLibrarySystem.Controllers
 
             var result = string.Format("BorrowSuccessAction('{0}');", bookid);
             return JavaScript(result);
+        }
+
+        private int GetPageSize()
+        {
+            int size = 1;
+            string filePath = Server.MapPath(System.Web.HttpContext.Current.Request.ApplicationPath.ToString()) + "GlobalConfig.xml";
+            XElement xe = XElement.Load(filePath);
+            IEnumerable<XElement> rootCatalog = from root in xe.Elements("PageInfo") select root;
+            size = Convert.ToInt32(rootCatalog.FirstOrDefault().Attribute("size").Value);
+            return size;
         }
     }
 }

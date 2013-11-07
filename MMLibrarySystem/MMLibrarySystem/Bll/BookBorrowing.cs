@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Xml.Linq;
 using MMLibrarySystem.Models;
 
 namespace MMLibrarySystem.Bll
 {
     public class BookBorrowing : IDisposable
     {
-        private const int BorrowLimit = 5;
+        private static int BorrowLimit = GetBorrowLimit();
 
         private BookLibraryContext _db;
 
@@ -87,6 +88,16 @@ namespace MMLibrarySystem.Bll
             var borrowInfo = new BorrowRecord(user, book);
             _db.BorrowRecords.Add(borrowInfo);
             _db.SaveChanges();
+        }
+
+        private static int GetBorrowLimit()
+        {
+            int number = 5;
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + "GlobalConfig.xml";
+            XElement xe = XElement.Load(filePath);
+            IEnumerable<XElement> rootCatalog = from root in xe.Elements("BorrowLimit") select root;
+            number = Convert.ToInt32(rootCatalog.FirstOrDefault().Attribute("number").Value);
+            return number;
         }
     }
 }
