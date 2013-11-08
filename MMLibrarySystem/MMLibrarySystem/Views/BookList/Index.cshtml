@@ -16,3 +16,7 @@
 }
 
 @Html.Partial("_BookList", Model)
+
+<div class="pageList" mytarget="mytarget">
+    @Html.PagedListPager(Model,page=>Url.Action("Index",new {page}),PagedListRenderOptions.MinimalWithItemCountText)
+</div>

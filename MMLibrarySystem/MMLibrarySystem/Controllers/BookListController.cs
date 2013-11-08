@@ -28,7 +28,10 @@ namespace MMLibrarySystem.Controllers
                 }
                 else
                 {
-                    bookList = (tempBooks.Where(b => b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm)).ToPagedList(page, pageSize));
+                    var searchResult =
+                        tempBooks.Where(
+                            b => b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm)).ToList();
+                    bookList = searchResult.ToPagedList(page, pageSize);
                 }
             }
 
