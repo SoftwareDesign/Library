@@ -1,7 +1,8 @@
-﻿@using MMLibrarySystem.Bll
-@model IPagedList<MMLibrarySystem.Models.Book>
+﻿@model IPagedList<MMLibrarySystem.Models.BookListController.BookListItem>
+
 <script type="text/javascript" src="/Scripts/BorrowBook.js"></script>
 <script type="text/javascript" src="/Scripts/PagerList.js"></script>
+
 <table id="bookList">
     <tr>
         <td>
@@ -28,33 +29,25 @@
 
           string colid = "col" + item.BookId;
           string stateid = "state" + item.BookId;
-          bool state = BookBorrowing.IsBorrowed(item.BookId);
         <tr>
             <td>@item.BookNumber
             </td>
-            <td>@Html.ActionLink(@item.BookType.Title, "BookDetail", "BookList", new { bookNumber = @item.BookNumber }, null)
+            <td>@Html.ActionLink(@item.Title, "BookDetail", "BookList", new { bookNumber = @item.BookNumber }, null)
             </td>
-            <td>@item.BookType.Publisher
+            <td>@item.Publisher
             </td>
-            <td>@item.PurchaseDate.ToShortDateString()
+            <td>@item.PurchaseDate
             </td>
-            <td id="@stateid">@(state == true ? "Borrowed" : "In Library")
+            <td id="@stateid">@item.State
             </td>
             @{
-          if (!state)
-          {
-                <td id='@colid'>@Ajax.ActionLink("Borrow", "BorrowBook", new { columid = colid }, new AjaxOptions { UpdateTargetId = colid })
+              var operation = @item.Operation;
+                <td id='@colid'>@Ajax.ActionLink(@operation, @operation, new { columid = colid }, new AjaxOptions { UpdateTargetId = colid })
                 </td>
-          }
-          else
-          {
-                <td>
-                </td>
-          }                  
             }
         </tr>
       }
-    }    
+    }
 </table>
 <!--div class="pageList" mytarget="mytarget">
     @Html.PagedListPager(Model,page=>Url.Action("Index",new {page}),PagedListRenderOptions.MinimalWithItemCountText)

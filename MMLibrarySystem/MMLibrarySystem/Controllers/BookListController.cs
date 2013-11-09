@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Xml.Linq;
 using MMLibrarySystem.Models;
 using MMLibrarySystem.Bll;
+using MMLibrarySystem.Models.BookListController;
 using PagedList;
 
 namespace MMLibrarySystem.Controllers
@@ -15,23 +16,23 @@ namespace MMLibrarySystem.Controllers
         
         public ActionResult Index(string searchTerm = null,int page=1)
         {
-            int pageSize = GetPageSize();
-            List<Book> books = new List<Book>();
-            IPagedList<Book> bookList = new PagedList<Book>(books, 1, pageSize);
-            using (var dbContext = new BookLibraryContext())
+            var pageSize = GetPageSize();
+
+            IPagedList<BookListItem> bookList;
+            using (var db = new BookLibraryContext())
             {
-                var tempBooks = dbContext.Books.Include("BookType");
+                var tempBooks = db.Books.Include("BookType");
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    bookList = tempBooks.OrderByDescending(r => r.BookNumber).ToPagedList(page, pageSize);
+                    bookList = tempBooks.OrderByDescending(r => r.BookNumber).Select(CreateBookListItem).ToPagedList(page, pageSize);
                 }
                 else
                 {
                     var searchResult =
                         tempBooks.Where(
-                            b => b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm)).ToList();
-                    bookList = searchResult.ToPagedList(page, pageSize);
+                            b => b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm));
+                    bookList = searchResult.Select(CreateBookListItem).ToPagedList(page, pageSize);
                 }
             }
 
@@ -54,7 +55,7 @@ namespace MMLibrarySystem.Controllers
             return View(book);
         }
 
-        public ActionResult BorrowBook(string columid)
+        public ActionResult Borrow(string columid)
         {
             var bookid = Convert.ToInt64(columid.Substring(3));
 
@@ -87,6 +88,24 @@ namespace MMLibrarySystem.Controllers
             IEnumerable<XElement> rootCatalog = from root in xe.Elements("PageInfo") select root;
             size = Convert.ToInt32(rootCatalog.FirstOrDefault().Attribute("size").Value);
             return size;
+        }
+
+        private BookListItem CreateBookListItem(Book book)
+        {
+            var borrowed = BookBorrowing.IsBorrowed(book.BookId);
+            var item =
+                new BookListItem
+                    {
+                        BookId = book.BookId.ToString(),
+                        BookNumber = book.BookNumber,
+                        Title = book.BookType.Title,
+                        Publisher = book.BookType.Publisher,
+                        PurchaseDate = book.PurchaseDate.ToShortDateString(),
+
+                        State = borrowed ? "Borrowed" : "In Library",
+                        Operation = borrowed ? string.Empty : "Borrow"
+                    };
+            return item;
         }
     }
 }
