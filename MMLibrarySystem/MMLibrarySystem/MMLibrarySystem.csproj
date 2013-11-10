@@ -175,6 +175,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Bll\BookBorrowing.cs" />
+    <Compile Include="Bll\BookBorrowState.cs" />
     <Compile Include="Bll\OperationCategory.cs" />
     <Compile Include="Models\BookListController\BookListItem.cs" />
     <Compile Include="Models\Roles.cs" />

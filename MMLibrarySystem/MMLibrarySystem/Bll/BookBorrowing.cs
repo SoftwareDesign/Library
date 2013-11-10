@@ -7,62 +7,77 @@ using MMLibrarySystem.Models;
 
 namespace MMLibrarySystem.Bll
 {
-    public class BookBorrowing : IDisposable
+    public class BookBorrowing
     {
         private static int BorrowLimit = GetBorrowLimit();
 
-        private BookLibraryContext _db;
+        private readonly BookLibraryContext _db;
 
-        private BookBorrowing()
+        private readonly List<BorrowRecord> _recordCache;
+
+        public BookBorrowing(BookLibraryContext db)
         {
-            _db = new BookLibraryContext();
+            _db = db;
+            _recordCache = _db.BorrowRecords.ToList();
         }
 
-        public static bool IsBorrowed(long bookId)
+        public BookBorrowState GetBookBorrowState(long bookId)
         {
-            using (var bb = new BookBorrowing())
-            {
-                return bb.InternalIsBorrowed(bookId);
-            }
+            var record = _recordCache.FirstOrDefault(r => r.BookId == bookId);
+            return new BookBorrowState(record);
         }
 
-        public static bool BorrowBook(User user, long bookId, out string message)
+        public bool IsBorrowed(long bookId)
         {
-            using (var bb = new BookBorrowing())
-            {
-                if (bb.UserArrieveBorrowLimit(user.UserId))
-                {
-                    message = string.Format("You can only borrowed less or equal to {0} books.", BorrowLimit);
-                    return false;
-                }
-
-                if (bb.InternalIsBorrowed(bookId))
-                {
-                    message = "This book has been borrowed by others.";
-                    return false;
-                }
-
-                var book = bb.GetBookById(bookId);
-                if (book == null)
-                {
-                    message = string.Format("The book with id [{0}] does not exist. Please contact the admin.", bookId);
-                    return false;
-                }
-
-                bb.InternalBorrowBook(user, book);
-
-                message = string.Empty;
-                return true;
-            }
+            return InternalIsBorrowed(bookId);
         }
 
-        void IDisposable.Dispose()
+        public bool BorrowBook(User user, long bookId, out string message)
         {
-            if (_db != null)
+            if (UserArrieveBorrowLimit(user.UserId))
             {
-                _db.Dispose();
-                _db = null;
+                message = string.Format("You can only borrowed less or equal to {0} books.", BorrowLimit);
+                return false;
             }
+
+            if (InternalIsBorrowed(bookId))
+            {
+                message = "This book has been borrowed by others.";
+                return false;
+            }
+
+            var book = GetBookById(bookId);
+            if (book == null)
+            {
+                message = string.Format("The book with id [{0}] does not exist. Please contact the admin.", bookId);
+                return false;
+            }
+
+            InternalBorrowBook(user, book);
+
+            message = string.Empty;
+            return true;
+        }
+
+        public bool CancelBorrow(User user, long bookid, out string message)
+        {
+            var record = _db.BorrowRecords.FirstOrDefault(r => r.BookId == bookid);
+            if (record ==  null)
+            {
+                message = "Not borrowed.";
+                return false;
+            }
+
+            if (record.UserId != user.UserId)
+            {
+                message = "Not borrowed by current user.";
+                return false;
+            }
+
+            _db.BorrowRecords.Remove(record);
+            _db.SaveChanges();
+            message = string.Empty;
+            return true;
         }
 
         private bool InternalIsBorrowed(long bookId)

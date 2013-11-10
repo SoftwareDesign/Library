@@ -12,8 +12,9 @@ using PagedList;
 namespace MMLibrarySystem.Controllers
 {
     public class BookListController : Controller
-    {      
-        
+    {
+        private BookBorrowing _bb;
+
         public ActionResult Index(string searchTerm = null,int page=1)
         {
             var pageSize = GetPageSize();
@@ -21,11 +22,12 @@ namespace MMLibrarySystem.Controllers
             IPagedList<BookListItem> bookList;
             using (var db = new BookLibraryContext())
             {
+                _bb = new BookBorrowing(db);
                 var tempBooks = db.Books.Include("BookType");
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    bookList = tempBooks.OrderByDescending(r => r.BookNumber).Select(CreateBookListItem).ToPagedList(page, pageSize);
+                    bookList = tempBooks.OrderByDescending(b => b.BookNumber).Select(CreateBookListItem).ToPagedList(page, pageSize);
                 }
                 else
                 {
@@ -47,9 +49,9 @@ namespace MMLibrarySystem.Controllers
         public ActionResult BookDetail(string bookNumber)
         {
             Book book;
-            using (var dbContext = new BookLibraryContext())
+            using (var db = new BookLibraryContext())
             {
-                book = dbContext.Books.Include("BookType").First(b => b.BookNumber == bookNumber);
+                book = db.Books.Include("BookType").First(b => b.BookNumber == bookNumber);
             }
 
             return View(book);
@@ -69,7 +71,13 @@ namespace MMLibrarySystem.Controllers
                 return JavaScript(errorAlert);
             }
 
-            var succeed = BookBorrowing.BorrowBook(user, bookid, out message);
+            bool succeed;
+            using (var db = new BookLibraryContext())
+            {
+                var bb = new BookBorrowing(db);
+                succeed = bb.BorrowBook(user, bookid, out message);
+            }
+
             if (!succeed)
             {
                 var errorAlert = string.Format("alert('{0}');", message);
@@ -78,6 +86,23 @@ namespace MMLibrarySystem.Controllers
 
             var result = string.Format("BorrowSuccessAction('{0}');", bookid);
             return JavaScript(result);
+        }
+
+        public ActionResult Cancel(string columid)
+        {
+            var bookid = Convert.ToInt64(columid.Substring(3));
+            var user = Models.User.Current;
+
+            // TODO: update the refresh logic and error messages
+            bool succeed;
+            string message;
+            using (var db = new BookLibraryContext())
+            {
+                var bb = new BookBorrowing(db);
+                succeed = bb.CancelBorrow(user, bookid, out message);
+            }
+
+            return RedirectToAction("Index", "BookList");
         }
 
         private int GetPageSize()
@@ -92,7 +117,7 @@ namespace MMLibrarySystem.Controllers
 
         private BookListItem CreateBookListItem(Book book)
         {
-            var borrowed = BookBorrowing.IsBorrowed(book.BookId);
+            var state = _bb.GetBookBorrowState(book.BookId);
             var item =
                 new BookListItem
                     {
@@ -102,8 +127,8 @@ namespace MMLibrarySystem.Controllers
                         Publisher = book.BookType.Publisher,
                         PurchaseDate = book.PurchaseDate.ToShortDateString(),
 
-                        State = borrowed ? "Borrowed" : "In Library",
-                        Operation = borrowed ? string.Empty : "Borrow"
+                        State = state.State,
+                        Operation = state.GetUserOperation(Models.User.Current)
                     };
             return item;
         }
