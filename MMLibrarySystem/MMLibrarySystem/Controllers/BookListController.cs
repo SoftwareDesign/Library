@@ -36,6 +36,7 @@ namespace MMLibrarySystem.Controllers
                             b => b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm));
                     bookList = searchResult.Select(CreateBookListItem).ToPagedList(page, pageSize);
                 }
+                _bb = null;
             }
 
             if (Request.IsAjaxRequest())
@@ -84,8 +85,9 @@ namespace MMLibrarySystem.Controllers
                 return JavaScript(errorAlert);
             }
 
-            var result = string.Format("BorrowSuccessAction('{0}');", bookid);
-            return JavaScript(result);
+            //var result = string.Format("BorrowSuccessAction('{0}');", bookid);
+            //return JavaScript(result);
+            return RedirectToAction("Index", "BookList");
         }
 
         public ActionResult Cancel(string columid)

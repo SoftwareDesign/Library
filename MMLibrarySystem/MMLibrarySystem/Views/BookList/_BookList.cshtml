@@ -42,7 +42,7 @@
             </td>
             @{
               var operation = @item.Operation;
-                <td id='@colid'>@Ajax.ActionLink(@operation, @operation, new { columid = colid }, new AjaxOptions { UpdateTargetId = colid })
+                <td id='@colid'>@Ajax.ActionLink(@operation, @operation, new { columid = colid }, new AjaxOptions { UpdateTargetId = "bookList", HttpMethod = "GET", InsertionMode = InsertionMode.Replace })
                 </td>
             }
         </tr>
