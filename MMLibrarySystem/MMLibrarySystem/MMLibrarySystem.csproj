@@ -193,6 +193,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\SubscribeRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schedule\DailyPlan.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\BookLibrary.mdf" />
