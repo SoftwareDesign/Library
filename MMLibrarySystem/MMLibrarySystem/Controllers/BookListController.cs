@@ -36,6 +36,7 @@ namespace MMLibrarySystem.Controllers
                             b => b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm));
                     bookList = searchResult.Select(CreateBookListItem).ToPagedList(page, pageSize);
                 }
+
                 _bb = null;
             }
 
@@ -85,8 +86,6 @@ namespace MMLibrarySystem.Controllers
                 return JavaScript(errorAlert);
             }
 
-            //var result = string.Format("BorrowSuccessAction('{0}');", bookid);
-            //return JavaScript(result);
             return RedirectToAction("Index", "BookList");
         }
 
@@ -115,7 +114,7 @@ namespace MMLibrarySystem.Controllers
         private int GetPageSize()
         {
             int size = 1;
-            string filePath = Server.MapPath(System.Web.HttpContext.Current.Request.ApplicationPath.ToString()) + "GlobalConfig.xml";
+            string filePath = Server.MapPath(System.Web.HttpContext.Current.Request.ApplicationPath) + "GlobalConfig.xml";
             XElement xe = XElement.Load(filePath);
             IEnumerable<XElement> rootCatalog = from root in xe.Elements("PageInfo") select root;
             size = Convert.ToInt32(rootCatalog.FirstOrDefault().Attribute("size").Value);

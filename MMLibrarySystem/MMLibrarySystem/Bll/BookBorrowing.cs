@@ -29,7 +29,7 @@ namespace MMLibrarySystem.Bll
 
         public bool IsBorrowed(long bookId)
         {
-            return InternalIsBorrowed(bookId);
+            return IsBookBorrowed(bookId);
         }
 
         public bool BorrowBook(User user, long bookId, out string message)
@@ -40,7 +40,7 @@ namespace MMLibrarySystem.Bll
                 return false;
             }
 
-            if (InternalIsBorrowed(bookId))
+            if (IsBookBorrowed(bookId))
             {
                 message = "This book has been borrowed by others.";
                 return false;
@@ -87,10 +87,9 @@ namespace MMLibrarySystem.Bll
             return true;
         }
 
-        private bool InternalIsBorrowed(long bookId)
+        private bool IsBookBorrowed(long bookId)
         {
-            var queryIsBorrowed = from b in _db.BorrowRecords where b.Book.BookId == bookId select b;
-            return queryIsBorrowed.Any();
+            return _recordCache.Any(r => r.BookId == bookId);
         }
 
         private Book GetBookById(long bookId)
@@ -101,8 +100,8 @@ namespace MMLibrarySystem.Bll
 
         private bool UserArrieveBorrowLimit(long userId)
         {
-            var queryIsBorrowed = from b in _db.BorrowRecords where b.User.UserId == userId select b;
-            return queryIsBorrowed.Count() >= BorrowLimit;
+            var borrowedCount = _recordCache.Count(r => r.UserId == userId);
+            return borrowedCount >= BorrowLimit;
         }
 
         private void InternalBorrowBook(User user, Book book)
