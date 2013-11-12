@@ -70,7 +70,13 @@ namespace MMLibrarySystem.Bll
 
             if (record.UserId != user.UserId)
             {
-                message = "The book is not borrowed by current user.";
+                message = "Could not cancel a book borrowed by others user.";
+                return false;
+            }
+
+            if (record.IsCheckedOut)
+            {
+                message = "Could not cancel a checked out book.";
                 return false;
             }
 

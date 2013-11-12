@@ -47,8 +47,8 @@ namespace MMLibrarySystem.Bll
                 return "Borrow";
             }
 
-            var byCurrentUser = _borrowRecord.UserId == user.UserId;
-            return byCurrentUser ? "Cancel" : string.Empty;
+            var cancelable = !_borrowRecord.IsCheckedOut && _borrowRecord.UserId == user.UserId;
+            return cancelable ? "Cancel" : string.Empty;
         }
     }
 }
