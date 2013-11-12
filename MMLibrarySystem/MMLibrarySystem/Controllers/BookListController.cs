@@ -58,9 +58,9 @@ namespace MMLibrarySystem.Controllers
             return View(book);
         }
 
-        public ActionResult Borrow(string columid)
+        public ActionResult Borrow(string bookId)
         {
-            var bookid = Convert.ToInt64(columid.Substring(3));
+            var bookid = Convert.ToInt64(bookId);
 
             string message;
             var user = Models.User.Current;
@@ -90,9 +90,9 @@ namespace MMLibrarySystem.Controllers
             return RedirectToAction("Index", "BookList");
         }
 
-        public ActionResult Cancel(string columid)
+        public ActionResult Cancel(string bookId)
         {
-            var bookid = Convert.ToInt64(columid.Substring(3));
+            var bookid = Convert.ToInt64(bookId);
             var user = Models.User.Current;
 
             bool succeed;
