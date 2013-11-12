@@ -32,7 +32,7 @@
         <tr>
             <td>@item.BookNumber
             </td>
-            <td>@Html.ActionLink(@item.Title, "BookDetail", "BookList", new { bookNumber = @item.BookNumber }, null)
+            <td>@Html.ActionLink(item.Title, "BookDetail", "BookList", new { bookNumber = item.BookNumber }, null)
             </td>
             <td>@item.Publisher
             </td>
@@ -41,9 +41,16 @@
             <td id="@stateid">@item.State
             </td>
             @{
-              var operation = @item.Operation;
-                <td id='@colid'>@Ajax.ActionLink(@operation, @operation, new { columid = colid }, new AjaxOptions { UpdateTargetId = "bookList", HttpMethod = "GET", InsertionMode = InsertionMode.Replace })
+              var operation = item.Operation;
+                if (string.IsNullOrEmpty(operation))
+				{
+				<td />
+				}
+				else
+				{
+				<td id='@colid'>@Ajax.ActionLink(operation, operation, new { columid = colid }, new AjaxOptions { UpdateTargetId = "bookList", HttpMethod = "GET", InsertionMode = InsertionMode.Replace })
                 </td>
+				}
             }
         </tr>
       }

@@ -95,13 +95,18 @@ namespace MMLibrarySystem.Controllers
             var bookid = Convert.ToInt64(columid.Substring(3));
             var user = Models.User.Current;
 
-            // TODO: update the refresh logic and error messages
             bool succeed;
             string message;
             using (var db = new BookLibraryContext())
             {
                 var bb = new BookBorrowing(db);
                 succeed = bb.CancelBorrow(user, bookid, out message);
+            }
+
+            if (!succeed)
+            {
+                var errorAlert = string.Format("alert('{0}');", message);
+                return JavaScript(errorAlert);
             }
 
             return RedirectToAction("Index", "BookList");

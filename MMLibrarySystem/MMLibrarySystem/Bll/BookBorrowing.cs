@@ -62,20 +62,21 @@ namespace MMLibrarySystem.Bll
         public bool CancelBorrow(User user, long bookid, out string message)
         {
             var record = _db.BorrowRecords.FirstOrDefault(r => r.BookId == bookid);
-            if (record ==  null)
+            if (record == null)
             {
-                message = "Not borrowed.";
+                message = "Could not cancel a not borrowed book.";
                 return false;
             }
 
             if (record.UserId != user.UserId)
             {
-                message = "Not borrowed by current user.";
+                message = "The book is not borrowed by current user.";
                 return false;
             }
 
             _db.BorrowRecords.Remove(record);
             _db.SaveChanges();
+
             message = string.Empty;
             return true;
         }
