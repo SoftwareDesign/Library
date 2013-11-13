@@ -8,7 +8,7 @@
 {
     HttpMethod = "GET",    
     InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "bookList"
+    UpdateTargetId = "bookListContainer"
 }))
 {
     <fieldset style="border:1px solid black;padding: 1em">
@@ -20,7 +20,3 @@
 }
 
 @Html.Partial("_BookList", Model)
-
-<div class="pageList" mytarget="mytarget">
-    @Html.PagedListPager(Model,page=>Url.Action("Index",new {page}),PagedListRenderOptions.MinimalWithItemCountText)
-</div>

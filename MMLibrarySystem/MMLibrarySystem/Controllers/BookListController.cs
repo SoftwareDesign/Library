@@ -36,6 +36,7 @@ namespace MMLibrarySystem.Controllers
                             b => b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm));
                     bookList = searchResult.Select(CreateBookListItem).ToPagedList(page, pageSize);
                 }
+
                 _bb = null;
             }
 
@@ -58,9 +59,9 @@ namespace MMLibrarySystem.Controllers
             return View(book);
         }
 
-        public ActionResult Borrow(string columid)
+        public ActionResult Borrow(string bookId)
         {
-            var bookid = Convert.ToInt64(columid.Substring(3));
+            var bookid = Convert.ToInt64(bookId);
 
             string message;
             var user = Models.User.Current;
@@ -85,17 +86,14 @@ namespace MMLibrarySystem.Controllers
                 return JavaScript(errorAlert);
             }
 
-            //var result = string.Format("BorrowSuccessAction('{0}');", bookid);
-            //return JavaScript(result);
             return RedirectToAction("Index", "BookList");
         }
 
-        public ActionResult Cancel(string columid)
+        public ActionResult Cancel(string bookId)
         {
-            var bookid = Convert.ToInt64(columid.Substring(3));
+            var bookid = Convert.ToInt64(bookId);
             var user = Models.User.Current;
 
-            // TODO: update the refresh logic and error messages
             bool succeed;
             string message;
             using (var db = new BookLibraryContext())
@@ -104,13 +102,19 @@ namespace MMLibrarySystem.Controllers
                 succeed = bb.CancelBorrow(user, bookid, out message);
             }
 
+            if (!succeed)
+            {
+                var errorAlert = string.Format("alert('{0}');", message);
+                return JavaScript(errorAlert);
+            }
+
             return RedirectToAction("Index", "BookList");
         }
 
         private int GetPageSize()
         {
             int size = 1;
-            string filePath = Server.MapPath(System.Web.HttpContext.Current.Request.ApplicationPath.ToString()) + "GlobalConfig.xml";
+            string filePath = Server.MapPath(System.Web.HttpContext.Current.Request.ApplicationPath) + "GlobalConfig.xml";
             XElement xe = XElement.Load(filePath);
             IEnumerable<XElement> rootCatalog = from root in xe.Elements("PageInfo") select root;
             size = Convert.ToInt32(rootCatalog.FirstOrDefault().Attribute("size").Value);

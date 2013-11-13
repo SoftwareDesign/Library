@@ -1,54 +1,58 @@
 ﻿@model IPagedList<MMLibrarySystem.Models.BookListController.BookListItem>
-
-<script type="text/javascript" src="/Scripts/BorrowBook.js"></script>
-<script type="text/javascript" src="/Scripts/PagerList.js"></script>
-
-<table id="bookList">
-    <tr>
-        <td>
-            Book Number
-        </td>
-        <td>
-            Title
-        </td>
-        <td>
-            Publisher
-        </td>
-        <td>
-            Purchase Date
-        </td>
-        <td>
-            State
-        </td>
-        <td>
-            Operation
-        </td>
-    </tr>
-    @{foreach (var item in Model)
-      {
-
-          string colid = "col" + item.BookId;
-          string stateid = "state" + item.BookId;
+<div id="bookListContainer">
+    <script type="text/javascript" src="/Scripts/BorrowBook.js"></script>
+    <script type="text/javascript" src="/Scripts/PagerList.js"></script>
+    <table>
         <tr>
-            <td>@item.BookNumber
+            <td>
+                Book Number
             </td>
-            <td>@Html.ActionLink(@item.Title, "BookDetail", "BookList", new { bookNumber = @item.BookNumber }, null)
+            <td>
+                Title
             </td>
-            <td>@item.Publisher
+            <td>
+                Publisher
             </td>
-            <td>@item.PurchaseDate
+            <td>
+                Purchase Date
             </td>
-            <td id="@stateid">@item.State
+            <td>
+                State
             </td>
-            @{
-              var operation = @item.Operation;
-                <td id='@colid'>@Ajax.ActionLink(@operation, @operation, new { columid = colid }, new AjaxOptions { UpdateTargetId = "bookList", HttpMethod = "GET", InsertionMode = InsertionMode.Replace })
-                </td>
-            }
+            <td>
+                Operation
+            </td>
         </tr>
-      }
-    }
-</table>
-<!--div class="pageList" mytarget="mytarget">
-    @Html.PagedListPager(Model,page=>Url.Action("Index",new {page}),PagedListRenderOptions.MinimalWithItemCountText)
-</div-->
+        @{foreach (var item in Model)
+          {
+            <tr>
+                <td>@item.BookNumber
+                </td>
+                <td>@Html.ActionLink(item.Title, "BookDetail", "BookList", new { bookNumber = item.BookNumber }, null)
+                </td>
+                <td>@item.Publisher
+                </td>
+                <td>@item.PurchaseDate
+                </td>
+                <td>@item.State
+                </td>
+                @{
+              var operation = item.Operation;
+              if (string.IsNullOrEmpty(operation))
+              {
+                    <td />
+              }
+              else
+              {
+                    <td>@Ajax.ActionLink(operation, operation, new { bookId = item.BookId }, new AjaxOptions { UpdateTargetId = "bookListContainer", HttpMethod = "GET", InsertionMode = InsertionMode.Replace })
+                    </td>
+              }
+                }
+            </tr>
+          }
+        }
+    </table>
+    <div class="pageList" mytarget="mytarget">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.MinimalWithItemCountText)
+    </div>
+</div>
