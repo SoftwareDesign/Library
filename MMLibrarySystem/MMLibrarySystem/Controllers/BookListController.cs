@@ -15,7 +15,7 @@ namespace MMLibrarySystem.Controllers
     {
         private BookBorrowing _bb;
 
-        public ActionResult Index(string searchTerm = null,int page=1)
+        public ActionResult Index(string searchTerm = null, bool showInLibrary = false, int page = 1)
         {
             var pageSize = GetPageSize();
 
