@@ -15,6 +15,16 @@ namespace MMLibrarySystem.Bll
 
         private const string StateBorrowAccepted = "Borrow Accepted";
 
+        private const string OperationNone = "";
+
+        private const string OperationBorrow = "Borrow";
+
+        private const string OperationCancel = "Cancel";
+
+        private const string OperationReturn = "Return";
+
+        private const string OperationCheckOut = "CheckOut";
+
         private readonly BorrowRecord _borrowRecord;
 
         public BookBorrowState(BorrowRecord borrowRecord)
@@ -44,11 +54,26 @@ namespace MMLibrarySystem.Bll
         {
             if (_borrowRecord == null)
             {
-                return "Borrow";
+                return OperationBorrow;
             }
 
             var cancelable = !_borrowRecord.IsCheckedOut && _borrowRecord.UserId == user.UserId;
-            return cancelable ? "Cancel" : string.Empty;
+            return cancelable ? OperationCancel : OperationNone;
+        }
+
+        public string GetAdminOperation(User user)
+        {
+            if (_borrowRecord == null)
+            {
+                return OperationNone;
+            }
+
+            if (user.Role != (int)Roles.Admin)
+            {
+                return OperationNone;
+            }
+
+            return _borrowRecord.IsCheckedOut ? OperationReturn : OperationCheckOut;
         }
     }
 }

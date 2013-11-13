@@ -124,18 +124,17 @@ namespace MMLibrarySystem.Controllers
         private BookListItem CreateBookListItem(Book book)
         {
             var state = _bb.GetBookBorrowState(book.BookId);
-            var item =
-                new BookListItem
-                    {
-                        BookId = book.BookId.ToString(),
-                        BookNumber = book.BookNumber,
-                        Title = book.BookType.Title,
-                        Publisher = book.BookType.Publisher,
-                        PurchaseDate = book.PurchaseDate.ToShortDateString(),
+            var item = new BookListItem
+            {
+                BookId = book.BookId.ToString(),
+                BookNumber = book.BookNumber,
+                Title = book.BookType.Title,
+                Publisher = book.BookType.Publisher,
+                PurchaseDate = book.PurchaseDate.ToShortDateString(),
+                State = state.State,
+                Operation = state.GetUserOperation(Models.User.Current)
+            };
 
-                        State = state.State,
-                        Operation = state.GetUserOperation(Models.User.Current)
-                    };
             return item;
         }
     }
