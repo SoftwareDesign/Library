@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Xml.Linq;
 using MMLibrarySystem.Models;
 using MMLibrarySystem.Bll;
-using MMLibrarySystem.Models.BookListController;
+using MMLibrarySystem.ViewModels.BookList;
 using PagedList;
 
 namespace MMLibrarySystem.Controllers

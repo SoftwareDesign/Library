@@ -177,7 +177,7 @@
     <Compile Include="Bll\BookBorrowing.cs" />
     <Compile Include="Bll\BookBorrowState.cs" />
     <Compile Include="Bll\OperationCategory.cs" />
-    <Compile Include="Models\BookListController\BookListItem.cs" />
+    <Compile Include="ViewModels\BookList\BookListItem.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
