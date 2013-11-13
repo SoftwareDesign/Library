@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Timers;
 using MMLibrarySystem.Models;
-
+using Outlook = Microsoft.Office.Interop.Outlook;
 namespace MMLibrarySystem.Schedule
 {
     public class DailyPlan
@@ -16,7 +16,7 @@ namespace MMLibrarySystem.Schedule
         public DailyPlan()
         {
             _timer=new Timer();
-            _timer.Interval = 24*60*60*1000;
+            _timer.Interval = 2*60*60*1000;
             _timer.Elapsed += BeginCheck;
             _timer.Start();
         }
@@ -38,6 +38,17 @@ namespace MMLibrarySystem.Schedule
 
         private void SendEmail(List<BorrowRecord> borrowRecords)
         {
+            var app = new Outlook.Application();
+            Outlook.MailItem oMsg = (Outlook.MailItem)app.CreateItem(Outlook.OlItemType.olMailItem);
+            Outlook.Recipient oRecip = oMsg.Recipients.Add("106287961@qq.com");
+            oRecip.Resolve();
+            oMsg.Subject = "This is the subject of the test message";
+            oMsg.Body = "This is the text in the message.";
+            oMsg.Save();
+            oMsg.Send();
+            oRecip = null;
+            oMsg = null;
+            app = null;
         }
     }
 }
