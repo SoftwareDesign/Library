@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using MMLibrarySystem.Models;
@@ -13,6 +12,8 @@ namespace MMLibrarySystem.Controllers
 {
     public class BookListController : Controller
     {
+        private const string StateInLib = "In Library";
+
         private BookBorrowing _bb;
 
         public ActionResult Index(string searchTerm = null, bool showInLibrary = false, int page = 1)
@@ -25,16 +26,44 @@ namespace MMLibrarySystem.Controllers
                 _bb = new BookBorrowing(db);
                 var tempBooks = db.Books.Include("BookType");
 
-                if (string.IsNullOrEmpty(searchTerm))
+                if (showInLibrary)
                 {
-                    bookList = tempBooks.OrderByDescending(b => b.BookNumber).Select(CreateBookListItem).ToPagedList(page, pageSize);
+                    if (string.IsNullOrEmpty(searchTerm))
+                    {
+                        bookList =
+                            tempBooks.OrderByDescending(b => b.BookNumber)
+                                     .Select(CreateBookListItem)
+                                     .Where(book => book.State == StateInLib)
+                                     .ToPagedList(page, pageSize);
+                    }
+                    else
+                    {
+                        var searchResult =
+                            tempBooks.Where(
+                                b =>
+                                b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm));
+                        bookList = searchResult.Select(CreateBookListItem)
+                            .Where(book => book.State == StateInLib)
+                            .ToPagedList(page, pageSize);
+                    }
                 }
                 else
                 {
-                    var searchResult =
-                        tempBooks.Where(
-                            b => b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm));
-                    bookList = searchResult.Select(CreateBookListItem).ToPagedList(page, pageSize);
+                    if (string.IsNullOrEmpty(searchTerm))
+                    {
+                        bookList =
+                            tempBooks.OrderByDescending(b => b.BookNumber)
+                                     .Select(CreateBookListItem)
+                                     .ToPagedList(page, pageSize);
+                    }
+                    else
+                    {
+                        var searchResult =
+                            tempBooks.Where(
+                                b =>
+                                b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm));
+                        bookList = searchResult.Select(CreateBookListItem).ToPagedList(page, pageSize);
+                    }
                 }
 
                 _bb = null;
