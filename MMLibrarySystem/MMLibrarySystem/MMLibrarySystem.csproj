@@ -195,6 +195,9 @@
     <Compile Include="Models\SubscribeRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schedule\DailyPlan.cs" />
+    <Compile Include="ViewModels\UserOperation.cs" />
+    <Compile Include="ViewModels\UserOperationFactory.cs" />
+    <Compile Include="Views\HtmlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\BookLibrary.mdf" />

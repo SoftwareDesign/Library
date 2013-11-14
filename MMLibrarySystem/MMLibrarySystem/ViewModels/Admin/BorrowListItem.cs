@@ -24,6 +24,6 @@ namespace MMLibrarySystem.ViewModels.Admin
 
         public string State { get; set; }
 
-        public string Operation { get; set; }
+        public UserOperation Operation { get; set; }
     }
 }

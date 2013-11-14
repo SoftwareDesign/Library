@@ -1,4 +1,5 @@
-﻿@model IEnumerable<MMLibrarySystem.ViewModels.Admin.BorrowListItem>
+﻿@using MMLibrarySystem.Views
+@model IEnumerable<MMLibrarySystem.ViewModels.Admin.BorrowListItem>
 @{
     ViewBag.Title = "Borrowed Books";
 }
@@ -42,14 +43,7 @@
             </td>
             <td>@item.State
             </td>
-            <td>
-                @{var operation = item.Operation;
-                  if (!string.IsNullOrEmpty(operation))
-                  {
-                      var onClickOper = string.Format("return confirm('Are you sure to {0} this book?')", operation);
-                    @Html.ActionLink(operation, operation, "Admin", new { borrowId = item.BorrowId }, new { onclick = onClickOper })
-                  }
-                }
+            <td>@Html.UserOperation(item.Operation)
             </td>
         </tr>
       }

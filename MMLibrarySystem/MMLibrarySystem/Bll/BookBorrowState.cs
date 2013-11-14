@@ -1,4 +1,5 @@
 using MMLibrarySystem.Models;
+using MMLibrarySystem.ViewModels;
 
 namespace MMLibrarySystem.Bll
 {
@@ -50,30 +51,33 @@ namespace MMLibrarySystem.Bll
             }
         }
 
-        public string GetUserOperation(User user)
+        public string GetUserOperation(User currentUser)
         {
             if (_borrowRecord == null)
             {
                 return OperationBorrow;
             }
 
-            var cancelable = !_borrowRecord.IsCheckedOut && _borrowRecord.UserId == user.UserId;
+            var cancelable = !_borrowRecord.IsCheckedOut && _borrowRecord.UserId == currentUser.UserId;
             return cancelable ? OperationCancel : OperationNone;
         }
 
-        public string GetAdminOperation(User user)
+        public UserOperation GetAdminOperation(User currentUser)
         {
             if (_borrowRecord == null)
             {
-                return OperationNone;
+                return null;
             }
 
-            if (user.Role != (int)Roles.Admin)
+            if (currentUser.Role != (int)Roles.Admin)
             {
-                return OperationNone;
+                return null;
             }
 
-            return _borrowRecord.IsCheckedOut ? OperationReturn : OperationCheckOut;
+            var recordId = _borrowRecord.BorrowRecordId;
+            return _borrowRecord.IsCheckedOut ?
+                UserOperationFactory.CreateReturnOperation(recordId) :
+                UserOperationFactory.CreateCheckOutOperation(recordId);
         }
     }
 }
