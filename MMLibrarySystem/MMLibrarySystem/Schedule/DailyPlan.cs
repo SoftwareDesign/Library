@@ -15,8 +15,8 @@ namespace MMLibrarySystem.Schedule
 
         public DailyPlan()
         {
-            _timer=new Timer();
-            _timer.Interval = 2*60*60*1000;
+            _timer = new Timer();
+            _timer.Interval = 10 * 1000;
             _timer.Elapsed += BeginCheck;
             _timer.Start();
         }
@@ -31,8 +31,12 @@ namespace MMLibrarySystem.Schedule
             using (BookLibraryContext db = new BookLibraryContext())
             {
                 var borrowRecords = db.BorrowRecords;
-                var shouldReturnBookRecords = borrowRecords.Where(br => (DateTime.Now - br.BorrowedDate).Days > 31).ToList();
-                SendEmail(shouldReturnBookRecords);
+                var shouldReturnBookRecords = borrowRecords.Where(br => (DateTime.Now - br.BorrowedDate).Days < 31);
+                foreach (var shouldReturnBookRecord in shouldReturnBookRecords)
+                {
+
+                }
+                SendEmail(null);
             }
         }
 

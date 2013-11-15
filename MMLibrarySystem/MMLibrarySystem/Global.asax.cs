@@ -33,6 +33,7 @@ namespace MMLibrarySystem
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+            DailyPlan dailyPlan = new DailyPlan();
         }
 
         protected void Session_Start(object sender, EventArgs e)
