@@ -1,9 +1,8 @@
-﻿@model IEnumerable<MMLibrarySystem.Models.BorrowRecord>
-
+﻿@using MMLibrarySystem.Views
+@model IEnumerable<MMLibrarySystem.ViewModels.Admin.BorrowListItem>
 @{
     ViewBag.Title = "Borrowed Books";
 }
-
 <table id="bookList">
     <tr>
         <td>
@@ -32,29 +31,19 @@
         foreach (var item in Model)
         {
         <tr>
-            <td>@item.Book.BookNumber
+            <td>@item.BookNumber
             </td>
-            <td>@item.Book.BookType.Title
+            <td>@item.Title
             </td>
-            <td>@item.User.DisplayName
+            <td>@item.UserName
             </td>
-            <td>@item.BorrowedDate.ToShortDateString()
+            <td>@item.BorrowDate
             </td>
-            <td>@item.BorrowedDate.AddDays(31).ToShortDateString()
+            <td>@item.ReturnDate
             </td>
-            <td>@(item.IsCheckedOut ? "Checked Out" : "Borrow Accepted")
+            <td>@item.State
             </td>
-            <td>
-                @{
-            if (item.IsCheckedOut)
-            {
-                    @Html.ActionLink("Return", "Return", "Admin", new { borrowId = @item.BorrowRecordId }, new { onclick = "return confirm('Are you sure to return this book?')" })
-            }
-            else
-            {
-                    @Html.ActionLink("Check Out", "CheckOut", "Admin", new { borrowId = @item.BorrowRecordId }, null)
-            }
-                }
+            <td>@Html.UserOperation(item.Operation)
             </td>
         </tr>
       }

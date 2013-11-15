@@ -180,7 +180,8 @@
     <Compile Include="Bll\BookBorrowing.cs" />
     <Compile Include="Bll\BookBorrowState.cs" />
     <Compile Include="Bll\OperationCategory.cs" />
-    <Compile Include="Models\BookListController\BookListItem.cs" />
+    <Compile Include="ViewModels\Admin\BorrowListItem.cs" />
+    <Compile Include="ViewModels\BookList\BookListItem.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -197,6 +198,9 @@
     <Compile Include="Models\SubscribeRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schedule\DailyPlan.cs" />
+    <Compile Include="ViewModels\UserOperation.cs" />
+    <Compile Include="ViewModels\UserOperationFactory.cs" />
+    <Compile Include="Views\HtmlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\BookLibrary.mdf" />

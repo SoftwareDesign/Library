@@ -1,4 +1,5 @@
 using MMLibrarySystem.Models;
+using MMLibrarySystem.ViewModels;
 
 namespace MMLibrarySystem.Bll
 {
@@ -14,6 +15,16 @@ namespace MMLibrarySystem.Bll
         private const string StateCheckedOut = "Checked Out";
 
         private const string StateBorrowAccepted = "Borrow Accepted";
+
+        private const string OperationNone = "";
+
+        private const string OperationBorrow = "Borrow";
+
+        private const string OperationCancel = "Cancel";
+
+        private const string OperationReturn = "Return";
+
+        private const string OperationCheckOut = "CheckOut";
 
         private readonly BorrowRecord _borrowRecord;
 
@@ -40,15 +51,33 @@ namespace MMLibrarySystem.Bll
             }
         }
 
-        public string GetUserOperation(User user)
+        public string GetUserOperation(User currentUser)
         {
             if (_borrowRecord == null)
             {
-                return "Borrow";
+                return OperationBorrow;
             }
 
-            var cancelable = !_borrowRecord.IsCheckedOut && _borrowRecord.UserId == user.UserId;
-            return cancelable ? "Cancel" : string.Empty;
+            var cancelable = !_borrowRecord.IsCheckedOut && _borrowRecord.UserId == currentUser.UserId;
+            return cancelable ? OperationCancel : OperationNone;
+        }
+
+        public UserOperation GetAdminOperation(User currentUser)
+        {
+            if (_borrowRecord == null)
+            {
+                return null;
+            }
+
+            if (currentUser.Role != (int)Roles.Admin)
+            {
+                return null;
+            }
+
+            var recordId = _borrowRecord.BorrowRecordId;
+            return _borrowRecord.IsCheckedOut ?
+                UserOperationFactory.CreateReturnOperation(recordId) :
+                UserOperationFactory.CreateCheckOutOperation(recordId);
         }
     }
 }

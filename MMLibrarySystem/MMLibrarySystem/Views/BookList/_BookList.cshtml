@@ -1,4 +1,4 @@
-﻿@model IPagedList<MMLibrarySystem.Models.BookListController.BookListItem>
+﻿@model IPagedList<MMLibrarySystem.ViewModels.BookList.BookListItem>
 <div id="bookListContainer">
     <script type="text/javascript" src="/Scripts/BorrowBook.js"></script>
     <script type="text/javascript" src="/Scripts/PagerList.js"></script>
@@ -36,18 +36,14 @@
                 </td>
                 <td>@item.State
                 </td>
-                @{
-              var operation = item.Operation;
-              if (string.IsNullOrEmpty(operation))
-              {
-                    <td />
-              }
-              else
-              {
-                    <td>@Ajax.ActionLink(operation, operation, new { bookId = item.BookId }, new AjaxOptions { UpdateTargetId = "bookListContainer", HttpMethod = "GET", InsertionMode = InsertionMode.Replace })
-                    </td>
-              }
-                }
+                <td>
+                    @{var operation = item.Operation;
+                      if (!string.IsNullOrEmpty(operation))
+                      {
+                        @Ajax.ActionLink(operation, operation, new { bookId = item.BookId }, new AjaxOptions { UpdateTargetId = "bookListContainer", HttpMethod = "GET", InsertionMode = InsertionMode.Replace })
+                      }
+                    }
+                </td>
             </tr>
           }
         }
