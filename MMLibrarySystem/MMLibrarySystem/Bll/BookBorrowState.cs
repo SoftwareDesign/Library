@@ -26,10 +26,19 @@ namespace MMLibrarySystem.Bll
 
         private const string OperationCheckOut = "CheckOut";
 
+        private readonly long _bookId;
+
         private readonly BorrowRecord _borrowRecord;
+
+        public BookBorrowState(long bookId)
+        {
+            _bookId = bookId;
+            _borrowRecord = null;
+        }
 
         public BookBorrowState(BorrowRecord borrowRecord)
         {
+            _bookId = borrowRecord.BookId;
             _borrowRecord = borrowRecord;
         }
 
@@ -51,15 +60,15 @@ namespace MMLibrarySystem.Bll
             }
         }
 
-        public string GetUserOperation(User currentUser)
+        public UserOperation GetUserOperation(User currentUser)
         {
             if (_borrowRecord == null)
             {
-                return OperationBorrow;
+                return UserOperationFactory.CreateBorrowOperation(_bookId);
             }
 
             var cancelable = !_borrowRecord.IsCheckedOut && _borrowRecord.UserId == currentUser.UserId;
-            return cancelable ? OperationCancel : OperationNone;
+            return cancelable ? UserOperationFactory.CreateCancelOperation(_bookId) : null;
         }
 
         public UserOperation GetAdminOperation(User currentUser)

@@ -10,7 +10,7 @@ namespace MMLibrarySystem.ViewModels.BookList
 
         public string BookNumber { get; set; }
 
-        public string Title { get; set; }
+        public UserOperation Title { get; set; }
 
         public string Publisher { get; set; }
 
@@ -18,6 +18,6 @@ namespace MMLibrarySystem.ViewModels.BookList
 
         public string State { get; set; }
 
-        public string Operation { get; set; }
+        public UserOperation Operation { get; set; }
     }
 }

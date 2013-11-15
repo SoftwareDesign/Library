@@ -40,7 +40,7 @@ namespace MMLibrarySystem.Views
                 htmlAttributes);
         }
 
-        public static MvcHtmlString AjaxUserOperation(this AjaxHelper helper, UserOperation operation)
+        public static MvcHtmlString UserOperation(this AjaxHelper helper, UserOperation operation)
         {
             if (operation == null)
             {
@@ -52,7 +52,7 @@ namespace MMLibrarySystem.Views
                 return MvcHtmlString.Create(operation.Label);
             }
             
-            if (operation.AjaxOptions != null)
+            if (operation.AjaxOptions == null)
             {
                 throw new InvalidOperationException("Please use UserOperation for Non-Ajax Operations.");
             }

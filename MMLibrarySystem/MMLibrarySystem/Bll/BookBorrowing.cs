@@ -24,7 +24,7 @@ namespace MMLibrarySystem.Bll
         public BookBorrowState GetBookBorrowState(long bookId)
         {
             var record = _recordCache.FirstOrDefault(r => r.BookId == bookId);
-            return new BookBorrowState(record);
+            return record != null ? new BookBorrowState(record) : new BookBorrowState(bookId);
         }
 
         public bool IsBorrowed(long bookId)

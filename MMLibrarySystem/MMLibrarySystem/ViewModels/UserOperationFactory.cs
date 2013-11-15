@@ -9,6 +9,14 @@ namespace MMLibrarySystem.ViewModels
     /// </summary>
     public static class UserOperationFactory
     {
+        public static UserOperation CreateBookDetailOperation(string title, string bookNumber)
+        {
+            return new UserOperation(title, "BookDetail", "BookList")
+            {
+                RouteValues = BuildRouteValues("bookNumber", bookNumber)
+            };
+        }
+
         public static UserOperation CreateBorrowOperation(long bookId)
         {
             return new UserOperation("Borrow", "Borrow", "BookList")

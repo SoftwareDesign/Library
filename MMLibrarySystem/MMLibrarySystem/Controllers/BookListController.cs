@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Xml.Linq;
 using MMLibrarySystem.Models;
 using MMLibrarySystem.Bll;
+using MMLibrarySystem.ViewModels;
 using MMLibrarySystem.ViewModels.BookList;
 using PagedList;
 
@@ -82,16 +83,21 @@ namespace MMLibrarySystem.Controllers
             Book book;
             using (var db = new BookLibraryContext())
             {
-                book = db.Books.Include("BookType").First(b => b.BookNumber == bookNumber);
+                book = db.Books.Include("BookType").FirstOrDefault(b => b.BookNumber == bookNumber);
+            }
+
+            if (book == null)
+            {
+                var errorAlert = string.Format(
+                    "alert('Invalid book number [{0}]. Please contact the admin.');", bookNumber);
+                return JavaScript(errorAlert);
             }
 
             return View(book);
         }
 
-        public ActionResult Borrow(string bookId)
+        public ActionResult Borrow(long bookId)
         {
-            var bookid = Convert.ToInt64(bookId);
-
             string message;
             var user = Models.User.Current;
             if (user == null)
@@ -106,7 +112,7 @@ namespace MMLibrarySystem.Controllers
             using (var db = new BookLibraryContext())
             {
                 var bb = new BookBorrowing(db);
-                succeed = bb.BorrowBook(user, bookid, out message);
+                succeed = bb.BorrowBook(user, bookId, out message);
             }
 
             if (!succeed)
@@ -118,9 +124,8 @@ namespace MMLibrarySystem.Controllers
             return RedirectToAction("Index", "BookList");
         }
 
-        public ActionResult Cancel(string bookId)
+        public ActionResult Cancel(long bookId)
         {
-            var bookid = Convert.ToInt64(bookId);
             var user = Models.User.Current;
 
             bool succeed;
@@ -128,7 +133,7 @@ namespace MMLibrarySystem.Controllers
             using (var db = new BookLibraryContext())
             {
                 var bb = new BookBorrowing(db);
-                succeed = bb.CancelBorrow(user, bookid, out message);
+                succeed = bb.CancelBorrow(user, bookId, out message);
             }
 
             if (!succeed)
@@ -157,7 +162,7 @@ namespace MMLibrarySystem.Controllers
             {
                 BookId = book.BookId.ToString(),
                 BookNumber = book.BookNumber,
-                Title = book.BookType.Title,
+                Title = UserOperationFactory.CreateBookDetailOperation(book.BookType.Title, book.BookNumber),
                 Publisher = book.BookType.Publisher,
                 PurchaseDate = book.PurchaseDate.ToShortDateString(),
                 State = state.State,
