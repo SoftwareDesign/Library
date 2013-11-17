@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MMLibrarySystem.Bll;
 using MMLibrarySystem.Models;
 using MMLibrarySystem.ViewModels.Admin;
+using MMLibrarySystem.ViewModels.BookList;
 
 namespace MMLibrarySystem.Controllers
 {
@@ -48,20 +49,45 @@ namespace MMLibrarySystem.Controllers
         [HttpGet]
         public ActionResult RegistNewBook()
         {
-            var book = new Book();
-            book.BookType = new BookType();
-            return View(book);
+            var info = new BookInfo { PurchaseDate = DateTime.Now.ToShortDateString() };
+            return View(info);
         }
 
         [HttpPost]
-        public ActionResult RegistNewBook(Book book)
+        public ActionResult RegistNewBook(BookInfo info)
         {
             using (var db = new BookLibraryContext())
             {
+                var book = CreateNewBook(info);
                 db.Books.Add(book);
                 db.SaveChanges();
             }
+
             return Redirect("/");
+        }
+
+        private Book CreateNewBook(BookInfo info)
+        {
+            var type = new BookType
+            {
+                Title = info.Title,
+                Description = info.Description,
+                UserAndTeam = info.UserAndTeam,
+                Publisher = info.Publisher,
+                Supplier = info.Supplier
+            };
+
+            var book = new Book
+            {
+                BookNumber = info.BookNumber,
+                NetPrice = float.Parse(info.NetPrice),
+                PurchaseDate = DateTime.Parse(info.PurchaseDate),
+                RequestedBy = info.RequestedBy,
+                PurchaseUrl = info.PurchaseUrl,
+                BookType = type
+            };
+
+            return book;
         }
 
         private List<BorrowListItem> GetAllBorrowInfo()
