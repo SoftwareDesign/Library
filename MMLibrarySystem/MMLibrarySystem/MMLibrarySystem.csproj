@@ -191,6 +191,7 @@
     <Compile Include="Utilities\GlobalConfigReader.cs" />
     <Compile Include="Utilities\LogWriter.cs" />
     <Compile Include="ViewModels\Admin\BorrowListItem.cs" />
+    <Compile Include="ViewModels\BookList\BookInfo.cs" />
     <Compile Include="ViewModels\BookList\BookListItem.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Controllers\AdminController.cs" />

@@ -94,7 +94,8 @@ namespace MMLibrarySystem.Controllers
                 return JavaScript(errorAlert);
             }
 
-            return View(book);
+            var info = BookInfo.Create(book);
+            return View(info);
         }
 
         public ActionResult Borrow(long bookId)

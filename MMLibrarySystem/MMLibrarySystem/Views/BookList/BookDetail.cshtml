@@ -1,19 +1,17 @@
-﻿@model MMLibrarySystem.Models.Book
+﻿@model MMLibrarySystem.ViewModels.BookList.BookInfo
 
 @{
     ViewBag.Title = "Book Detail";
 }
 
-<h2>Book Detail</h2>
-
 <table id="bookDetail">
     <tr>
         <td>Title</td>
-        <td>@Model.BookType.Title</td>
+        <td>@Model.Title</td>
     </tr>
     <tr>
         <td>Publisher</td>
-        <td>@Model.BookType.Publisher</td>
+        <td>@Model.Publisher</td>
     </tr>
     <tr>
         <td>ID</td>
@@ -37,14 +35,14 @@
     </tr>
     <tr>
         <td>User And Team</td>
-        <td>@Model.BookType.UserAndTeam</td>
+        <td>@Model.UserAndTeam</td>
     </tr>
     <tr>
         <td>Supplier</td>
-        <td>@Model.BookType.Supplier</td>
+        <td>@Model.Supplier</td>
     </tr>
     <tr>
         <td>Description</td>
-        <td>@Model.BookType.Description</td>
+        <td>@Model.Description</td>
     </tr>
 </table>

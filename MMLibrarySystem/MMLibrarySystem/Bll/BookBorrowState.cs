@@ -16,16 +16,6 @@ namespace MMLibrarySystem.Bll
 
         private const string StateBorrowAccepted = "Borrow Accepted";
 
-        private const string OperationNone = "";
-
-        private const string OperationBorrow = "Borrow";
-
-        private const string OperationCancel = "Cancel";
-
-        private const string OperationReturn = "Return";
-
-        private const string OperationCheckOut = "CheckOut";
-
         private readonly long _bookId;
 
         private readonly BorrowRecord _borrowRecord;
