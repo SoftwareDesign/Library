@@ -61,6 +61,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -180,6 +181,24 @@
     <Compile Include="Bll\BookBorrowing.cs" />
     <Compile Include="Bll\BookBorrowState.cs" />
     <Compile Include="Bll\OperationCategory.cs" />
+    <Compile Include="Migrations\201311170500199_InitialCreate.cs" />
+    <Compile Include="Migrations\201311170500199_InitialCreate.Designer.cs">
+      <DependentUpon>201311170500199_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201311170651377_AddEmailAdressInUser.cs" />
+    <Compile Include="Migrations\201311170651377_AddEmailAdressInUser.Designer.cs">
+      <DependentUpon>201311170651377_AddEmailAdressInUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Schedule\EmaiImplementations\EmailSenderByOutlook.cs" />
+    <Compile Include="Schedule\EmaiImplementations\EmailSenderMock.cs" />
+    <Compile Include="Schedule\EmailContext.cs" />
+    <Compile Include="Schedule\Interfaces\IEmailSendable.cs" />
+    <Compile Include="Schedule\Interfaces\ISchedulable.cs" />
+    <Compile Include="Schedule\ScheduleRules\OutOfDateRule.cs" />
+    <Compile Include="Schedule\ScheduleRules\RulesCollection.cs" />
+    <Compile Include="Utilities\GlobalConfigReader.cs" />
+    <Compile Include="Utilities\LogWriter.cs" />
     <Compile Include="ViewModels\Admin\BorrowListItem.cs" />
     <Compile Include="ViewModels\BookList\BookListItem.cs" />
     <Compile Include="Models\Roles.cs" />
@@ -328,6 +347,7 @@
     <Content Include="Views\BookList\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="LogFile.log" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\BookList\_BookList.cshtml" />
     <Content Include="Views\BookList\BookDetail.cshtml" />
@@ -341,6 +361,14 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201311170500199_InitialCreate.resx">
+      <DependentUpon>201311170500199_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311170651377_AddEmailAdressInUser.resx">
+      <DependentUpon>201311170651377_AddEmailAdressInUser.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

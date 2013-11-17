@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web;
-using MMLibrarySystem.Bll;
 
 namespace MMLibrarySystem.Models
 {
@@ -46,6 +43,8 @@ namespace MMLibrarySystem.Models
         public string LoginName { get; set; }
 
         public string FullName { get; set; }
+
+        public string EmailAdress { get; set; }
 
         public int Role { get; set; }
 

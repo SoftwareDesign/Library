@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Xml.Linq;
 using MMLibrarySystem.Models;
+using MMLibrarySystem.Utilities;
 
 namespace MMLibrarySystem.Bll
 {
@@ -114,10 +115,9 @@ namespace MMLibrarySystem.Bll
         private static int GetBorrowLimit()
         {
             int number = 5;
-            string filePath = AppDomain.CurrentDomain.BaseDirectory + "GlobalConfig.xml";
-            XElement xe = XElement.Load(filePath);
-            IEnumerable<XElement> rootCatalog = from root in xe.Elements("BorrowLimit") select root;
-            number = Convert.ToInt32(rootCatalog.FirstOrDefault().Attribute("number").Value);
+            string getBorrowLimitValue = GlobalConfigReader.ReadFromGlobalConfig("BorrowNumberLimit", "number");
+            if (!string.IsNullOrEmpty(getBorrowLimitValue))
+                number = Convert.ToInt32(getBorrowLimitValue);
             return number;
         }
     }

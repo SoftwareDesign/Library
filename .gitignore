@@ -3,3 +3,9 @@ MMLibrarySystem/MMLibrarySystem/bin
 MMLibrarySystem/_ReSharper.MMLibrarySystem
 MMLibrarySystem/*.suo
 MMLibrarySystem/*.user
+MMLibrarySystem/MMLibrarySystem/Web.config
+MMLibrarySystem/MMLibrarySystem/Web.config
+MMLibrarySystem/MMLibrarySystem/Web.config
+MMLibrarySystem/MMLibrarySystem/App_Data/BookLibrary.ldf
+MMLibrarySystem/MMLibrarySystem/App_Data/BookLibrary.mdf
+MMLibrarySystem/MMLibrarySystem/App_Data/BookLibrary_log.LDF

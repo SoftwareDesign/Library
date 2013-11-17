@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Timers;
+﻿using System.Timers;
 using MMLibrarySystem.Models;
-using Outlook = Microsoft.Office.Interop.Outlook;
+using MMLibrarySystem.Schedule.Interfaces;
+using MMLibrarySystem.Schedule.ScheduleRules;
+
 namespace MMLibrarySystem.Schedule
 {
     public class DailyPlan
     {
         private Timer _timer;
 
-        private const int _daysBeforeDeadline = 3;
+        private IEmailSendable _email;
 
-        public DailyPlan()
+        public DailyPlan(IEmailSendable emailSender)
         {
+            _email = emailSender;
             _timer = new Timer();
-            _timer.Interval = 10 * 1000;
+            _timer.Interval = 24*60*60*1000;
             _timer.Elapsed += BeginCheck;
             _timer.Start();
         }
@@ -30,29 +29,17 @@ namespace MMLibrarySystem.Schedule
         {
             using (BookLibraryContext db = new BookLibraryContext())
             {
-                var borrowRecords = db.BorrowRecords;
-                var shouldReturnBookRecords = borrowRecords.Where(br => (DateTime.Now - br.BorrowedDate).Days < 31);
-                foreach (var shouldReturnBookRecord in shouldReturnBookRecords)
+                var borrowRecords = db.BorrowRecords.Include("User").Include("Book").Include("Book.BookType");
+                var ruleList = RulesCollection.GetRules();
+                foreach (var rule in ruleList)
                 {
-
+                    var emailContextList = rule.ExcuteScheduleRule(borrowRecords);
+                    foreach (var context in emailContextList)
+                    {
+                        _email.SendEmail(context);
+                    }
                 }
-                SendEmail(null);
             }
-        }
-
-        private void SendEmail(List<BorrowRecord> borrowRecords)
-        {
-            var app = new Outlook.Application();
-            Outlook.MailItem oMsg = (Outlook.MailItem)app.CreateItem(Outlook.OlItemType.olMailItem);
-            Outlook.Recipient oRecip = oMsg.Recipients.Add("106287961@qq.com");
-            oRecip.Resolve();
-            oMsg.Subject = "This is the subject of the test message";
-            oMsg.Body = "This is the text in the message.";
-            oMsg.Save();
-            oMsg.Send();
-            oRecip = null;
-            oMsg = null;
-            app = null;
         }
     }
 }

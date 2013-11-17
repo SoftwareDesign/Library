@@ -10,6 +10,7 @@ using System.Data.Entity;
 
 using MMLibrarySystem.Models;
 using MMLibrarySystem.Schedule;
+using MMLibrarySystem.Schedule.EmaiImplementations;
 
 namespace MMLibrarySystem
 {
@@ -33,7 +34,7 @@ namespace MMLibrarySystem
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
-            DailyPlan dailyPlan = new DailyPlan();
+            //DailyPlan dailyPlan = new DailyPlan(new EmailSenderMock());
         }
 
         protected void Session_Start(object sender, EventArgs e)
@@ -46,7 +47,7 @@ namespace MMLibrarySystem
                 {
                     using (var db = new BookLibraryContext())
                     {
-                        var debgger = new User { LoginName = loginName, Role = (int)Roles.Admin };
+                        var debgger = new User { LoginName = loginName, Role = (int)Roles.Admin, EmailAdress = "test@email.com" };
                         db.Users.Add(debgger);
                         db.SaveChanges();
                     }

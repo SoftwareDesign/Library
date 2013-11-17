@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Xml.Linq;
 using MMLibrarySystem.Models;
 using MMLibrarySystem.Bll;
+using MMLibrarySystem.Utilities;
 using MMLibrarySystem.ViewModels;
 using MMLibrarySystem.ViewModels.BookList;
 using PagedList;
@@ -147,11 +148,10 @@ namespace MMLibrarySystem.Controllers
 
         private int GetPageSize()
         {
-            int size = 1;
-            string filePath = Server.MapPath(System.Web.HttpContext.Current.Request.ApplicationPath) + "GlobalConfig.xml";
-            XElement xe = XElement.Load(filePath);
-            IEnumerable<XElement> rootCatalog = from root in xe.Elements("PageInfo") select root;
-            size = Convert.ToInt32(rootCatalog.FirstOrDefault().Attribute("size").Value);
+            int size = 10;
+            string getPageSizeValue = GlobalConfigReader.ReadFromGlobalConfig("PageInfo", "size");
+            if (!string.IsNullOrEmpty(getPageSizeValue))
+                size = Convert.ToInt32(getPageSizeValue);
             return size;
         }
 
