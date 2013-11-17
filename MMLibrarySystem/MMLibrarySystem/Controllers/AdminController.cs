@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MMLibrarySystem.Bll;
 using MMLibrarySystem.Models;
+using MMLibrarySystem.ViewModels;
 using MMLibrarySystem.ViewModels.Admin;
 using MMLibrarySystem.ViewModels.BookList;
 
@@ -47,25 +48,52 @@ namespace MMLibrarySystem.Controllers
         }
         
         [HttpGet]
-        public ActionResult RegistNewBook()
+        public ActionResult RegistNewBook(string operation, string bookNumber)
         {
-            var edit = new EditBookInfo { PurchaseDate = DateTime.Now.ToShortDateString(), Operation = "add" };
+            EditBookInfo edit;
+            if (operation == "Add")
+            {
+                edit = new EditBookInfo { PurchaseDate = DateTime.Now.ToShortDateString(), Operation = "Add" };
+                return View(edit);
+            }
+
+            Book book;
+            using (var db = new BookLibraryContext())
+            {
+                book = db.Books.Include("BookType").FirstOrDefault(b => b.BookNumber == bookNumber);
+            }
+
+            if (book == null)
+            {
+                return Alert("Invalid book number [{0}].", bookNumber);
+            }
+
+            edit = new EditBookInfo { Operation = "Edit" };
+            edit.LoadInfo(book);
             return View(edit);
         }
 
         [HttpPost]
         public ActionResult RegistNewBook(EditBookInfo editInfo)
         {
-            if (editInfo.Operation != "add")
+            if (editInfo.Operation == "Add")
             {
-                Alert("Invalid edit book operation: {0}.", editInfo.Operation);
+                using (var db = new BookLibraryContext())
+                {
+                    var book = CreateNewBook(editInfo);
+                    db.Books.Add(book);
+                    db.SaveChanges();
+                }
             }
-
-            using (var db = new BookLibraryContext())
+            else if (editInfo.Operation == "Edit")
             {
-                var book = CreateNewBook(editInfo);
-                db.Books.Add(book);
-                db.SaveChanges();
+                using (var db = new BookLibraryContext())
+                {
+                    var bookNumber = editInfo.BookNumber;
+                    var book = db.Books.Include("BookType").FirstOrDefault(b => b.BookNumber == bookNumber);
+                    editInfo.StoreInfo(book);
+                    db.SaveChanges();
+                }
             }
 
             var bookDetailUrl = string.Format("/BookList/BookDetail?bookNumber={0}", editInfo.BookNumber);

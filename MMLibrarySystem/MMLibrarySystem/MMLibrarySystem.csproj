@@ -193,7 +193,7 @@
     <Compile Include="Controllers\MyControllerBase.cs" />
     <Compile Include="ViewModels\Admin\EditBookInfo.cs" />
     <Compile Include="ViewModels\Admin\BorrowListItem.cs" />
-    <Compile Include="ViewModels\BookList\BookInfo.cs" />
+    <Compile Include="ViewModels\BookInfo.cs" />
     <Compile Include="ViewModels\BookList\BookListItem.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -211,6 +211,7 @@
     <Compile Include="Models\SubscribeRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schedule\DailyPlan.cs" />
+    <Compile Include="ViewModels\BookList\BookDetailInfo.cs" />
     <Compile Include="ViewModels\UserOperation.cs" />
     <Compile Include="ViewModels\UserOperationFactory.cs" />
     <Compile Include="Views\HtmlExtensions.cs" />

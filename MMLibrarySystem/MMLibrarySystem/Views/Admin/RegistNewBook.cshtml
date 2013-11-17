@@ -53,5 +53,5 @@
             <td>@Html.TextAreaFor(model => model.Description)</td>
         </tr>
     </table>
-    <input type="submit" value="Regist" onclick=" return confirm('Are you sure to regist this book?'); "/>
+    <input type="submit" value="@Model.Operation" onclick=" return confirm('Are you sure to regist this book?'); "/>
 }
