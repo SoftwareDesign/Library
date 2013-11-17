@@ -190,6 +190,8 @@
     <Compile Include="Schedule\ScheduleRules\RulesCollection.cs" />
     <Compile Include="Utilities\GlobalConfigReader.cs" />
     <Compile Include="Utilities\LogWriter.cs" />
+    <Compile Include="Controllers\MyControllerBase.cs" />
+    <Compile Include="ViewModels\Admin\EditBookInfo.cs" />
     <Compile Include="ViewModels\Admin\BorrowListItem.cs" />
     <Compile Include="ViewModels\BookList\BookInfo.cs" />
     <Compile Include="ViewModels\BookList\BookListItem.cs" />

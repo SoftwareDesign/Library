@@ -10,7 +10,7 @@ using MMLibrarySystem.ViewModels.BookList;
 
 namespace MMLibrarySystem.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : MyControllerBase
     {
         public ActionResult Index()
         {
@@ -49,21 +49,27 @@ namespace MMLibrarySystem.Controllers
         [HttpGet]
         public ActionResult RegistNewBook()
         {
-            var info = new BookInfo { PurchaseDate = DateTime.Now.ToShortDateString() };
-            return View(info);
+            var edit = new EditBookInfo { PurchaseDate = DateTime.Now.ToShortDateString(), Operation = "add" };
+            return View(edit);
         }
 
         [HttpPost]
-        public ActionResult RegistNewBook(BookInfo info)
+        public ActionResult RegistNewBook(EditBookInfo editInfo)
         {
+            if (editInfo.Operation != "add")
+            {
+                Alert("Invalid edit book operation: {0}.", editInfo.Operation);
+            }
+
             using (var db = new BookLibraryContext())
             {
-                var book = CreateNewBook(info);
+                var book = CreateNewBook(editInfo);
                 db.Books.Add(book);
                 db.SaveChanges();
             }
 
-            return Redirect("/");
+            var bookDetailUrl = string.Format("/BookList/BookDetail?bookNumber={0}", editInfo.BookNumber);
+            return Redirect(bookDetailUrl);
         }
 
         private Book CreateNewBook(BookInfo info)
