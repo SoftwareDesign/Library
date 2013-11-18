@@ -5,7 +5,7 @@
     @{if (Model.IsAdmin)
       {
           <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-          <li>@Html.ActionLink("Regist New Book", "RegistNewBook", "Admin")</li>
+          <li>@Html.ActionLink("Regist New Book", "RegistNewBook", "Admin", new { operation = "Add" }, null)</li>
       }
     }
 </ul>
