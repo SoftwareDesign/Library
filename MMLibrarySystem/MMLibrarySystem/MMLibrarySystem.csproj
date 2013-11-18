@@ -182,6 +182,7 @@
     <Compile Include="Bll\BookBorrowState.cs" />
     <Compile Include="Bll\OperationCategory.cs" />
     <Compile Include="Schedule\EmaiImplementations\EmailSenderByOutlook.cs" />
+    <Compile Include="Schedule\EmaiImplementations\EmailSenderBySmtp.cs" />
     <Compile Include="Schedule\EmaiImplementations\EmailSenderMock.cs" />
     <Compile Include="Schedule\EmailContext.cs" />
     <Compile Include="Schedule\Interfaces\IEmailSendable.cs" />
