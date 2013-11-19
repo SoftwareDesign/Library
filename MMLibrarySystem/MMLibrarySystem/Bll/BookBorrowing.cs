@@ -60,6 +60,42 @@ namespace MMLibrarySystem.Bll
             return true;
         }
 
+        public bool SubscribeBook(User user, long bookid, out string message)
+        {
+            var record = _db.BorrowRecords.FirstOrDefault(r => r.BookId == bookid);
+            if (record == null)
+            {
+                message = "Could not subscribe a not borrowed book.";
+                return false;
+            }
+
+            if (record.UserId != user.UserId)
+            {
+                message = "Could not subscribe a book by yourself.";
+                return false;
+            }
+
+            if (!record.IsCheckedOut)
+            {
+                message = "Could not subscribe a not checked out book.";
+                return false;
+            }
+
+            var subscribeInfo = new SubscribeRecord
+                {
+                    BookId = record.BookId,
+                    SubscribeDate = DateTime.Now,
+                    SubscribeRecordId = record.BorrowRecordId,
+                    UserId = record.UserId
+                };
+
+            _db.SubscribeRecords.Add(subscribeInfo);
+            _db.SaveChanges();
+
+            message = string.Empty;
+            return true;
+        }
+
         public bool CancelBorrow(User user, long bookid, out string message)
         {
             var record = _db.BorrowRecords.FirstOrDefault(r => r.BookId == bookid);

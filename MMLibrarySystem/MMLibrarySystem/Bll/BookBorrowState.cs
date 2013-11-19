@@ -56,7 +56,10 @@ namespace MMLibrarySystem.Bll
             {
                 return UserOperationFactory.CreateBorrowOperation(_bookId);
             }
-
+            if(_borrowRecord.IsCheckedOut && _borrowRecord.UserId != currentUser.UserId)
+            {
+                return UserOperationFactory.CreateSubscribeOperation(_bookId);
+            }
             var cancelable = !_borrowRecord.IsCheckedOut && _borrowRecord.UserId == currentUser.UserId;
             return cancelable ? UserOperationFactory.CreateCancelOperation(_bookId) : null;
         }

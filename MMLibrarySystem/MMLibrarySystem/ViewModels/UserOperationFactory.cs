@@ -36,6 +36,15 @@ namespace MMLibrarySystem.ViewModels
             };
         }
 
+        public static UserOperation CreateSubscribeOperation(long bookId)
+        {
+            return new UserOperation("Subscribe", "Subscribe", "BookList")
+            {
+                RouteValues = SetBookId(bookId),
+                AjaxOptions = SetAjaxUpdateTarget("bookListContainer")
+            };
+        }
+
         public static UserOperation CreateCancelOperation(long bookId)
         {
             return new UserOperation("Cancel", "Cancel", "BookList")

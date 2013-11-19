@@ -128,6 +128,27 @@ namespace MMLibrarySystem.Controllers
             return RedirectToAction("Index", "BookList");
         }
 
+        public ActionResult Subscribe(long bookId)
+        {
+            var user = Models.User.Current;
+
+            bool succeed;
+            string message;
+            using (var db = new BookLibraryContext())
+            {
+                var bb = new BookBorrowing(db);
+                succeed = bb.SubscribeBook(user, bookId, out message);
+            }
+
+            if (!succeed)
+            {
+                var errorAlert = string.Format("alert('{0}');", message);
+                return JavaScript(errorAlert);
+            }
+
+            return RedirectToAction("Index", "BookList");
+        }
+
         public ActionResult Cancel(long bookId)
         {
             var user = Models.User.Current;
