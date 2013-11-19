@@ -69,7 +69,7 @@ namespace MMLibrarySystem.Bll
                 return false;
             }
 
-            if (record.UserId != user.UserId)
+            if (record.UserId == user.UserId)
             {
                 message = "Could not subscribe a book by yourself.";
                 return false;
@@ -81,12 +81,19 @@ namespace MMLibrarySystem.Bll
                 return false;
             }
 
+            var subscribeRecord = _db.SubscribeRecords.FirstOrDefault(r => r.BookId == bookid && r.UserId == User.Current.UserId);
+            if (subscribeRecord != null)
+            {
+                message = "Could not subscribe one book more than once.";
+                return false;
+            }
+
             var subscribeInfo = new SubscribeRecord
                 {
                     BookId = record.BookId,
                     SubscribeDate = DateTime.Now,
                     SubscribeRecordId = record.BorrowRecordId,
-                    UserId = record.UserId
+                    UserId = User.Current.UserId
                 };
 
             _db.SubscribeRecords.Add(subscribeInfo);
