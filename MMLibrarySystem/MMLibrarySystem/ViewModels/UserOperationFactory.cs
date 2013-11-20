@@ -21,7 +21,7 @@ namespace MMLibrarySystem.ViewModels
         {
             var routeValues = SetBookId(bookId);
             routeValues.Add("operation", "Edit");
-            return new UserOperation("Edit Book", "RegistNewBook", "Admin")
+            return new UserOperation("Edit Book", "EditBook", "Admin")
             {
                 RouteValues = routeValues
             };

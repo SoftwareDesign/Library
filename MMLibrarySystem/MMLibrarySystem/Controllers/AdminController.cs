@@ -48,7 +48,7 @@ namespace MMLibrarySystem.Controllers
         }
         
         [HttpGet]
-        public ActionResult RegistNewBook(string operation, long bookId)
+        public ActionResult EditBook(string operation, string bookId)
         {
             EditBookInfo edit;
             if (operation == "Add")
@@ -57,15 +57,16 @@ namespace MMLibrarySystem.Controllers
                 return View(edit);
             }
 
+            var id = long.Parse(bookId);
             Book book;
             using (var db = new BookLibraryContext())
             {
-                book = db.Books.Include("BookType").FirstOrDefault(b => b.BookId == bookId);
+                book = db.Books.Include("BookType").FirstOrDefault(b => b.BookId == id);
             }
 
             if (book == null)
             {
-                return Alert("Invalid bookId [{0}].", bookId);
+                return Alert("Invalid book ID [{0}].", bookId);
             }
 
             edit = new EditBookInfo { Operation = "Edit" };
@@ -74,7 +75,7 @@ namespace MMLibrarySystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegistNewBook(EditBookInfo editInfo)
+        public ActionResult EditBook(EditBookInfo editInfo)
         {
             if (editInfo.Operation == "Add")
             {
