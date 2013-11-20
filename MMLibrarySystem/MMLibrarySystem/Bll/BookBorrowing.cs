@@ -16,16 +16,38 @@ namespace MMLibrarySystem.Bll
 
         private readonly List<BorrowRecord> _recordCache;
 
+        private readonly List<SubscribeRecord> _subscribeRecordCache;
+
         public BookBorrowing(BookLibraryContext db)
         {
             _db = db;
             _recordCache = _db.BorrowRecords.ToList();
+            _subscribeRecordCache = _db.SubscribeRecords.ToList();
         }
 
         public BookBorrowState GetBookBorrowState(long bookId)
         {
             var record = _recordCache.FirstOrDefault(r => r.BookId == bookId);
-            return record != null ? new BookBorrowState(record) : new BookBorrowState(bookId);
+            if (record != null)
+            {
+                var borrowState = new BookBorrowState(record);
+                var subscribeRecord =
+                    _subscribeRecordCache.FirstOrDefault(sr => sr.BookId == bookId && sr.UserId == User.Current.UserId);
+                if (subscribeRecord != null)
+                {
+                    borrowState.CanSubscribe = false;
+                }
+                else
+                {
+                    borrowState.CanSubscribe = true;
+                }
+
+                return borrowState;
+            }
+            else
+            {
+                return new BookBorrowState(bookId);
+            }
         }
 
         public bool IsBorrowed(long bookId)

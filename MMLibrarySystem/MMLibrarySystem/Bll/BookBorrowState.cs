@@ -12,6 +12,8 @@ namespace MMLibrarySystem.Bll
 
         private const string StateBorrowed = "Borrowed";
 
+        private const string StateSubscribed = "Subscribed";
+
         private const string StateCheckedOut = "Checked Out";
 
         private const string StateBorrowAccepted = "Borrow Accepted";
@@ -34,7 +36,7 @@ namespace MMLibrarySystem.Bll
 
         public string State
         {
-            get { return _borrowRecord != null ? StateBorrowed : StateInLib; }
+            get { return _borrowRecord != null ? CanSubscribe ? StateBorrowed : StateSubscribed : StateInLib; }
         }
 
         public string InternalState
@@ -50,16 +52,25 @@ namespace MMLibrarySystem.Bll
             }
         }
 
+        public bool CanSubscribe { get; set; }
+
         public UserOperation GetUserOperation(User currentUser)
         {
             if (_borrowRecord == null)
             {
                 return UserOperationFactory.CreateBorrowOperation(_bookId);
             }
-            if(_borrowRecord.IsCheckedOut && _borrowRecord.UserId != currentUser.UserId)
+
+            if (_borrowRecord.IsCheckedOut && _borrowRecord.UserId != currentUser.UserId)
             {
+                if (!CanSubscribe)
+                {
+                    return null;
+                }
+
                 return UserOperationFactory.CreateSubscribeOperation(_bookId);
             }
+
             var cancelable = !_borrowRecord.IsCheckedOut && _borrowRecord.UserId == currentUser.UserId;
             return cancelable ? UserOperationFactory.CreateCancelOperation(_bookId) : null;
         }
