@@ -11,6 +11,7 @@
 </script>
 @using (Html.BeginForm())
 {
+    @Html.HiddenFor(model => model.BookId)
     <table id="bookDetail">
         <tr>
             <td>Title</td>
@@ -30,7 +31,7 @@
         </tr>
         <tr>
             <td>Purchase Date</td>
-            <td>@Html.TextBoxFor(model => model.PurchaseDate, new {id = "PurchaseDate"})</td>
+            <td>@Html.TextBoxFor(model => model.PurchaseDate, new { id = "PurchaseDate" })</td>
         </tr>
         <tr>
             <td>Requested By</td>

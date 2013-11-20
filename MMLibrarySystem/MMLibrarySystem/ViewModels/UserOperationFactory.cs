@@ -17,9 +17,9 @@ namespace MMLibrarySystem.ViewModels
             };
         }
 
-        public static UserOperation CreateEditBookOperation(string bookNumber)
+        public static UserOperation CreateEditBookOperation(long bookId)
         {
-            var routeValues = BuildRouteValues("bookNumber", bookNumber);
+            var routeValues = SetBookId(bookId);
             routeValues.Add("operation", "Edit");
             return new UserOperation("Edit Book", "RegistNewBook", "Admin")
             {

@@ -48,7 +48,7 @@ namespace MMLibrarySystem.Controllers
         }
         
         [HttpGet]
-        public ActionResult RegistNewBook(string operation, string bookNumber)
+        public ActionResult RegistNewBook(string operation, long bookId)
         {
             EditBookInfo edit;
             if (operation == "Add")
@@ -60,12 +60,12 @@ namespace MMLibrarySystem.Controllers
             Book book;
             using (var db = new BookLibraryContext())
             {
-                book = db.Books.Include("BookType").FirstOrDefault(b => b.BookNumber == bookNumber);
+                book = db.Books.Include("BookType").FirstOrDefault(b => b.BookId == bookId);
             }
 
             if (book == null)
             {
-                return Alert("Invalid book number [{0}].", bookNumber);
+                return Alert("Invalid bookId [{0}].", bookId);
             }
 
             edit = new EditBookInfo { Operation = "Edit" };
@@ -89,8 +89,8 @@ namespace MMLibrarySystem.Controllers
             {
                 using (var db = new BookLibraryContext())
                 {
-                    var bookNumber = editInfo.BookNumber;
-                    var book = db.Books.Include("BookType").FirstOrDefault(b => b.BookNumber == bookNumber);
+                    var bookId = long.Parse(editInfo.BookId);
+                    var book = db.Books.Include("BookType").FirstOrDefault(b => b.BookId == bookId);
                     editInfo.StoreInfo(book);
                     db.SaveChanges();
                 }

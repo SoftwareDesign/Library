@@ -95,7 +95,7 @@ namespace MMLibrarySystem.Controllers
             }
 
             var info = new BookDetailInfo();
-            info.Operation = Models.User.Current.IsAdmin ? UserOperationFactory.CreateEditBookOperation(bookNumber) : null;
+            info.Operation = Models.User.Current.IsAdmin ? UserOperationFactory.CreateEditBookOperation(book.BookId) : null;
             info.LoadInfo(book);
             return View(info);
         }
