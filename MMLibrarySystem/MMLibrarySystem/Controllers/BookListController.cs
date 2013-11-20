@@ -33,7 +33,7 @@ namespace MMLibrarySystem.Controllers
                     if (string.IsNullOrEmpty(searchTerm))
                     {
                         bookList =
-                            tempBooks.OrderByDescending(b => b.BookNumber)
+                            tempBooks.OrderByDescending(b => b.BookId)
                                      .Select(CreateBookListItem)
                                      .Where(book => book.State == StateInLib)
                                      .ToPagedList(page, pageSize);
@@ -54,7 +54,7 @@ namespace MMLibrarySystem.Controllers
                     if (string.IsNullOrEmpty(searchTerm))
                     {
                         bookList =
-                            tempBooks.OrderByDescending(b => b.BookNumber)
+                            tempBooks.OrderByDescending(b => b.BookId)
                                      .Select(CreateBookListItem)
                                      .ToPagedList(page, pageSize);
                     }
