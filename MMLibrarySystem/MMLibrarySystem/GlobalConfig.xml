@@ -4,4 +4,5 @@
   </PageInfo>
   <BorrowNumberLimit number="5"></BorrowNumberLimit>
   <BorrowDayLimit days="31"></BorrowDayLimit>
+  <AheadNotification days ="7"></AheadNotification>
 </MMLibrary>

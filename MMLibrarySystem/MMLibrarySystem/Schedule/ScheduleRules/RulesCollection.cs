@@ -9,6 +9,7 @@ namespace MMLibrarySystem.Schedule.ScheduleRules
         {
             var schedulaList = new List<ISchedulable>();
             schedulaList.Add(new OutOfDateRule());
+            schedulaList.Add(new AheadNotificationRule());
             return schedulaList;
         }
     }

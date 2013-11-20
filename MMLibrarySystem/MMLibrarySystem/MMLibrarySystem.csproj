@@ -187,6 +187,7 @@
     <Compile Include="Schedule\EmailContext.cs" />
     <Compile Include="Schedule\Interfaces\IEmailSendable.cs" />
     <Compile Include="Schedule\Interfaces\ISchedulable.cs" />
+    <Compile Include="Schedule\ScheduleRules\AheadNotificationRule.cs" />
     <Compile Include="Schedule\ScheduleRules\OutOfDateRule.cs" />
     <Compile Include="Schedule\ScheduleRules\RulesCollection.cs" />
     <Compile Include="Utilities\GlobalConfigReader.cs" />
