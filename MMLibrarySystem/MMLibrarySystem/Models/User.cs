@@ -28,6 +28,13 @@ namespace MMLibrarySystem.Models
 
                 return current;
             }
+
+#if DEBUG
+            set
+            {
+                HttpContext.Current.Session[KeyCurrentUser] = value;
+            }
+#endif
         }
 
         /// <summary>
