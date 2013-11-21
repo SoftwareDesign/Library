@@ -87,26 +87,26 @@ namespace MMLibrarySystem.Bll
             var record = _db.BorrowRecords.FirstOrDefault(r => r.BookId == bookid);
             if (record == null)
             {
-                message = "Could not subscribe a not borrowed book.";
+                message = "The book has not been borrowed, please use borrow instead of subscribe.";
                 return false;
             }
 
             if (record.UserId == user.UserId)
             {
-                message = "Could not subscribe a book by yourself.";
+                message = "You could not subscribe a book which borrowed by yourself.";
                 return false;
             }
 
-            if (!record.IsCheckedOut)
-            {
-                message = "Could not subscribe a not checked out book.";
-                return false;
-            }
+            //if (!record.IsCheckedOut)
+            //{
+            //    message = "Could not subscribe a not checked out book.";
+            //    return false;
+            //}
 
             var subscribeRecord = _db.SubscribeRecords.FirstOrDefault(r => r.BookId == bookid && r.UserId == User.Current.UserId);
             if (subscribeRecord != null)
             {
-                message = "Could not subscribe one book more than once.";
+                message = "You already subscribed the book.";
                 return false;
             }
 
