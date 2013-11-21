@@ -153,6 +153,62 @@ namespace MMLibrarySystem.Bll
             return true;
         }
 
+        public bool CheckOut(User user, long borrowId, out string message)
+        {
+            if (!user.IsAdmin)
+            {
+                message = "This operation needs admin's rights.";
+                return false;
+            }
+
+            var record = _db.BorrowRecords.FirstOrDefault(i => i.BorrowRecordId == borrowId);
+            if (record == null)
+            {
+                message = "The borrow record does not exist.";
+                return false;
+            }
+
+            if (record.IsCheckedOut)
+            {
+                message = "The book had been checked out.";
+                return false;
+            }
+
+            record.IsCheckedOut = true;
+            _db.SaveChanges();
+
+            message = string.Empty;
+            return true;
+        }
+
+        public bool Return(User user, long borrowId, out string message)
+        {
+            if (!user.IsAdmin)
+            {
+                message = "This operation needs admin's rights.";
+                return false;
+            }
+
+            var record = _db.BorrowRecords.FirstOrDefault(i => i.BorrowRecordId == borrowId);
+            if (record == null)
+            {
+                message = "The borrow record does not exist.";
+                return false;
+            }
+
+            if (!record.IsCheckedOut)
+            {
+                message = "The book has not been checked out.";
+                return false;
+            }
+
+            _db.BorrowRecords.Remove(record);
+            _db.SaveChanges();
+
+            message = string.Empty;
+            return true;
+        }
+        
         private bool IsBookBorrowed(long bookId)
         {
             return _recordCache.Any(r => r.BookId == bookId);

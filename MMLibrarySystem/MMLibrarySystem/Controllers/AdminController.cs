@@ -15,32 +15,61 @@ namespace MMLibrarySystem.Controllers
     {
         public ActionResult Index()
         {
+            if (!Models.User.Current.IsAdmin)
+            {
+                return RedirectToAction("Default", "Home");
+            }
+
             var infos = GetAllBorrowInfo();
             return View(infos);
         }
 
-        public ActionResult CheckOut(string borrowId)
+        public ActionResult CheckOut(long borrowId)
         {
-            var id = long.Parse(borrowId);
+            var user = Models.User.Current;
+            if (!user.IsAdmin)
+            {
+                return RedirectToAction("Default", "Home");
+            }
+
+            bool succeed;
+            string message;
             using (var db = new BookLibraryContext())
             {
-                var info = db.BorrowRecords.First(i => i.BorrowRecordId == id);
-                info.IsCheckedOut = true;
-                db.SaveChanges();
+                var bb = new BookBorrowing(db);
+                succeed = bb.CheckOut(user, borrowId, out message);
+            }
+
+            if (!succeed)
+            {
+                var errorAlert = string.Format("alert('{0}');", message);
+                return JavaScript(errorAlert);
             }
 
             var infos = GetAllBorrowInfo();
             return View("Index", infos);
         }
 
-        public ActionResult Return(string borrowId)
+        public ActionResult Return(long borrowId)
         {
-            var id = long.Parse(borrowId);
+            var user = Models.User.Current;
+            if (!user.IsAdmin)
+            {
+                return RedirectToAction("Default", "Home");
+            }
+
+            bool succeed;
+            string message;
             using (var db = new BookLibraryContext())
             {
-                var info = db.BorrowRecords.First(i => i.BorrowRecordId == id);
-                db.BorrowRecords.Remove(info);
-                db.SaveChanges();
+                var bb = new BookBorrowing(db);
+                succeed = bb.Return(user, borrowId, out message);
+            }
+
+            if (!succeed)
+            {
+                var errorAlert = string.Format("alert('{0}');", message);
+                return JavaScript(errorAlert);
             }
 
             var infos = GetAllBorrowInfo();
@@ -50,6 +79,12 @@ namespace MMLibrarySystem.Controllers
         [HttpGet]
         public ActionResult EditBook(string operation, string bookId)
         {
+            var user = Models.User.Current;
+            if (!user.IsAdmin)
+            {
+                return RedirectToAction("Default", "Home");
+            }
+
             EditBookInfo edit;
             if (operation == "Add")
             {
@@ -77,6 +112,12 @@ namespace MMLibrarySystem.Controllers
         [HttpPost]
         public ActionResult EditBook(EditBookInfo editInfo)
         {
+            var user = Models.User.Current;
+            if (!user.IsAdmin)
+            {
+                return RedirectToAction("Default", "Home");
+            }
+
             if (editInfo.Operation == "Add")
             {
                 using (var db = new BookLibraryContext())
