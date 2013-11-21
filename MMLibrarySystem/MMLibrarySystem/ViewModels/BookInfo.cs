@@ -43,7 +43,7 @@ namespace MMLibrarySystem.ViewModels
             Description = type.Description;
             UserAndTeam = type.UserAndTeam;
             Publisher = type.Publisher;
-            Supplier = type.Supplier;
+            Supplier = Supplier;
         }
 
         public void StoreInfo(Book book)
@@ -54,11 +54,12 @@ namespace MMLibrarySystem.ViewModels
             book.PurchaseDate = DateTime.Parse(PurchaseDate);
             book.RequestedBy = RequestedBy;
             book.PurchaseUrl = PurchaseUrl;
+            book.Supplier = Supplier;
             type.Title = Title;
             type.Description = Description;
             type.UserAndTeam = UserAndTeam;
             type.Publisher = Publisher;
-            type.Supplier = Supplier;
+            
         }
     }
 }

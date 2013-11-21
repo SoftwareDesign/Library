@@ -22,6 +22,8 @@ namespace MMLibrarySystem.Models
 
         public string PurchaseUrl { get; set; }
 
+        public string Supplier { get; set; }
+
         public long BookTypeId { get; set; }
 
         public virtual BookType BookType { get; set; }

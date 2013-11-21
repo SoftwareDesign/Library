@@ -40,7 +40,6 @@ namespace MMLibrarySystem
                         Title = title,
                         Description = "A test book " + title,
                         Publisher = GetPublisher(typeId),
-                        Supplier = GetSupplier(typeId)
                     };
             context.BookTypes.Add(bookType);
 
@@ -77,7 +76,8 @@ namespace MMLibrarySystem
                     {
                         BookType = type,
                         BookNumber = string.Format("BNT{0:D4}{1:D2}", typeId, bookId),
-                        PurchaseDate = GetPurchaseData()
+                        PurchaseDate = GetPurchaseData(),
+                        Supplier = GetSupplier(typeId)
                     };
             context.Books.Add(book);
         }

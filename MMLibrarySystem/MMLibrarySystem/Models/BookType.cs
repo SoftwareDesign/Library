@@ -25,8 +25,6 @@ namespace MMLibrarySystem.Models
 
         public string Publisher { get; set; }
 
-        public string Supplier { get; set; }
-
         public virtual IList<Book> Books { get; set; }
     }
 }

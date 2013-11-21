@@ -149,8 +149,7 @@ namespace MMLibrarySystem.Controllers
                 Title = info.Title,
                 Description = info.Description,
                 UserAndTeam = info.UserAndTeam,
-                Publisher = info.Publisher,
-                Supplier = info.Supplier
+                Publisher = info.Publisher   
             };
 
             var book = new Book
@@ -160,6 +159,7 @@ namespace MMLibrarySystem.Controllers
                 PurchaseDate = DateTime.Parse(info.PurchaseDate),
                 RequestedBy = info.RequestedBy,
                 PurchaseUrl = info.PurchaseUrl,
+                Supplier = info.Supplier,
                 BookType = type
             };
 
