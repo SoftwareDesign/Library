@@ -61,7 +61,7 @@ namespace MMLibrarySystem.Bll
                 return UserOperationFactory.CreateBorrowOperation(_bookId);
             }
 
-            if (_borrowRecord.IsCheckedOut && _borrowRecord.UserId != currentUser.UserId)
+            if (_borrowRecord.UserId != currentUser.UserId)
             {
                 if (!CanSubscribe)
                 {

@@ -14,20 +14,20 @@ namespace MMLibrarySystem.Bll
 
         private readonly BookLibraryContext _db;
 
-        private readonly List<BorrowRecord> _recordCache;
+        private readonly List<BorrowRecord> _borrowRecordCache;
 
         private readonly List<SubscribeRecord> _subscribeRecordCache;
 
         public BookBorrowing(BookLibraryContext db)
         {
             _db = db;
-            _recordCache = _db.BorrowRecords.ToList();
-            _subscribeRecordCache = _db.SubscribeRecords.ToList();
+            _borrowRecordCache = _db.BorrowRecords.ToList();
+            _subscribeRecordCache = _db.SubscribeRecords.OrderBy(r => r.SubscribeRecordId).ToList();
         }
 
         public BookBorrowState GetBookBorrowState(long bookId)
         {
-            var record = _recordCache.FirstOrDefault(r => r.BookId == bookId);
+            var record = _borrowRecordCache.FirstOrDefault(r => r.BookId == bookId);
             if (record != null)
             {
                 var borrowState = new BookBorrowState(record);
@@ -76,15 +76,15 @@ namespace MMLibrarySystem.Bll
                 return false;
             }
 
-            InternalBorrowBook(user, book);
+            AddBorrowRecord(user.UserId, book.BookId);
 
             message = string.Empty;
             return true;
         }
 
-        public bool SubscribeBook(User user, long bookid, out string message)
+        public bool SubscribeBook(User user, long bookId, out string message)
         {
-            var record = _db.BorrowRecords.FirstOrDefault(r => r.BookId == bookid);
+            var record = _db.BorrowRecords.FirstOrDefault(r => r.BookId == bookId);
             if (record == null)
             {
                 message = "The book has not been borrowed, please use borrow instead of subscribe.";
@@ -97,13 +97,7 @@ namespace MMLibrarySystem.Bll
                 return false;
             }
 
-            //if (!record.IsCheckedOut)
-            //{
-            //    message = "Could not subscribe a not checked out book.";
-            //    return false;
-            //}
-
-            var subscribeRecord = _db.SubscribeRecords.FirstOrDefault(r => r.BookId == bookid && r.UserId == User.Current.UserId);
+            var subscribeRecord = _db.SubscribeRecords.FirstOrDefault(r => r.BookId == bookId && r.UserId == User.Current.UserId);
             if (subscribeRecord != null)
             {
                 message = "You already subscribed the book.";
@@ -112,22 +106,22 @@ namespace MMLibrarySystem.Bll
 
             var subscribeInfo = new SubscribeRecord
                 {
-                    BookId = record.BookId,
+                    BookId = bookId,
                     SubscribeDate = DateTime.Now,
                     SubscribeRecordId = record.BorrowRecordId,
                     UserId = User.Current.UserId
                 };
 
             _db.SubscribeRecords.Add(subscribeInfo);
-            _db.SaveChanges();
+            SubmitChanges();
 
             message = string.Empty;
             return true;
         }
 
-        public bool CancelBorrow(User user, long bookid, out string message)
+        public bool CancelBorrow(User user, long bookId, out string message)
         {
-            var record = _db.BorrowRecords.FirstOrDefault(r => r.BookId == bookid);
+            var record = _db.BorrowRecords.FirstOrDefault(r => r.BookId == bookId);
             if (record == null)
             {
                 message = "Could not cancel a not borrowed book.";
@@ -146,8 +140,7 @@ namespace MMLibrarySystem.Bll
                 return false;
             }
 
-            _db.BorrowRecords.Remove(record);
-            _db.SaveChanges();
+            RemoveBorrowRecord(record);
 
             message = string.Empty;
             return true;
@@ -175,7 +168,7 @@ namespace MMLibrarySystem.Bll
             }
 
             record.IsCheckedOut = true;
-            _db.SaveChanges();
+            SubmitChanges();
 
             message = string.Empty;
             return true;
@@ -202,16 +195,81 @@ namespace MMLibrarySystem.Bll
                 return false;
             }
 
-            _db.BorrowRecords.Remove(record);
-            _db.SaveChanges();
+            RemoveBorrowRecord(record);
 
             message = string.Empty;
             return true;
         }
+
+        private static int GetBorrowLimit()
+        {
+            int number = 5;
+            string getBorrowLimitValue = GlobalConfigReader.ReadFromGlobalConfig("BorrowNumberLimit", "number");
+            if (!string.IsNullOrEmpty(getBorrowLimitValue))
+                number = Convert.ToInt32(getBorrowLimitValue);
+            return number;
+        }
+
+        private void AddBorrowRecord(long userId, long bookId)
+        {
+            var borrowInfo = new BorrowRecord(userId, bookId);
+            _db.BorrowRecords.Add(borrowInfo);
+            SubmitChanges();
+        }
+
+        private void RemoveBorrowRecord(BorrowRecord record)
+        {
+            _db.BorrowRecords.Remove(record);
+            SubmitChanges();
+
+            OnBorrowRecordRemoved(record);
+        }
+
+        private void ApplyFirstSubscriberToBorrow(long bookId)
+        {
+            var firstSubscribe = _subscribeRecordCache.FirstOrDefault(r => r.BookId == bookId);
+            if (firstSubscribe == null)
+            {
+                return;
+            }
+
+            _db.SubscribeRecords.Remove(firstSubscribe);
+            var borrowRecord = new BorrowRecord(firstSubscribe.UserId, bookId);
+            _db.BorrowRecords.Add(borrowRecord);
+            SubmitChanges();
+
+            SendUserBorrowAcceptedNotify(borrowRecord);
+        }
+
+        private void SubmitChanges()
+        {
+            _db.SaveChanges();
+        }
+
+        private void SendUserBorrowAcceptedNotify(BorrowRecord record)
+        {
+            var address = GetUeserEmailAddress(record.UserId);
+            var book = record.BookId.ToString();
+            if (record.Book != null)
+            {
+                book = record.Book.BookType.Title;
+            }
+            var body = string.Format(
+                "The borrowing of book {0} has been accepted, please get the book from Admin ASAP.",
+                book);
+            var message = Utility.BuildMail(address,"Book Borrow Accepted", body);
+            Infrastructures.Instance.Mail.Send(message);
+        }
+
+        private string GetUeserEmailAddress(long userId)
+        {
+            var user = _db.Users.First(u => u.UserId == userId);
+            return user.EmailAdress;
+        }
         
         private bool IsBookBorrowed(long bookId)
         {
-            return _recordCache.Any(r => r.BookId == bookId);
+            return _borrowRecordCache.Any(r => r.BookId == bookId);
         }
 
         private Book GetBookById(long bookId)
@@ -222,24 +280,13 @@ namespace MMLibrarySystem.Bll
 
         private bool UserArrieveBorrowLimit(long userId)
         {
-            var borrowedCount = _recordCache.Count(r => r.UserId == userId);
+            var borrowedCount = _borrowRecordCache.Count(r => r.UserId == userId);
             return borrowedCount >= BorrowLimit;
         }
 
-        private void InternalBorrowBook(User user, Book book)
+        private void OnBorrowRecordRemoved(BorrowRecord record)
         {
-            var borrowInfo = new BorrowRecord(user, book);
-            _db.BorrowRecords.Add(borrowInfo);
-            _db.SaveChanges();
-        }
-
-        private static int GetBorrowLimit()
-        {
-            int number = 5;
-            string getBorrowLimitValue = GlobalConfigReader.ReadFromGlobalConfig("BorrowNumberLimit", "number");
-            if (!string.IsNullOrEmpty(getBorrowLimitValue))
-                number = Convert.ToInt32(getBorrowLimitValue);
-            return number;
+            ApplyFirstSubscriberToBorrow(record.BookId);
         }
     }
 }

@@ -14,6 +14,8 @@ namespace MMLibrarySystem
 
         private static readonly string[] Suppliers = { "jd.com", "z.cn", };
 
+        private Random _random = new Random();
+
         protected override void Seed(BookLibraryContext context)
         {
             CreateTestBookInfo(context);
@@ -23,7 +25,7 @@ namespace MMLibrarySystem
             base.Seed(context);
         }
 
-        private static void CreateTestBookInfo(BookLibraryContext context)
+        private void CreateTestBookInfo(BookLibraryContext context)
         {
             for (var i = 1; i < 13; i++)
             {
@@ -31,7 +33,7 @@ namespace MMLibrarySystem
             }
         }
 
-        private static void CreateTestBookType(BookLibraryContext context, int typeId)
+        private void CreateTestBookType(BookLibraryContext context, int typeId)
         {
             var title = GetTitle(typeId);
             var bookType =
@@ -43,55 +45,53 @@ namespace MMLibrarySystem
                     };
             context.BookTypes.Add(bookType);
 
-            var random = new Random();
-            var bookCount = random.Next(1, 5);
+            var bookCount = _random.Next(2, 4);
             for (var i = 1; i < bookCount; i++)
             {
                 CreateTestBook(context, bookType, typeId, i);
             }
         }
 
-        private static string GetTitle(int typeId)
+        private string GetTitle(int typeId)
         {
             var index = typeId % Books.Length;
             return string.Concat(Books[index], " Book ", typeId);
         }
 
-        private static string GetPublisher(int typeId)
+        private string GetPublisher(int typeId)
         {
             var index = typeId % Publishers.Length;
             return string.Concat(Publishers[index]);
         }
 
-        private static string GetSupplier(int typeId)
+        private string GetSupplier(int typeId)
         {
             var index = typeId % Suppliers.Length;
             return string.Concat(Suppliers[index]);
         }
 
-        private static void CreateTestBook(BookLibraryContext context, BookType type, int typeId, int bookId)
+        private void CreateTestBook(BookLibraryContext context, BookType type, int typeId, int bookId)
         {
             var book =
                 new Book
                     {
                         BookType = type,
                         BookNumber = string.Format("BNT{0:D4}{1:D2}", typeId, bookId),
-                        PurchaseDate = GetPurchaseData(),
+                        PurchaseDate = GetPurchaseDate(),
                         Supplier = GetSupplier(typeId)
                     };
             context.Books.Add(book);
         }
 
-        private static DateTime GetPurchaseData()
+        private DateTime GetPurchaseDate()
         {
-            var random = new Random();
-            var pastDays = random.Next(-1000, -1);
+            var pastDays = _random.Next(-1000, -1);
             return DateTime.Now.AddDays(pastDays);
         }
 
-        private static void CreateTestUserInfo(BookLibraryContext context)
+        private void CreateTestUserInfo(BookLibraryContext context)
         {
-            var dev = new User { LoginName = "HOMEXW\\WQ", Role = (int)Roles.Admin };
+            var dev = new User { LoginName = "HOMEXW\\WQ", Role = (int)Roles.Admin, EmailAdress = "wq@home.net", FullName = "PXu@Home" };
             context.Users.Add(dev);
         }
     }

@@ -6,7 +6,7 @@ namespace MMLibrarySystem
 {
     internal class Infrastructures
     {
-        private static Infrastructures _instance;
+        private static Infrastructures _instance = new Infrastructures();
 
         private Infrastructures()
         {

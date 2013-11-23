@@ -14,10 +14,10 @@ namespace MMLibrarySystem.Models
         {
         }
 
-        public BorrowRecord(User user, Book book)
+        public BorrowRecord(long userId, long bookId)
         {
-            UserId = user.UserId;
-            BookId = book.BookId;
+            UserId = userId;
+            BookId = bookId;
             BorrowedDate = DateTime.Now;
             IsCheckedOut = false;
         }
