@@ -177,7 +177,7 @@ namespace MMLibrarySystem.Controllers
 
         private BorrowListItem CreateBorrowListItem(BorrowRecord record)
         {
-            var state = new BookBorrowState(record);
+            var state = new AdminBookState(record);
             var item = new BorrowListItem
             {
                 BorrowId = record.BorrowRecordId.ToString(),
@@ -188,8 +188,8 @@ namespace MMLibrarySystem.Controllers
                 UserName = record.User.DisplayName,
                 BorrowDate = record.BorrowedDate.ToShortDateString(),
                 ReturnDate = record.BorrowedDate.AddDays(31).ToShortDateString(),
-                State = state.InternalState,
-                Operation = state.GetAdminOperation(Models.User.Current)
+                State = state.State,
+                Operation = state.Operation
             };
 
             return item;

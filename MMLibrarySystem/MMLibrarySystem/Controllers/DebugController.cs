@@ -25,9 +25,9 @@ namespace MMLibrarySystem.Controllers
         private const string DebugUsage =
             @"
             Some operation provided to help debug the website:
-            /Debug/SwitchRole to swith role of current user between employee and admin.
+            /Debug/SwitchRole to swith role of current user between customer and admin.
             /Debug/SwitchUser to swith crrent user between the user list in database.
-            /Debug/AddEmployee to add a new employee user as current user.";
+            /Debug/AddCustomer to add a new customer and set as current user.";
 
         public ActionResult Index()
         {
@@ -39,7 +39,7 @@ namespace MMLibrarySystem.Controllers
             var user = Models.User.Current;
             if (user.IsAdmin)
             {
-                user.Role = (int)Roles.Employee;
+                user.Role = (int)Roles.Customer;
             }
             else
             {
@@ -68,16 +68,16 @@ namespace MMLibrarySystem.Controllers
             return RedirectToAction("Index", "BookList");
         }
 
-        public ActionResult AddEmployee()
+        public ActionResult AddCustomer()
         {
             using (var db = new BookLibraryContext())
             {
                 var user = new Models.User
                 {
-                    LoginName = @"MM\TE",
-                    FullName = "TestEmployee",
-                    EmailAdress = "a@b.c",
-                    Role = (int)Roles.Employee
+                    LoginName = @"MM\TC",
+                    FullName = "TestCustomer",
+                    EmailAdress = "TestCustomer@b.c",
+                    Role = (int)Roles.Customer
                 };
                 db.Users.Add(user);
                 db.SaveChanges();

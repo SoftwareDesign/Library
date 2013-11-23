@@ -15,7 +15,7 @@ namespace MMLibrarySystem.Controllers
             var role = (Roles)Models.User.Current.Role;
             switch (role)
             {
-                case Roles.Employee:
+                case Roles.Customer:
                     result = RedirectToAction("Index", "BookList");
                     break;
                 case Roles.Admin:

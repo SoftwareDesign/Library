@@ -25,28 +25,18 @@ namespace MMLibrarySystem.Bll
             _subscribeRecordCache = _db.SubscribeRecords.OrderBy(r => r.SubscribeRecordId).ToList();
         }
 
-        public BookBorrowState GetBookBorrowState(long bookId)
+        public CustomerBookState GetCustomerBookState(long bookId)
         {
             var record = _borrowRecordCache.FirstOrDefault(r => r.BookId == bookId);
             if (record != null)
             {
-                var borrowState = new BookBorrowState(record);
-                var subscribeRecord =
-                    _subscribeRecordCache.FirstOrDefault(sr => sr.BookId == bookId && sr.UserId == User.Current.UserId);
-                if (subscribeRecord != null)
-                {
-                    borrowState.CanSubscribe = false;
-                }
-                else
-                {
-                    borrowState.CanSubscribe = true;
-                }
-
+                var subscribeRecords = _subscribeRecordCache.Where(r => r.BookId == bookId);
+                var borrowState = new CustomerBookState(record, subscribeRecords);
                 return borrowState;
             }
             else
             {
-                return new BookBorrowState(bookId);
+                return new CustomerBookState(bookId);
             }
         }
 

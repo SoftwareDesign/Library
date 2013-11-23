@@ -181,7 +181,7 @@ namespace MMLibrarySystem.Controllers
 
         private BookListItem CreateBookListItem(Book book)
         {
-            var state = _bb.GetBookBorrowState(book.BookId);
+            var state = _bb.GetCustomerBookState(book.BookId);
             var item = new BookListItem
             {
                 BookId = book.BookId.ToString(),
@@ -190,7 +190,7 @@ namespace MMLibrarySystem.Controllers
                 Publisher = book.BookType.Publisher,
                 PurchaseDate = book.PurchaseDate.ToShortDateString(),
                 State = state.State,
-                Operation = state.GetUserOperation(Models.User.Current)
+                Operation = state.Operation
             };
 
             return item;

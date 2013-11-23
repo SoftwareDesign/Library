@@ -91,8 +91,18 @@ namespace MMLibrarySystem
 
         private void CreateTestUserInfo(BookLibraryContext context)
         {
-            var dev = new User { LoginName = "HOMEXW\\WQ", Role = (int)Roles.Admin, EmailAdress = "wq@home.net", FullName = "PXu@Home" };
-            context.Users.Add(dev);
+            var developers = new []
+            {
+                new User {LoginName = "HOMEXW\\WQ", Role = (int)Roles.Admin, EmailAdress = "pxu@home.net", FullName = "Pingsheng@Home" },
+                new User {LoginName = "MM\\PXu", Role = (int)Roles.Admin, EmailAdress = "pxu@mm-software.com", FullName = "Pingsheng@MM" },
+                new User {LoginName = "MM\\JYe", Role = (int)Roles.Admin, EmailAdress = "jye@mm-software.com", FullName = "Jining@MM" },
+                new User {LoginName = "MM\\Lma", Role = (int)Roles.Admin, EmailAdress = "lma@mm-software.com", FullName = "Liang@MM" }
+            };
+
+            foreach (var user in developers)
+            {
+                context.Users.Add(user);
+            }
         }
     }
 }

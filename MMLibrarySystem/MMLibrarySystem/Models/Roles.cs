@@ -11,12 +11,12 @@ namespace MMLibrarySystem.Models
         Guest = 0,
 
         /// <summary>
-        /// Employee, borrow books.
+        /// Customer, borrow books.
         /// </summary>
-        Employee = 1,
+        Customer = 1,
 
         /// <summary>
-        /// Admin, check out and check in books.
+        /// Admin, regiser new book, check out and check in books.
         /// </summary>
         Admin = 2
     }

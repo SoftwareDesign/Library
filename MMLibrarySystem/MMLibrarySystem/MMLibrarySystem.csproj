@@ -179,8 +179,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Bll\BookBorrowing.cs" />
-    <Compile Include="Bll\BookBorrowState.cs" />
+    <Compile Include="Bll\CustomerBookState.cs" />
     <Compile Include="Bll\OperationCategory.cs" />
+    <Compile Include="Bll\AdminBookState.cs" />
     <Compile Include="Controllers\DebugController.cs" />
     <Compile Include="Infrastructures.cs" />
     <Compile Include="Infrastructure\Email\OutlookMailService.cs" />
@@ -347,7 +348,6 @@
     <Content Include="Views\BookList\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="LogFile.log" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="Views\BookList\_BookList.cshtml" />
     <Content Include="Views\BookList\BookDetail.cshtml" />
