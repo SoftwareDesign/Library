@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using MMLibrarySystem.Schedule.Interfaces;
 
 namespace MMLibrarySystem.Schedule.ScheduleRules
 {

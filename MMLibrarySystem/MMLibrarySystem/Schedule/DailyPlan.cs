@@ -1,6 +1,6 @@
 ﻿using System.Timers;
+using MMLibrarySystem.Infrastructure;
 using MMLibrarySystem.Models;
-using MMLibrarySystem.Schedule.Interfaces;
 using MMLibrarySystem.Schedule.ScheduleRules;
 
 namespace MMLibrarySystem.Schedule
@@ -9,11 +9,11 @@ namespace MMLibrarySystem.Schedule
     {
         private Timer _timer;
 
-        private IEmailSendable _email;
+        private IMailService _email;
 
-        public DailyPlan(IEmailSendable emailSender)
+        public DailyPlan()
         {
-            _email = emailSender;
+            _email = Infrastructures.Instance.Mail;
             _timer = new Timer();
             _timer.Interval = 24*60*60*1000;
             _timer.Elapsed += BeginCheck;
@@ -36,7 +36,7 @@ namespace MMLibrarySystem.Schedule
                     var emailContextList = rule.ExcuteScheduleRule(borrowRecords);
                     foreach (var context in emailContextList)
                     {
-                        _email.SendEmail(context);
+                        _email.Send(context);
                     }
                 }
             }

@@ -1,11 +1,11 @@
-﻿using MMLibrarySystem.Schedule.Interfaces;
+﻿using System.Net.Mail;
 //using Outlook = Microsoft.Office.Interop.Outlook;
 
-namespace MMLibrarySystem.Schedule.EmaiImplementations
+namespace MMLibrarySystem.Infrastructure.Email
 {
-    public class EmailSenderByOutlook : IEmailSendable
+    public class EmailSenderByOutlook : IMailService
     {
-        public void SendEmail(EmailContext context)
+        public void Send(MailMessage message)
         {
             //var app = new Outlook.Application();
             //Outlook.MailItem oMsg = (Outlook.MailItem)app.CreateItem(Outlook.OlItemType.olMailItem);

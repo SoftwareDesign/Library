@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.Net.Mail;
 using MMLibrarySystem.Models;
 
-namespace MMLibrarySystem.Schedule.Interfaces
+namespace MMLibrarySystem.Schedule
 {
     public interface ISchedulable
     {
-        List<EmailContext> ExcuteScheduleRule(DbQuery<BorrowRecord> borrowRecords);
+        List<MailMessage> ExcuteScheduleRule(DbQuery<BorrowRecord> borrowRecords);
     }
 }
