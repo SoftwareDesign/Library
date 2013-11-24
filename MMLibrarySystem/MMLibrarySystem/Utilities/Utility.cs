@@ -30,5 +30,14 @@ namespace MMLibrarySystem.Utilities
             sb.Append("');");
             return sb.ToString();
         }
+        
+        public static string BuildConfirm(string format, params object[] args)
+        {
+            var sb = new StringBuilder();
+            sb.Append(" return confirm('");
+            sb.AppendFormat(format, args);
+            sb.Append("'); ");
+            return sb.ToString();
+        }
     }
 }

@@ -89,7 +89,13 @@ namespace MMLibrarySystem.Controllers
             EditBookInfo edit;
             if (operation == "Add")
             {
-                edit = new EditBookInfo { PurchaseDate = DateTime.Now.ToShortDateString(), Operation = "Add" };
+                edit = new EditBookInfo
+                {
+                    PurchaseDate = DateTime.Now.ToShortDateString(),
+                    PageTitle = "Register New Book",
+                    Operation = "Add",
+                    Confirmmation = Utility.BuildConfirm("Are you sure to regist this book?")
+                };
                 return View(edit);
             }
 
@@ -106,7 +112,12 @@ namespace MMLibrarySystem.Controllers
                 return JavaScript(alert);
             }
 
-            edit = new EditBookInfo { Operation = "Edit" };
+            edit = new EditBookInfo
+            {
+                PageTitle = "Edit Book Information",
+                Operation = "Save",
+                Confirmmation = Utility.BuildConfirm("Are you sure to save the changes?")
+            };
             edit.LoadInfo(book);
             return View(edit);
         }
@@ -114,6 +125,7 @@ namespace MMLibrarySystem.Controllers
         [HttpPost]
         public ActionResult EditBook(EditBookInfo editInfo)
         {
+            string alert;
             var user = Models.User.Current;
             if (!user.IsAdmin)
             {
@@ -123,7 +135,7 @@ namespace MMLibrarySystem.Controllers
             var bookNumber = editInfo.BookNumber;
             if (string.IsNullOrEmpty(bookNumber))
             {
-                var alert = Utility.BuildAlert("Book number could not be empty.");
+                alert = Utility.BuildAlert("Book number could not be empty.");
                 return JavaScript(alert);
             }
 
@@ -134,13 +146,16 @@ namespace MMLibrarySystem.Controllers
                     var existBook = db.Books.Include("BookType").FirstOrDefault(b => b.BookNumber == bookNumber);
                     if (existBook != null)
                     {
-                        var alert = Utility.BuildAlert("The book number [{0}] conflict with the book {1}.", bookNumber, existBook.BookType.Title);
+                        alert = Utility.BuildAlert("The book number [{0}] conflict with the book {1}.", bookNumber, existBook.BookType.Title);
                         return JavaScript(alert);
                     }
 
                     var book = CreateNewBook(editInfo);
                     db.Books.Add(book);
                     db.SaveChanges();
+
+                    alert = Utility.BuildAlert("The new book was added.");
+                    return JavaScript(alert);
                 }
             }
             else if (editInfo.Operation == "Edit")
@@ -151,18 +166,22 @@ namespace MMLibrarySystem.Controllers
                     var existBook = db.Books.Include("BookType").FirstOrDefault(b => b.BookId != bookId && b.BookNumber == bookNumber);
                     if (existBook != null)
                     {
-                        var alert = Utility.BuildAlert("The book number [{0}] conflict with the book {1}.", bookNumber, existBook.BookType.Title);
+                        alert = Utility.BuildAlert("The book number [{0}] conflict with the book {1}.", bookNumber, existBook.BookType.Title);
                         return JavaScript(alert);
                     }
 
                     var book = db.Books.Include("BookType").FirstOrDefault(b => b.BookId == bookId);
                     editInfo.StoreInfo(book);
                     db.SaveChanges();
+                    alert = Utility.BuildAlert("Book information updated.");
+                    return JavaScript(alert);
                 }
             }
-
-            var bookDetailUrl = string.Format("/BookList/BookDetail?bookNumber={0}", editInfo.BookNumber);
-            return Redirect(bookDetailUrl);
+            else
+            {
+                alert = Utility.BuildAlert("Invalid operation {0}.", editInfo.Operation);
+                return JavaScript(alert);
+            }
         }
 
         private Book CreateNewBook(BookInfo info)

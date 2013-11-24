@@ -5,6 +5,10 @@ namespace MMLibrarySystem.ViewModels.Admin
     /// </summary>
     public class EditBookInfo : BookInfo
     {
+        public string PageTitle { get; set; }
+
         public string Operation { get; set; }
+
+        public string Confirmmation { get; set; }
     }
 }

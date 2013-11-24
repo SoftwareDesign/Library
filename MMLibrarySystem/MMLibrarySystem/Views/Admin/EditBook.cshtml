@@ -1,58 +1,18 @@
 ﻿@model MMLibrarySystem.ViewModels.Admin.EditBookInfo
 
 @{
-    ViewBag.Title = "Edit Book";
+    ViewBag.Title = Model.PageTitle;
 }
 @Styles.Render("~/Content/themes/base/css", "~/Content/css")
+
 <script type="text/javascript">
     $(function () {
         $("#PurchaseDate").datepicker();
     });
 </script>
-@using (Html.BeginForm())
+@using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "bookDetail" }))
 {
     @Html.HiddenFor(model => model.BookId)
-    <table id="bookDetail">
-        <tr>
-            <td>Title</td>
-            <td>@Html.TextBoxFor(model => model.Title)</td>
-        </tr>
-        <tr>
-            <td>Publisher</td>
-            <td>@Html.TextBoxFor(model => model.Publisher)</td>
-        </tr>
-        <tr>
-            <td>ID</td>
-            <td>@Html.TextBoxFor(model => model.BookNumber)</td>
-        </tr>
-        <tr>
-            <td>Net Price</td>
-            <td>@Html.TextBoxFor(model => model.NetPrice)</td>
-        </tr>
-        <tr>
-            <td>Purchase Date</td>
-            <td>@Html.TextBoxFor(model => model.PurchaseDate, new { id = "PurchaseDate" })</td>
-        </tr>
-        <tr>
-            <td>Requested By</td>
-            <td>@Html.TextBoxFor(model => model.RequestedBy)</td>
-        </tr>
-        <tr>
-            <td>Purchase Url</td>
-            <td>@Html.TextBoxFor(model => model.PurchaseUrl)</td>
-        </tr>
-        <tr>
-            <td>User And Team</td>
-            <td>@Html.TextBoxFor(model => model.UserAndTeam)</td>
-        </tr>
-        <tr>
-            <td>Supplier</td>
-            <td>@Html.TextBoxFor(model => model.Supplier)</td>
-        </tr>
-        <tr>
-            <td>Description</td>
-            <td>@Html.TextAreaFor(model => model.Description)</td>
-        </tr>
-    </table>
-    <input type="submit" value="@Model.Operation" onclick=" return confirm('Are you sure to regist this book?'); "/>
-}
+    @Html.Partial("_BookInfo", Model)
+    <input type="submit" value="@Model.Operation" onclick="@Model.Confirmmation" />
+ }
