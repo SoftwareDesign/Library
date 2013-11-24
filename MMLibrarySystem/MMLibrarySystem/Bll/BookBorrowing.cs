@@ -202,9 +202,11 @@ namespace MMLibrarySystem.Bll
 
         private void AddBorrowRecord(long userId, long bookId)
         {
-            var borrowInfo = new BorrowRecord(userId, bookId);
-            _db.BorrowRecords.Add(borrowInfo);
+            var borrowRecord = new BorrowRecord(userId, bookId);
+            _db.BorrowRecords.Add(borrowRecord);
             SubmitChanges();
+
+            OnBorrowRecordAdded(borrowRecord);
         }
 
         private void RemoveBorrowRecord(BorrowRecord record)
@@ -228,7 +230,7 @@ namespace MMLibrarySystem.Bll
             _db.BorrowRecords.Add(borrowRecord);
             SubmitChanges();
 
-            SendUserBorrowAcceptedNotify(borrowRecord);
+            OnBorrowRecordAdded(borrowRecord);
         }
 
         private void SubmitChanges()
@@ -272,6 +274,11 @@ namespace MMLibrarySystem.Bll
         {
             var borrowedCount = _borrowRecordCache.Count(r => r.UserId == userId);
             return borrowedCount >= BorrowLimit;
+        }
+
+        private void OnBorrowRecordAdded(BorrowRecord borrowRecord)
+        {
+            SendUserBorrowAcceptedNotify(borrowRecord);
         }
 
         private void OnBorrowRecordRemoved(BorrowRecord record)

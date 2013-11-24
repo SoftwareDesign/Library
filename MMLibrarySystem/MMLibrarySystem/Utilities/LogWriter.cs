@@ -14,6 +14,7 @@ namespace MMLibrarySystem.Utilities
             StreamWriter streamWriter;
             string filePath = AppDomain.CurrentDomain.BaseDirectory + "LogFile.log";
             streamWriter = File.Exists(filePath) ? new StreamWriter(filePath, true) : File.CreateText(filePath);
+            streamWriter.WriteLine(DateTime.Now.ToString());
             streamWriter.WriteLine(context);
             streamWriter.Close();
         }

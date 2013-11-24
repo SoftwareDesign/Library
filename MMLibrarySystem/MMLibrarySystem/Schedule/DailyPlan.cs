@@ -1,7 +1,8 @@
-﻿using System.Timers;
+﻿using System.Collections.Generic;
+using System.Net.Mail;
+using System.Timers;
 using MMLibrarySystem.Infrastructure;
 using MMLibrarySystem.Models;
-using MMLibrarySystem.Schedule.ScheduleRules;
 
 namespace MMLibrarySystem.Schedule
 {
@@ -22,23 +23,32 @@ namespace MMLibrarySystem.Schedule
 
         public void BeginCheck(object sender, ElapsedEventArgs e)
         {
-            GetShouldReturnInfoes();
+            var mails = ApplyRules();
+            SendMails(mails);
         }
 
-        private void GetShouldReturnInfoes()
+        private List<MailMessage> ApplyRules()
         {
+            var mails = new List<MailMessage>();
             using (BookLibraryContext db = new BookLibraryContext())
             {
                 var borrowRecords = db.BorrowRecords.Include("User").Include("Book").Include("Book.BookType");
                 var ruleList = RulesCollection.GetRules();
                 foreach (var rule in ruleList)
                 {
-                    var emailContextList = rule.ExcuteScheduleRule(borrowRecords);
-                    foreach (var context in emailContextList)
-                    {
-                        _email.Send(context);
-                    }
+                    var notifications = rule.ExcuteScheduleRule(borrowRecords);
+                    mails.AddRange(notifications);
                 }
+            }
+
+            return mails;
+        }
+
+        private void SendMails(IEnumerable<MailMessage> mails)
+        {
+            foreach (var mail in mails)
+            {
+                _email.Send(mail);
             }
         }
     }

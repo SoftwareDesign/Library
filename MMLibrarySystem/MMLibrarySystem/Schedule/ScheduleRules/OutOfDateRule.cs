@@ -23,7 +23,7 @@ namespace MMLibrarySystem.Schedule.ScheduleRules
             foreach (var shouldReturnBookRecord in shouldReturnBookRecords)
             {
                 var body = string.Format(
-                    "You had borrowed the book {0} at {1} is out of date.{2} Please return it sooon",
+                    "The book [{0}] you borrowed at {1} is out of date.{2} Please return it ASAP.",
                     shouldReturnBookRecord.Book.BookType.Title,
                     shouldReturnBookRecord.BorrowedDate.ToShortDateString(),
                     Environment.NewLine);

@@ -15,8 +15,10 @@ namespace MMLibrarySystem.Utilities
     {
         public static MailMessage BuildMail(string to, string subject, string body)
         {
+            var notifier = GlobalConfigReader.ReadFromGlobalConfig("NotifierEmail", "value");
             var message = new MailMessage();
             message.To.Add(new MailAddress(to));
+            message.From = new MailAddress(notifier);
             message.Subject = subject;
             message.Body = body;
             return message;

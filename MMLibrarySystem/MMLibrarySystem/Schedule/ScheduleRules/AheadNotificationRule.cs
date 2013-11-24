@@ -31,9 +31,9 @@ namespace MMLibrarySystem.Schedule.ScheduleRules
             foreach (var shouldReturnBookRecord in shouldReturnBookRecords)
             {
                 var body = string.Format(
-                    "You had borrowed the book {0} at {1} will be out of date.{2} Please return it sooon",
+                    "The book [{0}] you borrowed will out of date at {1}.{2} Please take keep an eye open with it.",
                     shouldReturnBookRecord.Book.BookType.Title,
-                    shouldReturnBookRecord.BorrowedDate.ToShortDateString(),
+                    shouldReturnBookRecord.BorrowedDate.AddDays(limitDays).ToShortDateString(),
                     Environment.NewLine);
                 var message = Utility.BuildMail(
                     shouldReturnBookRecord.User.EmailAdress,

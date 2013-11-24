@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using MMLibrarySystem.Schedule.ScheduleRules;
 
-namespace MMLibrarySystem.Schedule.ScheduleRules
+namespace MMLibrarySystem.Schedule
 {
     public class RulesCollection
     {
