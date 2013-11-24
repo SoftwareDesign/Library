@@ -43,7 +43,7 @@
           }
         }
     </table>
-    <div class="pageList" mytarget="mytarget">
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.MinimalWithItemCountText)
+    <div class="pageList" mytarget="#bookListContainer">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.MinimalWithPageCountText)
     </div>
 </div>

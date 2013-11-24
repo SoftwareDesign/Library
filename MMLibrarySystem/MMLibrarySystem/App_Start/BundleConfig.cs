@@ -24,7 +24,9 @@ namespace MMLibrarySystem
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css", "~/Content/Left.css", "~/Content/themes/base/jquery-ui.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css", "~/Content/Left.css",
+                                                                 "~/Content/PagedList.css",
+                                                                 "~/Content/themes/base/jquery-ui.css"));
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
                         "~/Content/themes/base/jquery.ui.resizable.css",
