@@ -10,6 +10,7 @@
     InsertionMode = InsertionMode.Replace,
     UpdateTargetId = "bookListContainer"
 }))
+
 {
     <fieldset style="border:1px solid black;padding: 1em">
         <legend style="display: inline">Filter</legend>
@@ -18,5 +19,8 @@
     </fieldset>
     <input type="submit" value="Search by name or description" />
 }
+
+<script type="text/javascript" src="/Scripts/BorrowBook.js"></script>
+<script type="text/javascript" src="/Scripts/PagerList.js"></script>
 
 @Html.Partial("_BookList", Model)
