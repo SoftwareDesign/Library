@@ -194,7 +194,6 @@
     <Compile Include="Schedule\ScheduleRules\RulesCollection.cs" />
     <Compile Include="Utilities\GlobalConfigReader.cs" />
     <Compile Include="Utilities\LogWriter.cs" />
-    <Compile Include="Controllers\MyControllerBase.cs" />
     <Compile Include="Utilities\DomainHelper.cs" />
     <Compile Include="Utilities\Utility.cs" />
     <Compile Include="ViewModels\Admin\EditBookInfo.cs" />

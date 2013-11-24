@@ -21,5 +21,14 @@ namespace MMLibrarySystem.Utilities
             message.Body = body;
             return message;
         }
+        
+        public static string BuildAlert(string format, params object[] args)
+        {
+            var sb = new StringBuilder();
+            sb.Append("alert('");
+            sb.AppendFormat(format, args);
+            sb.Append("');");
+            return sb.ToString();
+        }
     }
 }

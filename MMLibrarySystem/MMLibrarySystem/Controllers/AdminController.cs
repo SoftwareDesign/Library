@@ -8,10 +8,11 @@ using MMLibrarySystem.Models;
 using MMLibrarySystem.ViewModels;
 using MMLibrarySystem.ViewModels.Admin;
 using MMLibrarySystem.ViewModels.BookList;
+using MMLibrarySystem.Utilities;
 
 namespace MMLibrarySystem.Controllers
 {
-    public class AdminController : MyControllerBase
+    public class AdminController : Controller
     {
         public ActionResult Index()
         {
@@ -101,7 +102,8 @@ namespace MMLibrarySystem.Controllers
 
             if (book == null)
             {
-                return Alert("Invalid book ID [{0}].", bookId);
+                var alert = Utility.BuildAlert("Invalid book ID [{0}].", bookId);
+                return JavaScript(alert);
             }
 
             edit = new EditBookInfo { Operation = "Edit" };
@@ -118,10 +120,24 @@ namespace MMLibrarySystem.Controllers
                 return RedirectToAction("Default", "Home");
             }
 
+            var bookNumber = editInfo.BookNumber;
+            if (string.IsNullOrEmpty(bookNumber))
+            {
+                var alert = Utility.BuildAlert("Book number could not be empty.");
+                return JavaScript(alert);
+            }
+
             if (editInfo.Operation == "Add")
             {
                 using (var db = new BookLibraryContext())
                 {
+                    var existBook = db.Books.Include("BookType").FirstOrDefault(b => b.BookNumber == bookNumber);
+                    if (existBook != null)
+                    {
+                        var alert = Utility.BuildAlert("The book number [{0}] conflict with the book {1}.", bookNumber, existBook.BookType.Title);
+                        return JavaScript(alert);
+                    }
+
                     var book = CreateNewBook(editInfo);
                     db.Books.Add(book);
                     db.SaveChanges();
@@ -132,6 +148,13 @@ namespace MMLibrarySystem.Controllers
                 using (var db = new BookLibraryContext())
                 {
                     var bookId = long.Parse(editInfo.BookId);
+                    var existBook = db.Books.Include("BookType").FirstOrDefault(b => b.BookId != bookId && b.BookNumber == bookNumber);
+                    if (existBook != null)
+                    {
+                        var alert = Utility.BuildAlert("The book number [{0}] conflict with the book {1}.", bookNumber, existBook.BookType.Title);
+                        return JavaScript(alert);
+                    }
+
                     var book = db.Books.Include("BookType").FirstOrDefault(b => b.BookId == bookId);
                     editInfo.StoreInfo(book);
                     db.SaveChanges();
