@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
-using System.Xml.Linq;
 using MMLibrarySystem.Models;
 using MMLibrarySystem.Bll;
 using MMLibrarySystem.Utilities;
@@ -28,45 +27,11 @@ namespace MMLibrarySystem.Controllers
                 _bb = new BookBorrowing(db);
                 var tempBooks = db.Books.Include("BookType");
 
-                if (showInLibrary)
-                {
-                    if (string.IsNullOrEmpty(searchTerm))
-                    {
-                        bookList =
-                            tempBooks.OrderByDescending(b => b.BookId)
-                                     .Select(CreateBookListItem)
-                                     .Where(book => book.State == StateInLib)
-                                     .ToPagedList(page, pageSize);
-                    }
-                    else
-                    {
-                        var searchResult =
-                            tempBooks.Where(
-                                b =>
-                                b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm));
-                        bookList = searchResult.Select(CreateBookListItem)
-                            .Where(book => book.State == StateInLib)
+                var searchResult =
+                            tempBooks.Where(DoesBookMeetSearchTermPredicate(searchTerm));
+                bookList = searchResult.Select(CreateBookListItem)
+                            .Where(DoesBookExistInLibraryPredicate(showInLibrary))
                             .ToPagedList(page, pageSize);
-                    }
-                }
-                else
-                {
-                    if (string.IsNullOrEmpty(searchTerm))
-                    {
-                        bookList =
-                            tempBooks.OrderByDescending(b => b.BookId)
-                                     .Select(CreateBookListItem)
-                                     .ToPagedList(page, pageSize);
-                    }
-                    else
-                    {
-                        var searchResult =
-                            tempBooks.Where(
-                                b =>
-                                b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm));
-                        bookList = searchResult.Select(CreateBookListItem).ToPagedList(page, pageSize);
-                    }
-                }
 
                 _bb = null;
             }
@@ -194,6 +159,27 @@ namespace MMLibrarySystem.Controllers
             };
 
             return item;
+        }
+
+        private static Func<BookListItem, bool> DoesBookExistInLibraryPredicate(bool showInLibrary)
+        {
+            if (showInLibrary)
+            {
+                return book => book.State == StateInLib;
+            }
+
+            return book => !string.IsNullOrEmpty(book.State);
+        }
+
+        private static Expression<Func<Book, bool>> DoesBookMeetSearchTermPredicate(string searchTerm)
+        {
+            if (string.IsNullOrEmpty(searchTerm) || string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return b => !string.IsNullOrEmpty(b.BookNumber);
+            }
+
+            return b =>
+                b.BookType.Title.Contains(searchTerm) || b.BookType.Description.Contains(searchTerm);
         }
     }
 }
