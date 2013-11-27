@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.DirectoryServices;
+using System.Linq;
 using System.Web;
 
 namespace MMLibrarySystem.Models
@@ -73,7 +74,45 @@ namespace MMLibrarySystem.Models
                     from u in db.Users
                     where u.LoginName == loginName
                     select u;
-                return users.FirstOrDefault();
+                var user = users.FirstOrDefault();
+                if (user == null)
+                {
+                    using (
+                        DirectoryEntry localMachine =
+                            new DirectoryEntry("LDAP://OU=MM-SZ,OU=MM-Software,DC=corp,DC=mm-software,DC=com"))
+                    {
+                        var accountName = loginName.Substring(3);
+                        DirectorySearcher deSearch = new DirectorySearcher();
+                        deSearch.SearchRoot = localMachine;
+                        deSearch.Filter = "(&(objectClass=user)(objectCategory=person)(sAMAccountName=" + accountName + "))";
+                        deSearch.SearchScope = SearchScope.Subtree;
+                        SearchResult results = deSearch.FindOne();
+                        if (results != null)
+                        {
+                            using (DirectoryEntry userInfo = new DirectoryEntry(results.Path))
+                            {
+                                var fullName = userInfo.Properties["name"].Value.ToString();
+                                var emailAdress = userInfo.Properties["mail"].Value.ToString();
+                                User newUser =new User();
+                                newUser.LoginName = loginName;
+                                newUser.FullName = fullName;
+                                newUser.EmailAdress = emailAdress;
+                                newUser.Role = (int)Roles.Customer;
+                                db.Users.Add(newUser);
+                                db.SaveChanges();
+                                return newUser;
+                            }
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+                else
+                {
+                    return user;
+                }
             }
         }
 

@@ -18,11 +18,8 @@ namespace MMLibrarySystem.Infrastructure.Email
 
         private SmtpClient CreateSmtpClient()
         {
-            SmtpClient smtpClient = new SmtpClient("mail.mm-software.com", 25);
-            smtpClient.Credentials = new System.Net.NetworkCredential("test@mm-software.com", "myIDPassword");
-            smtpClient.UseDefaultCredentials = true;
-            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-            smtpClient.EnableSsl = true;
+            SmtpClient smtpClient = new SmtpClient("VSC-MAIL2010-1.corp.mm-software.com");
+            smtpClient.Credentials = new System.Net.NetworkCredential("test@mm-software.com", string.Empty);
             return smtpClient;
         }
     }
