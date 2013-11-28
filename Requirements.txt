@@ -1,91 +1,125 @@
-1. 
-As an employee, 
+0.1
+As an developer of the system,
+I want to import book information from current SharePoint book list,
+so that admin has not input them manually again.
+
+
+1.1
+As a customer, 
 I want to login the system as current domain user, without input user name and password,
 so that I can access the book system seamlessly from a link (just like the SharePoint).
 
-2.
-As an admin,
-I want to import book information from current SharePoint book list,
-so that I have not input them manually again.
-
-3. 
-As an employee, 
+1.2 
+As a customer, 
 I want to find my favourite book by query with key words,
 so that I could borrow or subscribe it.
 
-4. 
-As an employee, 
+1.3
+As a customer, 
+I want to filter the books to show only the ones in library,
+so that I could find a borrowable book easily.
+
+1.4
+As a customer, 
 I want to see the detailed information of the book, includes name, author, abstract, status etc.
 so that I could know whether I like it and could borrow it.
 
-5. 
-As an employee, 
-I want to borrow a book by one click, if the book has not been borrowed, and nobody before me in the subscribe list, and I have not borrowed 5 books,
-so that I could get the book from admin.
 
-6. 
-As an employee,
+2.1
+As a customer, 
+I want to borrow a book by one click, if the book has not been borrowed, and I have not borrowed 5 books,
+so that I could check the book out from admin.
+
+2.2
+As a customer, 
+I want to cancel borrow of a book by one click, if the book was borrowed by me,
+so that I could borrow other books under the limitation of total count.
+
+2.3
+As a customer,
+I want my borrow to be cancelled automatically, if I have not check it out in one working day after I received the borrow accepted remind email,
+so that other customer could borrow it.
+
+
+3.1
+As an admin,
+I want to see all borrowed books in a table, include title, borrower, borrow date and return date,
+so that I could check out or check in a book.
+
+3.2
+As an admin,
+I want to check out a book by one click, if borrowing of the book was accepted by the system,
+so that I could record that the book was lend by a customer.
+
+3.3
+As an admin,
+I want to check in a book by one click, if the book was checked out,
+so that I could record that the book was return by a customer.
+
+3.4
+As an admin,
+I want to register a new book into the library,
+so that customer could borrow it.
+
+3.5
+As an admin,
+I want to modify information of a book,
+so that I have could fix the typo.
+
+
+4.1
+As a customer, 
+I want to subscribe a book by one click, if the book is borrowed by other customer, and I have not subscribed it, and I have not subscribed 5 books,
+so that I could be in the subscribe list of the book.
+
+4.2
+As a customer, 
+I want to cancel my subscribe of a book by one click, if the book has been subscribed by me,
+so that I could subscribe other books under the limitation of total count.
+
+4.3
+As a customer,
+I want to be set as the borrower automatically when a book was returned or cancelled borrow, if I'm the first subscriber of the book,
+so that I could check the book out from admin.
+
+
+5.1
+As a customer,
+I want to receive a remind email after borrow of a book was accepted by the system, either I borrowed it manually, or borrowed automatically because of I was the first subscriber,
+so that I could check the book out from admin.
+
+5.2
+As a customer,
 I want to receive a remind email one week before the return date,
-so that I could catch up the progress, and have the chance to subscribe the book.
+so that I could catch up the progress.
 
-7. 
-As an employee,
-I want to receive a remind email before the day I have to return the book,
-so that I could return it on time.
+5.3
+As a customer,
+I want to receive a remind email one day before the return date,
+so that I could prepare to return it on time.
 
-8. 
-As an admin,
-I want to get all the books an employee borrowed by input the his/her name, and then I can mark a book as returned by one click,
-so that I could update the book state while the book was returned by the employee.
-
-9. 
-As an admin,
-I want to receive a remind email after a book has not been returned in time,
-so that I could remind the one who borrowed it face to face.
-
-10. 
-As an employee,
+5.4
+As a customer,
 I want to receive a remind email every day after a book I borrowed has been out of the return date,
 so that I could keep it in mind.
 
-11. 
-As an employee, 
-I want to subscribe a borrowed book by one click, if the book is borrowed by other employee or borrowed by me but today is in one week before the return date, and I have not subscribed 5 books,
-so that I could borrow the book with higher priority after the book returned.
 
-12. 
-As an employee, 
-I want to unsubscribe a book by one click, if the book has been subscribed by me,
-so that I could make myself leave the subscribe list.
-
-13. 
-As an employee,
-I want to receive a remind email while a book was returned, and I'm the first one in the subscribe list,
-so that I could borrow or unsubscribe it in time.
-
-14. 
-As an employee,
-I want to be removed from the subscribe list, if I have not borrowed the book in one working day after I received the book returned remind email,
-so that I other employee could borrow it.
-
-15. 
-As an admin,
-I want to add new book into the library,
-so that employee could borrow it.
+===================================================================================================
+NOT IMPLED YET:
 
 16. 
 As an admin,
-I want to import the information for a new book by e.g. only the book name or ISBN No.,
-so that I have not to input it manually.
+I want to receive a remind email while there are books have not been returned in time,
+so that I could remind the borrowers face to face.
 
 17. 
-As an employee,
+As a customer,
 I want to fill a book request,
 so that the manager could verify the request.
 
 18. 
 As a manager,
-I want to receive a notify email while an employee requested a book,
+I want to receive a notify email while a customer requested a book,
 so that I could approve or reject the request.
 
 19. 
@@ -104,6 +138,6 @@ I want to get a report every month, to see all the books out of return date, the
 so that I could get familiar with status of the library.
 
 22.
-As an employee,
+As a customer,
 I want to write some comments on the book information page,
-so that other employee could see the opinion of mine.
+so that other customer could see the opinion of mine.
