@@ -52,6 +52,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -222,10 +223,6 @@
     <Compile Include="Views\HtmlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\BookLibrary.mdf" />
-    <Content Include="App_Data\BookLibrary_log.LDF">
-      <DependentUpon>BookLibrary.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\Left.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -357,6 +354,7 @@
     <Content Include="Views\Admin\_BookInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="ToolClass\" />
   </ItemGroup>
   <ItemGroup>
