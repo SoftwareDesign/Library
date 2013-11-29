@@ -1,7 +1,7 @@
 0.1
-As an developer of the system,
+As a developer of the system,
 I want to import book information from current SharePoint book list,
-so that admin has not input them manually again.
+so that the admin doesn't have to input them manually again.
 
 
 1.1
@@ -28,33 +28,33 @@ so that I could know whether I like it and could borrow it.
 2.1
 As a customer, 
 I want to borrow a book by one click, if the book has not been borrowed, and I have not borrowed 5 books,
-so that I could check the book out from admin.
+so that I could check out the book from admin.
 
 2.2
 As a customer, 
-I want to cancel borrow of a book by one click, if the book was borrowed by me,
+I want to cancel borrow of a book by one click, if my borrow request of the book was accepted,
 so that I could borrow other books under the limitation of total count.
 
 2.3
 As a customer,
-I want my borrow to be cancelled automatically, if I have not check it out in one working day after I received the borrow accepted remind email,
+I want my borrow request to be cancelled automatically, if I have not checked out it in one working day after I received the borrow accepted remind email,
 so that other customer could borrow it.
 
 
 3.1
 As an admin,
-I want to see all borrowed books in a table, include title, borrower, borrow date and return date,
+I want to see all borrowed (either borrow accepted or checked out state) books in a table, include title, borrower, borrow date and return date,
 so that I could check out or check in a book.
 
 3.2
 As an admin,
-I want to check out a book by one click, if borrowing of the book was accepted by the system,
+I want to check out a book by one click, if my borrow request of the book was accepted by the system,
 so that I could record that the book was lend by a customer.
 
 3.3
 As an admin,
-I want to check in a book by one click, if the book was checked out,
-so that I could record that the book was return by a customer.
+I want to check in a book by one click, if the book has been checked out,
+so that I could record that the book was returned by a customer.
 
 3.4
 As an admin,
@@ -64,7 +64,7 @@ so that customer could borrow it.
 3.5
 As an admin,
 I want to modify information of a book,
-so that I have could fix the typo.
+so that I could fix the typo.
 
 
 4.1
@@ -79,26 +79,31 @@ so that I could subscribe other books under the limitation of total count.
 
 4.3
 As a customer,
-I want to be set as the borrower automatically when a book was returned or cancelled borrow, if I'm the first subscriber of the book,
-so that I could check the book out from admin.
+I want my subscribe request to be converted to borrow request and accepted by the system automatically, when a book was returned or borrow request was cancelled by previous borrower, if I'm the first subscriber of the book,
+so that I could check out the book from admin.
 
 
 5.1
 As a customer,
-I want to receive a remind email after borrow of a book was accepted by the system, either I borrowed it manually, or borrowed automatically because of I was the first subscriber,
-so that I could check the book out from admin.
+I want to receive a remind email after my borrow request was accepted by the system,
+so that I could check out the book from admin.
 
 5.2
+As a customer,
+I want to receive a remind email after my subscribe request was converted to borrow request and accepted by the system when I was the first subscriber,
+so that I could check out the book from admin.
+
+5.3
 As a customer,
 I want to receive a remind email one week before the return date,
 so that I could catch up the progress.
 
-5.3
+5.4
 As a customer,
 I want to receive a remind email one day before the return date,
 so that I could prepare to return it on time.
 
-5.4
+5.5
 As a customer,
 I want to receive a remind email every day after a book I borrowed has been out of the return date,
 so that I could keep it in mind.
@@ -109,7 +114,7 @@ NOT IMPLED YET:
 
 16. 
 As an admin,
-I want to receive a remind email while there are books have not been returned in time,
+I want to receive a remind email when there are books have not been returned in time,
 so that I could remind the borrowers face to face.
 
 17. 
@@ -119,12 +124,12 @@ so that the manager could verify the request.
 
 18. 
 As a manager,
-I want to receive a notify email while a customer requested a book,
+I want to receive a notify email when a customer requested a book,
 so that I could approve or reject the request.
 
 19. 
 As an admin,
-I want to receive a notify email while a book request was approved by the manager,
+I want to receive a notify email when a book request was approved by the manager,
 so that I could continue the paper works.
 
 20. 
@@ -134,7 +139,7 @@ so that I could use it for paper works.
 
 21. 
 As an admin,
-I want to get a report every month, to see all the books out of return date, the most popular books, etc.
+I want to get a report every month, to see all the books which out of return date, the most popular books, etc.
 so that I could get familiar with status of the library.
 
 22.
