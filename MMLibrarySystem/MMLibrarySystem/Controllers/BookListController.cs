@@ -60,7 +60,7 @@ namespace MMLibrarySystem.Controllers
             }
 
             var info = new BookDetailInfo();
-            info.Operation = Models.User.Current.IsAdmin ? UserOperationFactory.CreateEditBookOperation(book.BookId) : null;
+            info.Operation = Models.Users.Current.IsAdmin ? UserOperationFactory.CreateEditBookOperation(book.BookId) : null;
             info.LoadInfo(book);
             return View(info);
         }
@@ -68,12 +68,12 @@ namespace MMLibrarySystem.Controllers
         public ActionResult Borrow(long bookId)
         {
             string message;
-            var user = Models.User.Current;
+            var user = Models.Users.Current;
             if (user == null)
             {
                 var errorAlert = string.Format(
                     "alert('Current user [{0}] has no rights to borrow books. Please contact the admin.');",
-                    Models.User.CurrentLoginName);
+                    Models.Users.CurrentLoginName);
                 return JavaScript(errorAlert);
             }
 
@@ -95,7 +95,7 @@ namespace MMLibrarySystem.Controllers
 
         public ActionResult Subscribe(long bookId)
         {
-            var user = Models.User.Current;
+            var user = Models.Users.Current;
 
             bool succeed;
             string message;
@@ -116,7 +116,7 @@ namespace MMLibrarySystem.Controllers
 
         public ActionResult Cancel(long bookId)
         {
-            var user = Models.User.Current;
+            var user = Models.Users.Current;
 
             bool succeed;
             string message;

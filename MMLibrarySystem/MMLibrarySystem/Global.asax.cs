@@ -40,8 +40,8 @@ namespace MMLibrarySystem
         {
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                var loginName = Models.User.CurrentLoginName;
-                var current = Models.User.FindUserByLoginName(loginName);
+                var loginName = Models.Users.CurrentLoginName;
+                var current = Models.Users.FindUserByLoginName(loginName);
                 if (current == null)
                 {
                     using (var db = new BookLibraryContext())

@@ -12,7 +12,7 @@ namespace MMLibrarySystem.Controllers
         public ActionResult Default()
         {
             ActionResult result;
-            var role = (Roles)Models.User.Current.Role;
+            var role = (Roles)Models.Users.Current.Role;
             switch (role)
             {
                 case Roles.Customer:

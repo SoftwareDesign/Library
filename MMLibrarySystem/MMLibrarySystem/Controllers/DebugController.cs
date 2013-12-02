@@ -36,7 +36,7 @@ namespace MMLibrarySystem.Controllers
 
         public ActionResult SwitchRole()
         {
-            var user = Models.User.Current;
+            var user = Models.Users.Current;
             if (user.IsAdmin)
             {
                 user.Role = (int)Roles.Customer;
@@ -51,7 +51,7 @@ namespace MMLibrarySystem.Controllers
 
         public ActionResult SwitchUser()
         {
-            var user = Models.User.Current;
+            var user = Models.Users.Current;
             using (var db = new BookLibraryContext())
             {
                 var users = db.Users;
@@ -62,7 +62,7 @@ namespace MMLibrarySystem.Controllers
                     return JavaScript(errorAlert);
                 }
 
-                Models.User.Current = another;
+                Models.Users.Current = another;
             }
 
             return RedirectToAction("Index", "BookList");
@@ -82,7 +82,7 @@ namespace MMLibrarySystem.Controllers
                 db.Users.Add(user);
                 db.SaveChanges();
 
-                Models.User.Current = user;
+                Models.Users.Current = user;
             }
 
             return RedirectToAction("Index", "BookList");

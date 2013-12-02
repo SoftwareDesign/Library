@@ -87,7 +87,7 @@ namespace MMLibrarySystem.Bll
                 return false;
             }
 
-            var subscribeRecord = _db.SubscribeRecords.FirstOrDefault(r => r.BookId == bookId && r.UserId == User.Current.UserId);
+            var subscribeRecord = _db.SubscribeRecords.FirstOrDefault(r => r.BookId == bookId && r.UserId == Users.Current.UserId);
             if (subscribeRecord != null)
             {
                 message = "You already subscribed the book.";
@@ -99,7 +99,7 @@ namespace MMLibrarySystem.Bll
                     BookId = bookId,
                     SubscribeDate = DateTime.Now,
                     SubscribeRecordId = record.BorrowRecordId,
-                    UserId = User.Current.UserId
+                    UserId = Users.Current.UserId
                 };
 
             _db.SubscribeRecords.Add(subscribeInfo);

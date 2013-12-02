@@ -31,7 +31,7 @@ namespace MMLibrarySystem.Bll
                 throw new ArgumentNullException("borrowRecord");
             }
 
-            var currentUser = Models.User.Current;
+            var currentUser = Models.Users.Current;
             if (borrowRecord.UserId == currentUser.UserId)
             {
                 InitBorrowed(borrowRecord);

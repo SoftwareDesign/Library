@@ -16,7 +16,7 @@ namespace MMLibrarySystem.Controllers
     {
         public ActionResult Index()
         {
-            if (!Models.User.Current.IsAdmin)
+            if (!Models.Users.Current.IsAdmin)
             {
                 return RedirectToAction("Default", "Home");
             }
@@ -27,7 +27,7 @@ namespace MMLibrarySystem.Controllers
 
         public ActionResult CheckOut(long borrowId)
         {
-            var user = Models.User.Current;
+            var user = Models.Users.Current;
             if (!user.IsAdmin)
             {
                 return RedirectToAction("Default", "Home");
@@ -53,7 +53,7 @@ namespace MMLibrarySystem.Controllers
 
         public ActionResult Return(long borrowId)
         {
-            var user = Models.User.Current;
+            var user = Models.Users.Current;
             if (!user.IsAdmin)
             {
                 return RedirectToAction("Default", "Home");
@@ -80,7 +80,7 @@ namespace MMLibrarySystem.Controllers
         [HttpGet]
         public ActionResult EditBook(string operation, string bookId)
         {
-            var user = Models.User.Current;
+            var user = Models.Users.Current;
             if (!user.IsAdmin)
             {
                 return RedirectToAction("Default", "Home");
@@ -126,7 +126,7 @@ namespace MMLibrarySystem.Controllers
         public ActionResult EditBook(EditBookInfo editInfo)
         {
             string alert;
-            var user = Models.User.Current;
+            var user = Models.Users.Current;
             if (!user.IsAdmin)
             {
                 return RedirectToAction("Default", "Home");

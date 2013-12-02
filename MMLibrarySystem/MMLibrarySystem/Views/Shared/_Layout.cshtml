@@ -20,7 +20,7 @@
                 </div>
                 <div class="float-right">
                     <section id="login">
-                        <p>Welcome @MMLibrarySystem.Models.User.Current.DisplayName to enter MM Library</p>
+                        <p>Welcome @MMLibrarySystem.Models.Users.Current.DisplayName to enter MM Library</p>
                     </section>
                 </div>
             </div>
@@ -28,7 +28,7 @@
         
         <div id="body">
             <div id="left" class="LeftBoddy">
-                @Html.Partial("_RoleActionsPartial", MMLibrarySystem.Models.User.Current)
+                @Html.Partial("_RoleActionsPartial", MMLibrarySystem.Models.Users.Current)
             </div>
             <div style="float:right;width:1540px;">
                 <section class="featured">

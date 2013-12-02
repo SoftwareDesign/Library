@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
-using System.Data.Objects;
 using System.Linq;
 using System.Net.Mail;
 using MMLibrarySystem.Infrastructure;
@@ -24,9 +23,9 @@ namespace MMLibrarySystem.Schedule.ScheduleRules
             if (!string.IsNullOrEmpty(getBorrowDayLimitValue))
                 limitDays = Convert.ToInt32(getBorrowDayLimitValue);
             var emailContextList = new List<MailMessage>();
+            var limitDay = DateTime.Now.AddDays(aheadNotificationDays - limitDays).Date;
             var shouldReturnBookRecords =
-                borrowRecords.Where(
-                    br => EntityFunctions.DiffDays(br.BorrowedDate, DateTime.Now) == limitDays - aheadNotificationDays);
+                borrowRecords.Where(br => br.BorrowedDate.Date == limitDay);
 
             foreach (var shouldReturnBookRecord in shouldReturnBookRecords)
             {

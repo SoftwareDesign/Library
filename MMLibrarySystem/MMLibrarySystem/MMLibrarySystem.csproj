@@ -39,6 +39,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
@@ -48,7 +54,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -70,9 +75,6 @@
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -176,10 +178,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Bll\AdminBookState.cs" />
     <Compile Include="Bll\BookBorrowing.cs" />
     <Compile Include="Bll\CustomerBookState.cs" />
     <Compile Include="Bll\OperationCategory.cs" />
-    <Compile Include="Bll\AdminBookState.cs" />
+    <Compile Include="Bll\Users.cs" />
     <Compile Include="Controllers\DebugController.cs" />
     <Compile Include="Infrastructures.cs" />
     <Compile Include="Infrastructure\Email\OutlookMailService.cs" />
@@ -198,7 +201,6 @@
     <Compile Include="ViewModels\Admin\BorrowListItem.cs" />
     <Compile Include="ViewModels\BookInfo.cs" />
     <Compile Include="ViewModels\BookList\BookListItem.cs" />
-    <Compile Include="Models\Roles.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\BookListController.cs" />
@@ -206,12 +208,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Book.cs" />
-    <Compile Include="Models\BookType.cs" />
-    <Compile Include="Models\BookLibraryContext.cs" />
-    <Compile Include="Models\BorrowRecord.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\SubscribeRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schedule\DailyPlan.cs" />
     <Compile Include="ViewModels\BookList\BookDetailInfo.cs" />
@@ -356,6 +352,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Modules\Modules.csproj">
+      <Project>{E95F6B57-4704-44A7-B30B-12F2D5152B62}</Project>
+      <Name>Modules</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
