@@ -1,6 +1,7 @@
 MMLibrarySystem/BookLibrary/obj
 MMLibrarySystem/BookLibrary/bin
 MMLibrarySystem/BookLibrary/App_Data
+MMLibrarySystem/BookLibrary/Web.config
 MMLibrarySystem/BookLibrary/*.log
 MMLibrarySystem/Schedule/obj
 MMLibrarySystem/Schedule/bin
