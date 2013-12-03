@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Net.Mail;
 using System.Timers;
+using System;
 using MMLibrarySystem.Infrastructure;
 using MMLibrarySystem.Models;
 
 namespace MMLibrarySystem.Schedule
 {
-    public class DailyPlan
+    public class DailyPlan : IDisposable
     {
         private Timer _timer;
 
@@ -21,6 +22,15 @@ namespace MMLibrarySystem.Schedule
             _timer.Start();
         }
 
+        public void Dispose()
+        {
+            if (_timer != null)
+            {
+                _timer.Stop();
+                _timer = null;
+            }
+        }
+
         public void BeginCheck(object sender, ElapsedEventArgs e)
         {
             var mails = ApplyRules();
@@ -30,13 +40,13 @@ namespace MMLibrarySystem.Schedule
         private List<MailMessage> ApplyRules()
         {
             var mails = new List<MailMessage>();
-            using (BookLibraryContext db = new BookLibraryContext())
+            using (var db = new BookLibraryContext())
             {
                 var borrowRecords = db.BorrowRecords.Include("User").Include("Book").Include("Book.BookType");
                 var ruleList = RulesCollection.GetRules();
                 foreach (var rule in ruleList)
                 {
-                    var notifications = rule.ExcuteScheduleRule(borrowRecords);
+                    var notifications = rule.Verify(borrowRecords);
                     mails.AddRange(notifications);
                 }
             }

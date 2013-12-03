@@ -5,9 +5,9 @@ namespace MMLibrarySystem.Schedule
 {
     public class RulesCollection
     {
-        public static List<ISchedulable> GetRules()
+        public static List<IBorrowCheckRule> GetRules()
         {
-            var schedulaList = new List<ISchedulable>();
+            var schedulaList = new List<IBorrowCheckRule>();
             schedulaList.Add(new OutOfDateRule());
             schedulaList.Add(new AheadNotificationRule());
             return schedulaList;

@@ -4,7 +4,7 @@ using MMLibrarySystem.Infrastructure;
 
 namespace MMLibrarySystem
 {
-    internal class Infrastructures
+    public class Infrastructures
     {
         private static Infrastructures _instance = new Infrastructures();
 

@@ -11,7 +11,7 @@ namespace MMLibrarySystem.Utilities
     /// <summary>
     /// Provides utility methods.
     /// </summary>
-    internal static class Utility
+    public static class Utility
     {
         public static MailMessage BuildMail(string to, string subject, string body)
         {

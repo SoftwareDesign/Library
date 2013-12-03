@@ -9,7 +9,6 @@ using System.Web.Routing;
 using System.Data.Entity;
 
 using MMLibrarySystem.Models;
-using MMLibrarySystem.Schedule;
 
 namespace MMLibrarySystem
 {
@@ -33,7 +32,6 @@ namespace MMLibrarySystem
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
-            DailyPlan dailyPlan = new DailyPlan();
         }
 
         protected void Session_Start(object sender, EventArgs e)

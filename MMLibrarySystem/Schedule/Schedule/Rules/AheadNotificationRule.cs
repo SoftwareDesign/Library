@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Mail;
 using MMLibrarySystem.Infrastructure;
@@ -9,10 +9,9 @@ using MMLibrarySystem.Utilities;
 
 namespace MMLibrarySystem.Schedule.ScheduleRules
 {
-    public class AheadNotificationRule : ISchedulable
+    public class AheadNotificationRule : IBorrowCheckRule
     {
-
-        public List<MailMessage> ExcuteScheduleRule(DbQuery<BorrowRecord> borrowRecords)
+        public ReadOnlyCollection<MailMessage> Verify(IEnumerable<BorrowRecord> borrowRecords)
         {
             int aheadNotificationDays = 7;
             string getAheadNotificationDaysValue = GlobalConfigReader.ReadFromGlobalConfig("AheadNotification", "days");
@@ -41,7 +40,7 @@ namespace MMLibrarySystem.Schedule.ScheduleRules
                 emailContextList.Add(message);
             }
 
-            return emailContextList;
+            return emailContextList.AsReadOnly();
         }
     }
 }
