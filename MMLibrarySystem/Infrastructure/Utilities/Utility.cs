@@ -6,7 +6,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Web;
 
-namespace MMLibrarySystem.Utilities
+namespace BookLibrary.Utilities
 {
     /// <summary>
     /// Provides utility methods.

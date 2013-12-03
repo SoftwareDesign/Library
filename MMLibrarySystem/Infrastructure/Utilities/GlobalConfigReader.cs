@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace MMLibrarySystem.Utilities
+namespace BookLibrary.Utilities
 {
     public class GlobalConfigReader
     {

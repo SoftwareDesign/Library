@@ -1,0 +1,26 @@
+﻿@model IPagedList<BookLibrary.ViewModels.BookList.BookListItem>
+
+@{
+    ViewBag.Title = "Book List";
+}
+
+@using (Ajax.BeginForm(new AjaxOptions()
+{
+    HttpMethod = "GET",    
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "bookListContainer"
+}))
+
+{
+    <fieldset style="border:1px solid black;padding: 1em">
+        <legend style="display: inline">Filter</legend>
+        Book name or description: <input type="search" name="searchTerm" />
+        Show books in library @Html.CheckBox("showInLibrary")
+    </fieldset>
+    <input type="submit" value="Search by name or description" />
+}
+
+<script type="text/javascript" src="/Scripts/BorrowBook.js"></script>
+<script type="text/javascript" src="/Scripts/PagerList.js"></script>
+
+@Html.Partial("_BookList", Model)

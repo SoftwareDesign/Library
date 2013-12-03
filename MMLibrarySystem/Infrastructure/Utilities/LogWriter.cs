@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace MMLibrarySystem.Utilities
+namespace BookLibrary.Utilities
 {
     public class LogWriter
     {

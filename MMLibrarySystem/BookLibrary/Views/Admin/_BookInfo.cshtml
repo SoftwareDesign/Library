@@ -1,0 +1,44 @@
+﻿@model BookLibrary.ViewModels.Admin.EditBookInfo
+
+<table id="bookDetail">
+    <tr>
+        <td>Title</td>
+        <td>@Html.TextBoxFor(model => model.Title)</td>
+    </tr>
+    <tr>
+        <td>Publisher</td>
+        <td>@Html.TextBoxFor(model => model.Publisher)</td>
+    </tr>
+    <tr>
+        <td>ID</td>
+        <td>@Html.TextBoxFor(model => model.BookNumber)</td>
+    </tr>
+    <tr>
+        <td>Net Price</td>
+        <td>@Html.TextBoxFor(model => model.NetPrice)</td>
+    </tr>
+    <tr>
+        <td>Purchase Date</td>
+        <td>@Html.TextBoxFor(model => model.PurchaseDate, new { id = "PurchaseDate" })</td>
+    </tr>
+    <tr>
+        <td>Requested By</td>
+        <td>@Html.TextBoxFor(model => model.RequestedBy)</td>
+    </tr>
+    <tr>
+        <td>Purchase Url</td>
+        <td>@Html.TextBoxFor(model => model.PurchaseUrl)</td>
+    </tr>
+    <tr>
+        <td>User And Team</td>
+        <td>@Html.TextBoxFor(model => model.UserAndTeam)</td>
+    </tr>
+    <tr>
+        <td>Supplier</td>
+        <td>@Html.TextBoxFor(model => model.Supplier)</td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>@Html.TextAreaFor(model => model.Description)</td>
+    </tr>
+</table>

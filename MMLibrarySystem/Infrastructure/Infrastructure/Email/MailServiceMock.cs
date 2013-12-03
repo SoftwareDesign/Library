@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
 using System.Net.Mail;
-using MMLibrarySystem.Utilities;
+using BookLibrary.Utilities;
 
-namespace MMLibrarySystem.Infrastructure.Email
+namespace BookLibrary.Infrastructure.Email
 {
     public class MailServiceMock : IMailService
     {

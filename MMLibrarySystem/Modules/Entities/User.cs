@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Web;
 
-namespace MMLibrarySystem.Models
+namespace BookLibrary.Entities
 {
     /// <summary>
     /// Represents a user of the library.

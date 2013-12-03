@@ -1,6 +1,6 @@
 ﻿using System.Net.Mail;
 
-namespace MMLibrarySystem.Infrastructure
+namespace BookLibrary.Infrastructure
 {
     public interface IMailService
     {

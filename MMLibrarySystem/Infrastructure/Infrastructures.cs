@@ -1,8 +1,8 @@
-﻿using MMLibrarySystem.Infrastructure.Email;
-using MMLibrarySystem.Utilities;
-using MMLibrarySystem.Infrastructure;
+﻿using BookLibrary.Infrastructure.Email;
+using BookLibrary.Utilities;
+using BookLibrary.Infrastructure;
 
-namespace MMLibrarySystem
+namespace BookLibrary
 {
     public class Infrastructures
     {

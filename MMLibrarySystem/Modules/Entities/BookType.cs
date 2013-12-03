@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MMLibrarySystem.Models
+namespace BookLibrary.Entities
 {
     /// <summary>
     /// Represent a book-type, which may have more than one instance in library.

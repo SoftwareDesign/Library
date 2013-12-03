@@ -1,0 +1,51 @@
+﻿@using BookLibrary.Views
+@model IEnumerable<BookLibrary.ViewModels.Admin.BorrowListItem>
+@{
+    ViewBag.Title = "Borrowed Books";
+}
+<table id="bookList">
+    <tr>
+        <td>
+            Book Number
+        </td>
+        <td>
+            Title
+        </td>
+        <td>
+            Borrowed By
+        </td>
+        <td>
+            Borrow Date
+        </td>
+        <td>
+            Return Date
+        </td>
+        <td>
+            State
+        </td>
+        <td>
+            Operation
+        </td>
+    </tr>
+    @{
+        foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.BookNumber
+            </td>
+            <td>@item.Title
+            </td>
+            <td>@item.UserName
+            </td>
+            <td>@item.BorrowDate
+            </td>
+            <td>@item.ReturnDate
+            </td>
+            <td>@item.State
+            </td>
+            <td>@Html.UserOperation(item.Operation)
+            </td>
+        </tr>
+      }
+    }
+</table>

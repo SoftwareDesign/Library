@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMLibrarySystem", "MMLibrarySystem\MMLibrarySystem.csproj", "{26FE3326-26DC-4476-8A02-8E8D66C1A4E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookLibrary", "BookLibrary\BookLibrary.csproj", "{26FE3326-26DC-4476-8A02-8E8D66C1A4E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules", "Modules\Modules.csproj", "{E95F6B57-4704-44A7-B30B-12F2D5152B62}"
 EndProject

@@ -1,5 +1,7 @@
-MMLibrarySystem/MMLibrarySystem/obj
-MMLibrarySystem/MMLibrarySystem/bin
+MMLibrarySystem/BookLibrary/obj
+MMLibrarySystem/BookLibrary/bin
+MMLibrarySystem/BookLibrary/App_Data
+MMLibrarySystem/BookLibrary/*.log
 MMLibrarySystem/Schedule/obj
 MMLibrarySystem/Schedule/bin
 MMLibrarySystem/Modules/obj
@@ -9,6 +11,3 @@ MMLibrarySystem/Infrastructure/bin
 MMLibrarySystem/_ReSharper.MMLibrarySystem
 MMLibrarySystem/*.suo
 MMLibrarySystem/*.user
-MMLibrarySystem/MMLibrarySystem/Web.config
-MMLibrarySystem/MMLibrarySystem/App_Data
-MMLibrarySystem/MMLibrarySystem/*.log

@@ -1,7 +1,7 @@
 ﻿using System.Net.Mail;
 //using Outlook = Microsoft.Office.Interop.Outlook;
 
-namespace MMLibrarySystem.Infrastructure.Email
+namespace BookLibrary.Infrastructure.Email
 {
     public class EmailSenderByOutlook : IMailService
     {

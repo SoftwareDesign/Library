@@ -1,4 +1,4 @@
-namespace MMLibrarySystem.Models
+namespace BookLibrary.Entities
 {
     /// <summary>
     /// Defines roles of the system.

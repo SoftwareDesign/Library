@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Mail;
-using MMLibrarySystem.Infrastructure;
-using MMLibrarySystem.Models;
-using MMLibrarySystem.Utilities;
+using BookLibrary.Infrastructure;
+using BookLibrary.Entities;
+using BookLibrary.Utilities;
 
-namespace MMLibrarySystem.Schedule.ScheduleRules
+namespace BookLibrary.Schedule.ScheduleRules
 {
-    public class OutOfDateRule : IBorrowCheckRule
+    internal class OutOfDateRule : IBorrowCheckRule
     {
         public ReadOnlyCollection<MailMessage> Verify(IEnumerable<BorrowRecord> borrowRecords)
         {

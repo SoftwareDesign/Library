@@ -2,12 +2,12 @@
 using System.Net.Mail;
 using System.Timers;
 using System;
-using MMLibrarySystem.Infrastructure;
-using MMLibrarySystem.Models;
+using BookLibrary.Infrastructure;
+using BookLibrary.Entities;
 
-namespace MMLibrarySystem.Schedule
+namespace BookLibrary.Schedule
 {
-    public class DailyPlan : IDisposable
+    internal class DailyPlan : IDisposable
     {
         private Timer _timer;
 

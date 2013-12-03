@@ -1,6 +1,6 @@
 ﻿using System.Net.Mail;
 
-namespace MMLibrarySystem.Infrastructure.Email
+namespace BookLibrary.Infrastructure.Email
 {
     public class SmtpMailService : IMailService
     {

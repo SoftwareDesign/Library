@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Mail;
-using MMLibrarySystem.Models;
+using BookLibrary.Entities;
 
-namespace MMLibrarySystem.Schedule
+namespace BookLibrary.Schedule
 {
-    public interface IBorrowCheckRule
+    internal interface IBorrowCheckRule
     {
         ReadOnlyCollection<MailMessage> Verify(IEnumerable<BorrowRecord> borrowRecords);
     }

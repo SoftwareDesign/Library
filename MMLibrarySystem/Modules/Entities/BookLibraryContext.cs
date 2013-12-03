@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 
-namespace MMLibrarySystem.Models
+namespace BookLibrary.Entities
 {
     public class BookLibraryContext : DbContext
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MMLibrarySystem.Models
+namespace BookLibrary.Entities
 {
     /// <summary>
     /// Represents a not finished borrow record.

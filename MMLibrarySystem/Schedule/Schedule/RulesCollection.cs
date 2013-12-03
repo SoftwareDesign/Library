@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using MMLibrarySystem.Schedule.ScheduleRules;
+using BookLibrary.Schedule.ScheduleRules;
 
-namespace MMLibrarySystem.Schedule
+namespace BookLibrary.Schedule
 {
-    public class RulesCollection
+    internal class RulesCollection
     {
         public static List<IBorrowCheckRule> GetRules()
         {
