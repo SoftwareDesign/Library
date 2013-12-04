@@ -13,3 +13,7 @@ https://github.com/gitextensions/gitextensions/issues/85
 
 For me, I just commit by GitExtension at first, and then push by git bash with follow command line:
 git push --recurse-submodules=check --progress "origin" master:master
+
+You can also try to separate the commit and push operations:
+ 1) Commit only at first, and then 
+ 2) Choose the push command from the context menu, there might be a message box to input user name and password of github.

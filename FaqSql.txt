@@ -1,0 +1,16 @@
+0. It would be greate if you could share your your issues and solutions here.
+
+
+1. Got following error:
+===============================================================================
+Cannot open database "BookLibrary" requested by the login. The login failed.
+Login failed for user 'MM\*'.
+===============================================================================
+Solution: execute the batch script "ClearDb.bat" under the tool folder.
+
+2. Got following error:
+===============================================================================
+Database '*\MMLibrarySystem\MMLibrarySystem\App_Data\BookLibrary.mdf' already exists. Choose a different database name.
+Cannot attach the file '*\MMLibrarySystem\BookLibrary\App_Data\BookLibrary.mdf' as database BookLibrary.
+===============================================================================
+Solution: execute the batch script "ClearOldDb.bat" under the tool folder.
