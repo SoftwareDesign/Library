@@ -8,9 +8,9 @@
         </title>
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
-        @System.Web.Optimization.Scripts.Render("~/bundles/modernizr")
-        @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
-        @System.Web.Optimization.Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
     </head>
     <body style="width:1700px;margin:0 auto;">
         <header>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="float-right">
                     <section id="login">
-                        <p>Welcome @BookLibrary.Entities.Users.Current.DisplayName to enter MM Library</p>
+                        <p>Welcome @BookLibrary.Bl.Users.Current.DisplayName to enter MM Library</p>
                     </section>
                 </div>
             </div>
@@ -28,7 +28,7 @@
         
         <div id="body">
             <div id="left" class="LeftBoddy">
-                @Html.Partial("_RoleActionsPartial", BookLibrary.Entities.Users.Current)
+                @Html.Partial("_RoleActionsPartial", BookLibrary.Bl.Users.Current)
             </div>
             <div style="float:right;width:1540px;">
                 <section class="featured">
