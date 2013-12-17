@@ -49,7 +49,7 @@ namespace BookLibrary.Bl
         {
             if (UserArrieveBorrowLimit(user.UserId))
             {
-                message = string.Format("You can only borrowed less or equal to {0} books.", BorrowLimit);
+                message = string.Format("You can only borrow at most {0} books.", BorrowLimit);
                 return false;
             }
 
