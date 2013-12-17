@@ -12,12 +12,14 @@
 }))
 
 {
-    <fieldset style="border:1px solid black;padding: 1em">
-        <legend style="display: inline">Filter</legend>
-        Book name or description: <input type="search" name="searchTerm" />
-        Show books in library @Html.CheckBox("showInLibrary")
+    <fieldset style="border:1px solid black;padding:10px">
+        <legend style="display: inline">Search</legend>
+        <input type="text" name="searchTerm" title="Keyword to search in book name and description." />
+        <br />
+        @Html.CheckBox("showInLibrary", new { @title = "Check to show only the books which are in the libary at present." }) Show In-Library Books Only
+        <br />
+        <input type="submit" value="Search" />
     </fieldset>
-    <input type="submit" value="Search by name or description" />
 }
 
 <script type="text/javascript" src="/Scripts/BorrowBook.js"></script>

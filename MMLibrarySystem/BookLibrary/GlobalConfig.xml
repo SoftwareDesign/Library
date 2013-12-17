@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <MMLibrary>
-  <PageInfo size="10" />
+  <PageInfo size="20" />
   <BorrowNumberLimit number="5" />
   <BorrowDayLimit days="31" />
   <AheadNotification days ="7" />
