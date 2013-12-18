@@ -27,11 +27,10 @@ namespace BookLibrary.Controllers
                 _bb = new BookBorrowing(db);
                 var tempBooks = db.Books.Include("BookType");
 
-                var searchResult =
-                            tempBooks.Where(DoesBookMeetSearchTermPredicate(searchTerm));
+                var searchResult = tempBooks.Where(DoesBookMeetSearchTermPredicate(searchTerm));
                 bookList = searchResult.Select(CreateBookListItem)
-                            .Where(DoesBookExistInLibraryPredicate(showInLibrary))
-                            .ToPagedList(page, pageSize);
+                    .Where(DoesBookExistInLibraryPredicate(showInLibrary))
+                    .ToPagedList(page, pageSize);
 
                 _bb = null;
             }
@@ -153,9 +152,11 @@ namespace BookLibrary.Controllers
                 BookNumber = book.BookNumber,
                 Title = UserOperationFactory.CreateBookDetailOperation(book.BookType.Title, book.BookNumber),
                 Publisher = book.BookType.Publisher,
-                PurchaseDate = book.PurchaseDate.ToShortDateString(),
                 State = state.State,
-                Operation = state.Operation
+                Operation = state.Operation,
+                BorrowedBy = state.BorrowedBy,
+                ReturnDate = state.ReturnDate,
+                SubscribedBy = state.SubscribedBy
             };
 
             return item;

@@ -3,39 +3,41 @@
 <div id="bookListContainer">
     <table>
         <tr>
-            <td>
-                Book Number
+            <td>Status
             </td>
-            <td>
-                Title
+            <td>Operation
             </td>
-            <td>
-                Publisher
+            <td>Title
             </td>
-            <td>
-                Purchase Date
+            <td>Publisher
             </td>
-            <td>
-                State
+            <td>Book Number
             </td>
-            <td>
-                Operation
+            <td>Borrowed By
+            </td>
+            <td>Return Date
+            </td>
+            <td>Subscribed By
             </td>
         </tr>
         @{foreach (var item in Model)
           {
             <tr>
-                <td>@item.BookNumber
+                <td>@item.State
+                </td>
+                <td>@Ajax.UserOperation(item.Operation)
                 </td>
                 <td>@Html.UserOperation(item.Title)
                 </td>
                 <td>@item.Publisher
                 </td>
-                <td>@item.PurchaseDate
+                <td>@item.BookNumber
                 </td>
-                <td>@item.State
+                <td>@item.BorrowedBy
                 </td>
-                <td>@Ajax.UserOperation(item.Operation)
+                <td>@item.ReturnDate
+                </td>
+                <td>@item.SubscribedBy
                 </td>
             </tr>
           }

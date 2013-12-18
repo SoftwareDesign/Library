@@ -14,10 +14,14 @@ namespace BookLibrary.ViewModels.BookList
 
         public string Publisher { get; set; }
 
-        public string PurchaseDate { get; set; }
-
         public string State { get; set; }
 
         public UserOperation Operation { get; set; }
+
+        public string BorrowedBy { get; set; }
+
+        public string ReturnDate { get; set; }
+
+        public string SubscribedBy { get; set; }
     }
 }

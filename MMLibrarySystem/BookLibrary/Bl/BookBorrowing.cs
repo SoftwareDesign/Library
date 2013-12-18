@@ -31,7 +31,7 @@ namespace BookLibrary.Bl
             if (record != null)
             {
                 var subscribeRecords = _subscribeRecordCache.Where(r => r.BookId == bookId);
-                var borrowState = new CustomerBookState(record, subscribeRecords);
+                var borrowState = new CustomerBookState(_db, record, subscribeRecords);
                 return borrowState;
             }
             else

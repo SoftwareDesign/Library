@@ -22,9 +22,12 @@ namespace BookLibrary.Bl
         public CustomerBookState(long bookId)
         {
             InitInLib(bookId);
+            BorrowedBy = string.Empty;
+            ReturnDate = string.Empty;
+            SubscribedBy = string.Empty;
         }
 
-        public CustomerBookState(BorrowRecord borrowRecord, IEnumerable<SubscribeRecord> subscribeRecords)
+        public CustomerBookState(BookLibraryContext db, BorrowRecord borrowRecord, IEnumerable<SubscribeRecord> subscribeRecords)
         {
             if (borrowRecord == null)
             {
@@ -44,11 +47,27 @@ namespace BookLibrary.Bl
             {
                 InitCanSubscribe(borrowRecord.BookId);
             }
+
+            BorrowedBy = GetUserName(db, borrowRecord.UserId);
+            ReturnDate = borrowRecord.BorrowedDate.AddDays(31).ToShortDateString();
+            SubscribedBy = string.Join(", ", subscribeRecords.Select(s => GetUserName(db, s.UserId)));
         }
 
         public string State { get; private set; }
 
         public UserOperation Operation { get; private set; }
+
+        public string BorrowedBy { get; private set; }
+
+        public string ReturnDate { get; private set; }
+
+        public string SubscribedBy { get; private set; }
+
+        private static string GetUserName(BookLibraryContext db, long userId)
+        {
+            var user = db.Users.First(u => u.UserId == userId);
+            return user.DisplayName;
+        }
 
         private void InitInLib(long bookId)
         {
