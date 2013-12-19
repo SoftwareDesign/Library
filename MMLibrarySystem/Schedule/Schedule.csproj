@@ -64,6 +64,7 @@
     <Compile Include="Schedule\RulesCollection.cs" />
     <Compile Include="Schedule\Rules\AheadNotificationRule.cs" />
     <Compile Include="Schedule\Rules\OutOfDateRule.cs" />
+    <Compile Include="Schedule\ILogger.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
@@ -78,6 +79,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ScheduleService.resx">
+      <DependentUpon>ScheduleService.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

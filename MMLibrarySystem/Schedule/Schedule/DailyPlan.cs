@@ -9,12 +9,15 @@ namespace BookLibrary.Schedule
 {
     internal class DailyPlan : IDisposable
     {
+        private readonly ILogger _logger;
+
         private Timer _timer;
 
         private IMailService _email;
 
-        public DailyPlan()
+        public DailyPlan(ILogger logger)
         {
+            _logger = logger;
             _email = Infrastructures.Instance.Mail;
             _timer = new Timer();
             _timer.Interval = 24*60*60*1000;
@@ -27,14 +30,39 @@ namespace BookLibrary.Schedule
             if (_timer != null)
             {
                 _timer.Stop();
+                _timer.Close();
                 _timer = null;
             }
         }
 
-        public void BeginCheck(object sender, ElapsedEventArgs e)
+        public void Pause()
         {
-            var mails = ApplyRules();
-            SendMails(mails);
+            if (_timer != null)
+            {
+                _timer.Stop();
+            }
+        }
+
+        public void Continue()
+        {
+            if (_timer != null)
+            {
+                _timer.Start();
+            }
+        }
+
+        private void BeginCheck(object sender, ElapsedEventArgs e)
+        {
+            try
+            {
+                var mails = ApplyRules();
+                SendMails(mails);
+            }
+            catch (Exception exception)
+            {
+                _logger.Log("Got error while apply rules:\r\n{0}", exception);
+                return;
+            }
         }
 
         private List<MailMessage> ApplyRules()

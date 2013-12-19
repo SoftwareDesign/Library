@@ -28,10 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.ServiceName = "Service1";
+            this._eventLog = new System.Diagnostics.EventLog();
+            ((System.ComponentModel.ISupportInitialize)(this._eventLog)).BeginInit();
+            // 
+            // ScheduleService
+            // 
+            this.ServiceName = "Book Library Schdule Service";
+            ((System.ComponentModel.ISupportInitialize)(this._eventLog)).EndInit();
+
         }
 
         #endregion
+
+        private System.Diagnostics.EventLog _eventLog;
     }
 }
