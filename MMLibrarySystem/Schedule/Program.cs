@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
+using BookLibrary.Service;
 
 namespace BookLibrary
 {
     static class Program
     {
         /// <summary>
-        /// 应用程序的主入口点。
+        /// Entry point of the service program.
         /// </summary>
         static void Main()
         {

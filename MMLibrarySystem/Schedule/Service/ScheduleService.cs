@@ -8,7 +8,7 @@ using System.ServiceProcess;
 using System.Text;
 using BookLibrary.Schedule;
 
-namespace BookLibrary
+namespace BookLibrary.Service
 {
     public partial class ScheduleService : ServiceBase, ILogger
     {

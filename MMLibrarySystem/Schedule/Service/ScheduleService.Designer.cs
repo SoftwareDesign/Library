@@ -1,4 +1,4 @@
-﻿namespace BookLibrary
+﻿namespace BookLibrary.Service
 {
     partial class ScheduleService
     {
@@ -33,7 +33,7 @@
             // 
             // ScheduleService
             // 
-            this.ServiceName = "Book Library Schdule Service";
+            this.ServiceName = "BookLibrarySchduleService";
             ((System.ComponentModel.ISupportInitialize)(this._eventLog)).EndInit();
 
         }

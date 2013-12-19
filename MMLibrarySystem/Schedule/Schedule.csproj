@@ -42,7 +42,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,10 +53,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ScheduleService.cs">
+    <Compile Include="Service\ProjectInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ScheduleService.Designer.cs">
+    <Compile Include="Service\ProjectInstaller.Designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Service\ScheduleService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service\ScheduleService.Designer.cs">
       <DependentUpon>ScheduleService.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -81,7 +89,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ScheduleService.resx">
+    <EmbeddedResource Include="Service\ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Service\ScheduleService.resx">
       <DependentUpon>ScheduleService.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
