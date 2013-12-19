@@ -9,6 +9,8 @@ MMLibrarySystem/Modules/obj
 MMLibrarySystem/Modules/bin
 MMLibrarySystem/Infrastructure/obj
 MMLibrarySystem/Infrastructure/bin
+MMLibrarySystem/ServiceInstaller/Debug
+MMLibrarySystem/ServiceInstaller/Release
 MMLibrarySystem/_ReSharper.MMLibrarySystem
 MMLibrarySystem/*.suo
 MMLibrarySystem/*.user
