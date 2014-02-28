@@ -14,11 +14,11 @@ namespace BookLibrary.Schedule.ScheduleRules
         public ReadOnlyCollection<MailMessage> Verify(IEnumerable<BorrowRecord> borrowRecords)
         {
             int aheadNotificationDays = 7;
-            string getAheadNotificationDaysValue = GlobalConfigReader.ReadFromGlobalConfig("AheadNotification", "days");
+            string getAheadNotificationDaysValue = GlobalConfigReader.ReadFromLibraryServiceConfig("AheadNotification", "days");
             if (!string.IsNullOrEmpty(getAheadNotificationDaysValue))
                 aheadNotificationDays = Convert.ToInt32(getAheadNotificationDaysValue);
             int limitDays = 31;
-            string getBorrowDayLimitValue = GlobalConfigReader.ReadFromGlobalConfig("BorrowDayLimit", "days");
+            string getBorrowDayLimitValue = GlobalConfigReader.ReadFromLibraryServiceConfig("BorrowDayLimit", "days");
             if (!string.IsNullOrEmpty(getBorrowDayLimitValue))
                 limitDays = Convert.ToInt32(getBorrowDayLimitValue);
             var emailContextList = new List<MailMessage>();

@@ -219,6 +219,11 @@ namespace BookLibrary.Controllers
 
         private BorrowListItem CreateBorrowListItem(BorrowRecord record)
         {
+            int limitDays = 31;
+            string getBorrowDayLimitValue = GlobalConfigReader.ReadFromLibraryServiceConfig("BorrowDayLimit", "days");
+            if (!string.IsNullOrEmpty(getBorrowDayLimitValue))
+                limitDays = Convert.ToInt32(getBorrowDayLimitValue);
+
             var state = new AdminBookState(record);
             var item = new BorrowListItem
             {
@@ -229,7 +234,7 @@ namespace BookLibrary.Controllers
                 UserId = record.UserId.ToString(),
                 UserName = record.User.DisplayName,
                 BorrowDate = record.BorrowedDate.ToShortDateString(),
-                ReturnDate = record.BorrowedDate.AddDays(31).ToShortDateString(),
+                ReturnDate = record.BorrowedDate.AddDays(limitDays).ToShortDateString(),
                 State = state.State,
                 Operation = state.Operation
             };

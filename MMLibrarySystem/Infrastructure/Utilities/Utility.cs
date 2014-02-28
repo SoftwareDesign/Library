@@ -15,7 +15,7 @@ namespace BookLibrary.Utilities
     {
         public static MailMessage BuildMail(string to, string subject, string body)
         {
-            var notifier = GlobalConfigReader.ReadFromGlobalConfig("NotifierEmail", "value");
+            var notifier = GlobalConfigReader.ReadFromLibraryServiceConfig("NotifierEmail", "value");
             var message = new MailMessage();
             message.To.Add(new MailAddress(to));
             message.From = new MailAddress(notifier);

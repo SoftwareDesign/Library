@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using BookLibrary.Entities;
+using BookLibrary.Utilities;
 using BookLibrary.ViewModels;
 
 namespace BookLibrary.Bl
@@ -29,6 +30,11 @@ namespace BookLibrary.Bl
 
         public CustomerBookState(BookLibraryContext db, BorrowRecord borrowRecord, IEnumerable<SubscribeRecord> subscribeRecords)
         {
+            int limitDays = 31;
+            string getBorrowDayLimitValue = GlobalConfigReader.ReadFromLibraryServiceConfig("BorrowDayLimit", "days");
+            if (!string.IsNullOrEmpty(getBorrowDayLimitValue))
+                limitDays = Convert.ToInt32(getBorrowDayLimitValue);
+
             if (borrowRecord == null)
             {
                 throw new ArgumentNullException("borrowRecord");
@@ -49,7 +55,7 @@ namespace BookLibrary.Bl
             }
 
             BorrowedBy = GetUserName(db, borrowRecord.UserId);
-            ReturnDate = borrowRecord.BorrowedDate.AddDays(31).ToShortDateString();
+            ReturnDate = borrowRecord.BorrowedDate.AddDays(limitDays).ToShortDateString();
             SubscribedBy = string.Join(", ", subscribeRecords.Select(s => GetUserName(db, s.UserId)));
         }
 

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration.Install;
-using System.Linq;
-
+using System.IO;
+using System.Reflection;
 
 namespace BookLibrary.Service
 {
@@ -14,6 +11,45 @@ namespace BookLibrary.Service
         public ProjectInstaller()
         {
             InitializeComponent();
+            CopyTheConfigFile();
+        }
+
+        private void CopyTheConfigFile()
+        {
+            var fileName = "LibraryServiceConfig.xml";
+            
+            var path = GetDeployPath();
+            var file = Path.Combine(path, fileName);
+
+            if (File.Exists(file))
+            {
+                return;
+            }
+
+            var fileFullName = "BookLibrary.Resources." + fileName;
+            var xmlStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(fileFullName);
+
+            var fileStream = File.Create(file);
+            xmlStream.CopyTo(fileStream);
+            fileStream.Close();
+        }
+
+        private string GetDeployPath()
+        {
+            var root = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+            var directory = new DirectoryInfo(root);
+            var rootPath = directory.Parent.FullName;
+            var companyName = "SIG";
+            var productName = "LibrarySystem";
+
+            var filePath = Path.Combine(rootPath, companyName, productName);
+
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+
+            return filePath;
         }
     }
 }

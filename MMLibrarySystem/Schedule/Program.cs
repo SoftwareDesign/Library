@@ -15,10 +15,7 @@ namespace BookLibrary
         static void Main()
         {
             ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
-			{ 
-				new ScheduleService() 
-			};
+            ServicesToRun = new ServiceBase[] { new ScheduleService() };
             ServiceBase.Run(ServicesToRun);
         }
     }
