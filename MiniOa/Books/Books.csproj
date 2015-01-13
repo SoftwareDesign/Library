@@ -40,8 +40,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Book.cs" />
+    <Compile Include="BookBorrowInfo.cs" />
+    <Compile Include="BookDetail.cs" />
+    <Compile Include="IBookAdmin.cs" />
     <Compile Include="IBookList.cs" />
+    <Compile Include="IBookReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Users\Users.csproj">
+      <Project>{5b3f80a9-c978-4b33-87ca-be198f41be5c}</Project>
+      <Name>Users</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
